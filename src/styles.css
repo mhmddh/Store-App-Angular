@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+.paginator{
+    display: flex;
+    margin: 0 auto;
+    width: 200px;
+    gap: 10px;
+}

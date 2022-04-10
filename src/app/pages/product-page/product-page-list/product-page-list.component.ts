@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
-import { BasePage } from '../../base-page/base-page';
-import { Product } from '../product';
+import { Product, BasePage, Paginater } from '../../../common/models/model'
 
 @Component({
   selector: 'app-index',
@@ -17,30 +16,55 @@ export class ProductPageListComponent implements OnInit {
     routeUrl2: '',
     routeTitle2: '',
     resourcesLoaded: false,
-
   }
+  paginater: Paginater = {
+    limit: 4,
+    currentPage: 1,
+    totalPages: 0,
+  }
+
   constructor(public commonService: CommonService) { }
   ngAfterViewInit(): void {
   }
 
   ngOnInit(): void {
-
-    this.commonService.getAllProducts().subscribe((data: Product[]) => {
-      this.products = data;
+    this.getProducts(this.paginater);
+  }
+  getProducts(paginater: Paginater) {
+    this.commonService.getAllProducts(paginater.limit, paginater.currentPage).subscribe((data: any) => {
+      this.products = data.products;
+      this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
-      console.log(this.products);
-
     })
-
   }
 
+  nextPage() {
+    if (this.paginater.currentPage < this.paginater.totalPages) {
+      this.paginater.currentPage++;
+      this.getProducts(this.paginater);
+    }
+  }
+  changePage(event: any) {
+    this.paginater.currentPage = event.target.value;
+    this.getProducts(this.paginater);
+  }
+  previousPage() {
+    if (this.paginater.currentPage > 1) {
+      this.paginater.currentPage--;
+      this.getProducts(this.paginater);
+    }
+  }
 
+  arrayPages(n: number) {
+    return new Array(n);
+  }
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
       this.products = this.products.filter(item => item.id !== id);
       console.log(res);
     })
   }
+
 
 
 

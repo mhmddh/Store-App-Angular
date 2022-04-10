@@ -1,23 +1,32 @@
 <base-page [options]="basePageOptions">
 
-<section>
-    
+    <section>
 
-    <table class="table ">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th width="220px">Action</th>
-        </tr>
-        <tr *ngFor="let category of categories">
-            <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
-            <td>
-                <a href="#" [routerLink]="['/category/', 'edit', category.id  ]" class="btn btn-primary">Edit</a>
-                <button style="margin-left:5px" type="button" (click)="deleteCategory(category.id)"
-                    class="btn btn-danger">Delete</button>
-            </td>
-        </tr>
-    </table>
-</section>
+
+        <table class="table ">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th width="220px">Action</th>
+            </tr>
+            <tr *ngFor="let category of categories">
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a href="#" [routerLink]="['/category/', 'edit', category.id  ]" class="btn btn-primary">Edit</a>
+                    <button style="margin-left:5px" type="button" (click)="deleteCategory(category.id)"
+                        class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <div class="paginator" *ngIf="paginater.totalPages > 1">
+            <button (click)="previousPage()" class="btn btn-primary form-control">PREVIOUS </button>
+            <select (change)="changePage($event)" style="width:100px" class="form-control pager">
+                <option *ngFor="let page of arrayPages(paginater.totalPages);let i = index"
+                    [selected]="paginater.currentPage == i+1">{{ i+1
+                    }}</option>
+            </select>
+            <button (click)="nextPage()" class="btn btn-primary form-control">NEXT</button>
+        </div>
+    </section>
 </base-page>

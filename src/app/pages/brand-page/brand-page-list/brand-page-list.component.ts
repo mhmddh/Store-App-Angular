@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CommonService } from '../../../services/common.service';
-import { Brand } from '../brand';
-import { BasePage } from '../../base-page/base-page';
+import { Brand, BasePage, Paginater } from '../../../common/models/model';
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
@@ -17,16 +15,46 @@ export class BrandPageListComponent implements OnInit {
     routeTitle: 'Create New Brand',
     routeUrl2: '',
     routeTitle2: '',
-    resourcesLoaded: false
-
+    resourcesLoaded: false,
+  }
+  paginater: Paginater = {
+    limit: 4,
+    currentPage: 1,
+    totalPages: 0,
   }
   constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
-    this.commonService.getAllBrands().subscribe((data: Brand[]) => {
-      this.brands = data;
+    this.getBrands(this.paginater);
+  }
+
+  getBrands(paginater: Paginater) {
+    this.commonService.getAllBrands(paginater.limit, paginater.currentPage).subscribe((data: any) => {
+      this.brands = data.brands;
+      this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
     })
+  }
+
+  nextPage() {
+    if (this.paginater.currentPage < this.paginater.totalPages) {
+      this.paginater.currentPage++;
+      this.getBrands(this.paginater);
+    }
+  }
+  changePage(event: any) {
+    this.paginater.currentPage = event.target.value;
+    this.getBrands(this.paginater);
+  }
+  previousPage() {
+    if (this.paginater.currentPage > 1) {
+      this.paginater.currentPage--;
+      this.getBrands(this.paginater);
+    }
+  }
+
+  arrayPages(n: number) {
+    return new Array(n);
   }
   deleteBrand(id: number) {
     this.commonService.deleteBrand(id).subscribe(res => {

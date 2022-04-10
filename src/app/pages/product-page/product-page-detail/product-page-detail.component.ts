@@ -1,11 +1,8 @@
-import { BasePage } from '../../base-page/base-page';
-import { Brand } from '../../brand-page/brand';
-import { Category } from '../../category-page/category';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product } from '../product';
+import { Product, Brand, Category, BasePage } from '../../../common/models/model';
 
 @Component({
   selector: 'app-edit',
@@ -37,11 +34,11 @@ export class ProductPageDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
-    this.commonService.getAllCategories().subscribe((data: Category[]) => {
+    this.commonService.getAllCategories(0,0).subscribe((data: Category[]) => {
       this.categories = data;
     })
-    this.commonService.getAllBrands().subscribe((data: Brand[]) => {
-      this.brands = data;
+    this.commonService.getAllBrands(0,0).subscribe((data: any) => {
+      this.brands = data.brands;
     })
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {

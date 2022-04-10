@@ -2,8 +2,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
-import { User } from './user'
-import { BasePage } from '../base-page/base-page';
+import { User, BasePage } from '../../common/models/model'
 @Component({
   selector: 'app-user',
   templateUrl: './user-page.component.html',
@@ -20,6 +19,9 @@ export class UserPageComponent implements OnInit {
     routeUrl2: 'change-password',
     routeTitle2: 'Change Password',
     resourcesLoaded: false,
+    limit: 8,
+    currentPage: 1,
+    totalPages: 0,
   }
   constructor(
     public commonService: CommonService,

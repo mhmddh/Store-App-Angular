@@ -2,11 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { Brand } from '../pages/brand-page/brand';
-import { Product } from '../pages/product-page/product';
-import { Category } from '../pages/category-page/category';
 import { Router } from '@angular/router';
-import { User } from '../pages/user-page/user'
+import { Product, Brand, Category, User } from '../common/models/model';
+
 interface LoginResponse {
   data: any;
   status: string;
@@ -29,8 +27,8 @@ export class CommonService {
 
   constructor(private router: Router, private httpClient: HttpClient) { }
 
-  getAllBrands(): Observable<Brand[]> {
-    return this.httpClient.get<Brand[]>(this.apiURL + '/brands', this.httpOptions)
+  getAllBrands(limit: number, page: number): Observable<any> {
+    return this.httpClient.get<Brand[]>(this.apiURL + '/brands/' + limit + '/' + page, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -65,8 +63,8 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-  getAllProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.apiURL + '/products', this.httpOptions)
+  getAllProducts(limit: number, page: number): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/products/' + limit + '/' + page, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -99,8 +97,8 @@ export class CommonService {
       )
   }
 
-  getAllCategories(): Observable<Category[]> {
-    return this.httpClient.get<Category[]>(this.apiURL + '/categories', this.httpOptions)
+  getAllCategories(limit: number, page: number): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/categories/' + limit + '/' + page, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

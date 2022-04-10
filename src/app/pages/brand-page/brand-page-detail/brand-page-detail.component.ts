@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Brand } from '../brand';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BasePage } from '../../base-page/base-page';
+import { Brand, BasePage } from '../../../common/models/model';
 
 @Component({
   selector: 'app-edit',
