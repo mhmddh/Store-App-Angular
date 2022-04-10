@@ -18,7 +18,7 @@ export class ProductPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 4,
+    limit: 8,
     currentPage: 1,
     totalPages: 0,
   }
