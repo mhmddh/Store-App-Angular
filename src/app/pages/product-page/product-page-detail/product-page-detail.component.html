@@ -1,0 +1,64 @@
+<base-page [options]="basePageOptions">
+    <div class="container">
+
+
+
+        <hr>
+
+        <form [formGroup]="form" (ngSubmit)="submit(id)">
+
+
+            <div class="form-group row">
+                <div class="col-md-6 ">
+                    <label for="title">Name:</label>
+                    <input formControlName="name" [(ngModel)]="product.name" id="name" type="text" class="form-control">
+                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                  <div *ngIf="f.name.errors.required">*Name is required.</div>
+                  <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
+              </div> -->
+                </div>
+                <div class="col-md-6 ">
+                    <label for="title">Price:</label>
+                    <input formControlName="price" [(ngModel)]="product.price" id="price" type="text"
+                        class="form-control">
+                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                    <div *ngIf="f.name.errors.required">*Name is required.</div>
+                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
+                </div> -->
+                </div>
+                <div class="col-md-6 ">
+                    <label for="title">Category:</label>
+                    <select [(ngModel)]="product.category_id" formControlName="category" id="category"
+                        class="form-control">
+                        <option *ngFor="let category of categories" [value]="category.id">{{
+                            category.name }}</option>
+                    </select>
+
+
+                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                    <div *ngIf="f.name.errors.required">*Name is required.</div>
+                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
+                </div>  -->
+                </div>
+                <div class="col-md-6 ">
+                    <label for="title">Brand:</label>
+                    <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand" class="form-control">
+                        <option *ngFor="let brand of brands" [value]="brand.id">{{
+                            brand.name }}</option>
+                    </select>
+                    <!-- 
+                <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                    <div *ngIf="f.name.errors.required">*Name is required.</div>
+                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
+                </div> -->
+                </div>
+            </div>
+
+
+            <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
+            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
+
+
+        </form>
+    </div>
+</base-page>

@@ -1,0 +1,26 @@
+<base-page [options]="basePageOptions">
+
+<section>
+
+   
+
+    <table class="table ">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Logo</th>
+            <th width="220px">Action</th>
+        </tr>
+        <tr *ngFor="let brand of brands">
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.name }}</td>
+            <td><img style="max-width: 100px;max-height: 100px;" [src]="brand.image"></td>
+            <td>
+                <a href="#" [routerLink]="['/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
+                <button style="margin-left:5px" type="button" (click)="deleteBrand(brand.id)"
+                    class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </table>
+</section>
+</base-page>

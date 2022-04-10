@@ -1,0 +1,8 @@
+
+:host ::ng-deep .custom-spinner {
+    background-color: #ffff;
+  margin: 0 auto;
+}
+:host ::ng-deep .custom-spinner circle {
+  stroke: #007bff;
+}

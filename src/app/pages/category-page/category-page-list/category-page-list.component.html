@@ -1,0 +1,23 @@
+<base-page [options]="basePageOptions">
+
+<section>
+    
+
+    <table class="table ">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th width="220px">Action</th>
+        </tr>
+        <tr *ngFor="let category of categories">
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+                <a href="#" [routerLink]="['/category/', 'edit', category.id  ]" class="btn btn-primary">Edit</a>
+                <button style="margin-left:5px" type="button" (click)="deleteCategory(category.id)"
+                    class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </table>
+</section>
+</base-page>

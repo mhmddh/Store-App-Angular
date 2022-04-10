@@ -1,0 +1,29 @@
+<base-page [options]="basePageOptions">
+    <section>
+
+
+
+        <table class="table ">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th width="220px">Action</th>
+            </tr>
+            <tr *ngFor="let product of products">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
+                <td><img style="max-width: 100px;max-height: 100px;" [src]="product.brand_image"></td>
+                <td>
+                    <a href="#" [routerLink]="['/product/', 'edit', product.id  ]" class="btn btn-primary">Edit</a>
+                    <button style="margin-left:5px" type="button" (click)="deleteProduct(product.id)"
+                        class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </section>
+</base-page>

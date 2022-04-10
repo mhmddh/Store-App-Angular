@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"> <a href="/products">Products</a></div>
+            <div class="col-md-3"> <a href="/categories">Categories</a></div>
+            <div class="col-md-3"><a href="/brands">Brands</a></div>
+            <div class="col-md-3"><a href="/user/{{ userid }}">
+                    <fa-icon [icon]="faUser"></fa-icon> {{ username }}
+                </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
+                    (click)="Logout()">Logout</button>
+            </div>
+        </div>
+    </div><br>
+</mat-toolbar>
+<br>
+<div class="d-flex justify-content-between">
+
+    <h4>{{ options.title }}</h4>
+
+    <a routerLink="/{{ options.routeUrl }}" class="btn btn-success">{{ options.routeTitle }}</a>
+</div>
+<h6> <a *ngIf="options.routeUrl2" href="#" routerLink="{{ options.routeUrl2 }}"> {{ options.routeTitle2 }}</a>
+</h6>
+
+
+<br>
+<ng-content></ng-content>
+
+<mat-progress-spinner *ngIf="options.resourcesLoaded === false" class="custom-spinner" mode="indeterminate" value="50">
+</mat-progress-spinner>
