@@ -34,11 +34,11 @@ export class ProductPageDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
-    this.commonService.getAllCategories(0,0).subscribe((data: Category[]) => {
+    this.commonService.getAllCategories(0, 0).subscribe((data: Category[]) => {
       this.categories = data;
     })
-    this.commonService.getAllBrands(0,0).subscribe((data: any) => {
-      this.brands = data.brands;
+    this.commonService.getAllBrands(0, 0).subscribe((data: any) => {
+      this.brands = data;
     })
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
