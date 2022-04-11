@@ -42,7 +42,8 @@
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Brand:</label>
-                    <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand" class="form-control">
+                    <select [(ngModel)]="product.brand_id" formControlName="brand_id" id="brand_id"
+                        class="form-control">
                         <option *ngFor="let brand of brands" [value]="brand.id">{{
                             brand.name }}</option>
                     </select>

@@ -21,6 +21,7 @@ export class BrandPageListComponent implements OnInit {
     limit: 4,
     currentPage: 1,
     totalPages: 0,
+    sortParameters: ['Date', 'ASC']
   }
   constructor(public commonService: CommonService) { }
 
@@ -29,7 +30,7 @@ export class BrandPageListComponent implements OnInit {
   }
 
   getBrands(paginater: Paginater) {
-    this.commonService.getAllBrands(paginater.limit, paginater.currentPage).subscribe((data: any) => {
+    this.commonService.getPaginatedBrands(this.paginater).subscribe((data: any) => {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
@@ -55,6 +56,17 @@ export class BrandPageListComponent implements OnInit {
 
   arrayPages(n: number) {
     return new Array(n);
+  }
+  changeLimit(limit: any) {
+    this.paginater.limit = limit;
+    this.getBrands(this.paginater);
+    console.log(this.paginater.limit);
+  }
+
+  sortBy(parameters: any) {
+    this.paginater.sortParameters = parameters.split(" ", 2);
+    console.log(this.paginater);
+    this.getBrands(this.paginater);
   }
   deleteBrand(id: number) {
     this.commonService.deleteBrand(id).subscribe(res => {

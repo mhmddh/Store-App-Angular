@@ -20,6 +20,7 @@ export class CategoryPageListComponent implements OnInit {
     limit: 4,
     currentPage: 1,
     totalPages: 0,
+    sortParameters: ['Date', 'ASC']
   }
 
   constructor(public commonService: CommonService) { }
@@ -27,7 +28,7 @@ export class CategoryPageListComponent implements OnInit {
     this.getCategories(this.paginater);
   }
   getCategories(paginater: Paginater) {
-    this.commonService.getAllCategories(paginater.limit, paginater.currentPage).subscribe((data: any) => {
+    this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
       this.categories = data.categories;
       this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
@@ -53,6 +54,18 @@ export class CategoryPageListComponent implements OnInit {
 
   arrayPages(n: number) {
     return new Array(n);
+  }
+
+  changeLimit(limit: any) {
+    this.paginater.limit = limit;
+    this.getCategories(this.paginater);
+    console.log(this.paginater.limit);
+  }
+
+  sortBy(parameters: any) {
+    this.paginater.sortParameters = parameters.split(" ",2);
+    console.log(this.paginater);
+    this.getCategories(this.paginater);
   }
   deleteCategory(id: number) {
     this.commonService.deleteCategory(id).subscribe(res => {

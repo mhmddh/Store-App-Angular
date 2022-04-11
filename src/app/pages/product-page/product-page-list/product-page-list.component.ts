@@ -18,9 +18,10 @@ export class ProductPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 8,
+    limit: 5,
     currentPage: 1,
     totalPages: 0,
+    sortParameters: ['Date', 'ASC']
   }
 
   constructor(public commonService: CommonService) { }
@@ -31,7 +32,7 @@ export class ProductPageListComponent implements OnInit {
     this.getProducts(this.paginater);
   }
   getProducts(paginater: Paginater) {
-    this.commonService.getAllProducts(paginater.limit, paginater.currentPage).subscribe((data: any) => {
+    this.commonService.getAllProducts(paginater).subscribe((data: any) => {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
@@ -58,6 +59,19 @@ export class ProductPageListComponent implements OnInit {
   arrayPages(n: number) {
     return new Array(n);
   }
+
+  changeLimit(limit: any) {
+    this.paginater.limit = limit;
+    this.getProducts(this.paginater);
+    console.log(this.paginater.limit);
+  }
+
+  sortBy(parameters: any) {
+    this.paginater.sortParameters = parameters.split(" ",2);
+    console.log(this.paginater);
+    this.getProducts(this.paginater);
+  }
+
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
       this.products = this.products.filter(item => item.id !== id);

@@ -19,7 +19,6 @@ export class UserPageComponent implements OnInit {
     routeUrl2: 'change-password',
     routeTitle2: 'Change Password',
     resourcesLoaded: false,
-    limit: 8,
     currentPage: 1,
     totalPages: 0,
   }

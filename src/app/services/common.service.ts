@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { Product, Brand, Category, User } from '../common/models/model';
+import { Product, Brand, Category, User, Paginater } from '../common/models/model';
 
 interface LoginResponse {
   data: any;
@@ -25,19 +25,32 @@ export class CommonService {
     })
   }
 
+  httpOptionsFile = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+    })
+  }
+
   constructor(private router: Router, private httpClient: HttpClient) { }
 
-  getAllBrands(limit: number, page: number): Observable<any> {
-    return this.httpClient.get<Brand[]>(this.apiURL + '/brands/' + limit + '/' + page, this.httpOptions)
+  getPaginatedBrands(paginater: Paginater): Observable<any> {
+    return this.httpClient.get<Brand[]>(this.apiURL + '/brands/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  getAllBrands(): Observable<Brand> {
+    return this.httpClient.get<any>(this.apiURL + '/brands', this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
 
-
-  createBrand(brand: Brand): Observable<Brand> {
-    return this.httpClient.post<Brand>(this.apiURL + '/create-brand', JSON.stringify(brand), this.httpOptions)
+  createBrand(brand: Brand): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/create-brand', JSON.stringify(brand), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -63,8 +76,16 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-  getAllProducts(limit: number, page: number): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/products/' + limit + '/' + page, this.httpOptions)
+
+  uploadBrandFile(id: number, formData: FormData): Observable<any> {
+    return this.httpClient.post(this.apiURL + '/upload-brand-file/' + id, formData, this.httpOptionsFile)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  getAllProducts(paginater: Paginater): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/products/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -97,12 +118,20 @@ export class CommonService {
       )
   }
 
-  getAllCategories(limit: number, page: number): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/categories/' + limit + '/' + page, this.httpOptions)
+  getPaginatedCategories(paginater: Paginater): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/categories/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
   }
+
+  getAllCategories(): Observable<Category> {
+    return this.httpClient.get<any>(this.apiURL + '/categories', this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
 
   createCategory(category: Category): Observable<Category> {
     return this.httpClient.post<Category>(this.apiURL + '/create-category', JSON.stringify(category), this.httpOptions)

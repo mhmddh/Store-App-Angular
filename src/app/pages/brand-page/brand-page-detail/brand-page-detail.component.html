@@ -1,4 +1,4 @@
-<base-page [options]="basePageOptions">
+<base-page [options]="basePageOptions" >
 
     <div class="container">
 
@@ -16,12 +16,23 @@
                   <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
               </div> -->
                 </div>
+                <div class="col-md-6">
+                    <div style="margin: 15px 0px;">
+                        <label for="title">Logo : </label>
+                        <img *ngIf="brand.image" style="max-width :100px; max-height:100px;margin-left: 10px"
+                            [src]=" brand.image">
+                    </div>
+
+                    <input type="file" class="form-control-file" (change)="onFileSelected($event)"
+                        accept="image/x-png,image/gif,image/jpeg" #fileUpload>
+                </div>
 
             </div>
 
 
 
             <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
-            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>        </form>
+            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
+        </form>
     </div>
 </base-page>

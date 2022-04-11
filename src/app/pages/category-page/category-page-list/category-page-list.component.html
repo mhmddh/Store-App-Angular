@@ -1,4 +1,4 @@
-<base-page [options]="basePageOptions">
+<base-page [options]="basePageOptions" [paginater]="paginater" (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)">
 
     <section>
 

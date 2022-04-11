@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product, Brand, Category, BasePage } from '../../../common/models/model';
+import { Product, Brand, Category, BasePage, Paginater } from '../../../common/models/model';
 
 @Component({
   selector: 'app-edit',
@@ -34,10 +34,12 @@ export class ProductPageDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
-    this.commonService.getAllCategories(0, 0).subscribe((data: Category[]) => {
+    this.commonService.getAllCategories().subscribe((data: any) => {
+      console.log(data);
       this.categories = data;
     })
-    this.commonService.getAllBrands(0, 0).subscribe((data: any) => {
+    this.commonService.getAllBrands().subscribe((data: any) => {
+      console.log(data);
       this.brands = data;
     })
     if (this.id) {
@@ -56,7 +58,7 @@ export class ProductPageDetailComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
-      brand: new FormControl('', [Validators.required]),
+      brand_id: new FormControl('', [Validators.required]),
     });
   }
 

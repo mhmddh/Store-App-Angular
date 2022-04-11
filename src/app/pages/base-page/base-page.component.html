@@ -21,6 +21,26 @@
 </div>
 <h6> <a *ngIf="options.routeUrl2" href="#" routerLink="{{ options.routeUrl2 }}"> {{ options.routeTitle2 }}</a>
 </h6>
+<div *ngIf="paginater" class="row" style="gap: 10px;
+padding-left: 15px;">
+    <div class="form-group">
+        <label>Items Per Page</label>
+        <select (change)="changeLimit($event)" class="form-control">
+            <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{ i+1 }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Sort By</label>
+        <select (change)="sortBy($event)" class="form-control">
+            <option>Date ASC</option>
+            <option>Date DESC</option>
+            <option>Name ASC</option>
+            <option>Name DESC</option>
+        </select>
+    </div>
+</div>
 
 
 <br>

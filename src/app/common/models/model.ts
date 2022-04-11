@@ -9,12 +9,14 @@ export interface Product {
     brand?: string;
     brand_id?: number,
     brand_image?: string;
+    created_at?: string;
 }
 
 
 export interface Category {
     id: number;
     name?: string;
+    created_at?: string;
 }
 
 
@@ -22,6 +24,7 @@ export interface Brand {
     id: number;
     name?: string;
     image?: string;
+    created_at?: string;
 }
 
 export interface User {
@@ -38,13 +41,15 @@ export interface BasePage {
     routeUrl2: string;
     routeTitle2: string;
     resourcesLoaded: boolean;
-    limit?: number;
+    // limit?: number;
     currentPage?: number;
     totalPages?: number;
+    // sortParameters?: Array<string>;
 }
 
 export interface Paginater {
     limit: number;
     currentPage: number;
     totalPages: number;
+    sortParameters: Array<string>;
 }

@@ -11,7 +11,9 @@ import { Brand, BasePage } from '../../../common/models/model';
 })
 export class BrandPageDetailComponent implements OnInit {
   id!: number;
+  fileName = '';
   form!: FormGroup;
+  formData = new FormData();
   brand: Brand = {
     id: 0
   };
@@ -26,7 +28,7 @@ export class BrandPageDetailComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) { }
 
 
@@ -35,6 +37,7 @@ export class BrandPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findBrand(this.id).subscribe((data: Brand) => {
         this.brand = data;
+        console.log(this.brand.image);
       });
       this.basePageOptions.title = 'Edit Brand';
     } else {
@@ -52,16 +55,45 @@ export class BrandPageDetailComponent implements OnInit {
     return this.form.controls;
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      if (!this.validateFile(file.name)) {
+        console.log('Selected file format is not supported');
+        return;
+      }
+      this.fileName = file.name;
+      this.formData.append("file", file);
+    }
+  }
+
+  validateFile(name: String) {
+    var ext = name.substring(name.lastIndexOf('.') + 1);
+    if (ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpg') {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  uploadService(id:number,formData:FormData){
+    this.commonService.uploadBrandFile(id, formData).subscribe(res => {
+      console.log(res);
+    });
+  }
+
   submit(id: number) {
     if (id != null) {
       this.commonService.updateBrand(this.id, this.form.value).subscribe(res => {
-        console.log('Brand updated successfully!');
+        console.log(res);
         this.router.navigateByUrl('brands');
       })
+      this.uploadService(this.id,this.formData);
     } else {
-      console.log(this.form.value);
       this.commonService.createBrand(this.form.value).subscribe(res => {
-        console.log('Brand created successfully!');
+        this.id = res.brand_id;
+        this.uploadService(this.id,this.formData);
         this.router.navigateByUrl('brands');
       })
     }
