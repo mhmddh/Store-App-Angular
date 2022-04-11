@@ -1,8 +1,9 @@
+import { AuthGuard } from './services/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { BrandPageListComponent } from './pages/brand-page/brand-page-list/brand-page-list.component';
@@ -16,6 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { BasePageComponent } from './pages/base-page/base-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthInterceptor } from './services/auth-interceptor';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   imports: [
@@ -41,6 +44,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UserPageComponent,
     BasePageComponent,
   ],
+  providers: [CommonService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    // providers: [CommonService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

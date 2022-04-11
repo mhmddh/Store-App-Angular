@@ -17,7 +17,7 @@ export class CategoryPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 4,
+    limit: 10,
     currentPage: 1,
     totalPages: 0,
     sortParameters: ['Date', 'ASC']

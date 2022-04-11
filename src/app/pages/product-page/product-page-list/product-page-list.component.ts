@@ -18,7 +18,7 @@ export class ProductPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 5,
+    limit: 10,
     currentPage: 1,
     totalPages: 0,
     sortParameters: ['Date', 'ASC']
@@ -32,7 +32,7 @@ export class ProductPageListComponent implements OnInit {
     this.getProducts(this.paginater);
   }
   getProducts(paginater: Paginater) {
-    this.commonService.getAllProducts(paginater).subscribe((data: any) => {
+    this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
       this.basePageOptions.resourcesLoaded = true;
@@ -67,7 +67,7 @@ export class ProductPageListComponent implements OnInit {
   }
 
   sortBy(parameters: any) {
-    this.paginater.sortParameters = parameters.split(" ",2);
+    this.paginater.sortParameters = parameters.split(" ", 2);
     console.log(this.paginater);
     this.getProducts(this.paginater);
   }
