@@ -18,23 +18,24 @@ export class ProductPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 10,
+    limit: Number(localStorage.getItem('limit')),
     currentPage: 1,
     totalPages: 0,
-    sortParameters: ['Date', 'ASC']
+    sortParameters: ['Date', 'ASC'],
+    searchKey: 'Name',
   }
-
+  nbOfProducts: number = 0;
   constructor(public commonService: CommonService) { }
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit(): void {
     this.getProducts(this.paginater);
   }
   getProducts(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
     this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
+      this.nbOfProducts = data.nbOfItems;
       this.basePageOptions.resourcesLoaded = true;
     })
   }
@@ -42,17 +43,35 @@ export class ProductPageListComponent implements OnInit {
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
-      this.getProducts(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getProducts(this.paginater);
+
+      }
     }
   }
   changePage(event: any) {
     this.paginater.currentPage = event.target.value;
-    this.getProducts(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getProducts(this.paginater);
+
+    }
   }
   previousPage() {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
-      this.getProducts(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getProducts(this.paginater);
+
+      }
     }
   }
 
@@ -61,17 +80,42 @@ export class ProductPageListComponent implements OnInit {
   }
 
   changeLimit(limit: any) {
-    this.paginater.limit = limit;
-    this.getProducts(this.paginater);
-    console.log(this.paginater.limit);
+
+    localStorage.setItem('limit', limit.toString());
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getProducts(this.paginater);
+
+    }
   }
 
   sortBy(parameters: any) {
-    this.paginater.sortParameters = parameters.split(" ", 2);
-    console.log(this.paginater);
-    this.getProducts(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.searchItem(this.paginater.searchValue);
+    } else {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.getProducts(this.paginater);
+    }
   }
 
+  searchItem(str: string) {
+    this.paginater.searchValue = str;
+    if (str != '' && str != null) {
+      this.products = [];
+      this.commonService.searchProducts(this.paginater).subscribe((data: any) => {
+        this.products = data.products;
+        this.paginater.totalPages = data.pages;
+        this.nbOfProducts = data.nbOfItems;
+        this.basePageOptions.resourcesLoaded = true;
+      })
+    } else {
+      this.getProducts(this.paginater);
+    }
+  }
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
       this.products = this.products.filter(item => item.id !== id);

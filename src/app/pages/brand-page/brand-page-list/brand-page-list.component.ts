@@ -18,11 +18,14 @@ export class BrandPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 10,
+    limit: Number(localStorage.getItem('limit')),
     currentPage: 1,
     totalPages: 0,
-    sortParameters: ['Date', 'ASC']
+    sortParameters: ['Date', 'ASC'],
+    searchKey: 'Name',
   }
+  nbOfBrands: number = 0;
+
   constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
@@ -30,9 +33,11 @@ export class BrandPageListComponent implements OnInit {
   }
 
   getBrands(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
     this.commonService.getPaginatedBrands(this.paginater).subscribe((data: any) => {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;
+      this.nbOfBrands = data.nbOfItems;
       this.basePageOptions.resourcesLoaded = true;
     })
   }
@@ -40,17 +45,35 @@ export class BrandPageListComponent implements OnInit {
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
-      this.getBrands(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getBrands(this.paginater);
+
+      }
     }
   }
   changePage(event: any) {
     this.paginater.currentPage = event.target.value;
-    this.getBrands(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getBrands(this.paginater);
+
+    }
   }
   previousPage() {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
-      this.getBrands(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getBrands(this.paginater);
+
+      }
     }
   }
 
@@ -58,16 +81,41 @@ export class BrandPageListComponent implements OnInit {
     return new Array(n);
   }
   changeLimit(limit: any) {
-    this.paginater.limit = limit;
-    this.getBrands(this.paginater);
-    console.log(this.paginater.limit);
+    localStorage.setItem('limit', limit.toString());
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getBrands(this.paginater);
+
+    }
   }
 
   sortBy(parameters: any) {
-    this.paginater.sortParameters = parameters.split(" ", 2);
-    console.log(this.paginater);
-    this.getBrands(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.searchItem(this.paginater.searchValue);
+    } else {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.getBrands(this.paginater);
+    }
   }
+  searchItem(str: string) {
+    this.paginater.searchValue = str;
+    if (str != '' && str != null) {
+      this.brands = [];
+      this.commonService.searchBrands(this.paginater).subscribe((data: any) => {
+        this.brands = data.brands;
+        this.paginater.totalPages = data.pages;
+        this.nbOfBrands = data.nbOfItems;
+        this.basePageOptions.resourcesLoaded = true;
+      })
+    } else {
+      this.getBrands(this.paginater);
+    }
+  }
+
   deleteBrand(id: number) {
     this.commonService.deleteBrand(id).subscribe(res => {
       this.brands = this.brands.filter(item => item.id !== id);

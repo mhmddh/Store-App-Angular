@@ -1,4 +1,5 @@
-<base-page [options]="basePageOptions" [paginater]="paginater" (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)">
+<base-page [nbofItems]="nbOfBrands" [options]="basePageOptions" [paginater]="paginater"
+    (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)" (searchForItem)="searchItem($event)">
 
     <section>
 
@@ -14,8 +15,7 @@
             <tr *ngFor="let brand of brands">
                 <td>{{ brand.id }}</td>
                 <td>{{ brand.name }}</td>
-                <td><img style="max-width: 50px;max-height: 50px;"
-                        [src]="brand.image"></td>
+                <td><img style="max-width: 50px;max-height: 50px;" [src]="brand.image"></td>
                 <td>
                     <a href="#" [routerLink]="['/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
                     <button style="margin-left:5px" type="button" (click)="deleteBrand(brand.id)"

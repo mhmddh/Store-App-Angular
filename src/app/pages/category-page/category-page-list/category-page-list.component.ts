@@ -17,20 +17,25 @@ export class CategoryPageListComponent implements OnInit {
     resourcesLoaded: false,
   }
   paginater: Paginater = {
-    limit: 10,
+    limit: Number(localStorage.getItem('limit')),
     currentPage: 1,
     totalPages: 0,
-    sortParameters: ['Date', 'ASC']
+    sortParameters: ['Date', 'ASC'],
+    searchKey: 'Name',
   }
 
+  nbOfCategories: number = 0;
   constructor(public commonService: CommonService) { }
   ngOnInit(): void {
     this.getCategories(this.paginater);
   }
   getCategories(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+
     this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
       this.categories = data.categories;
       this.paginater.totalPages = data.pages;
+      this.nbOfCategories = data.nbOfItems;
       this.basePageOptions.resourcesLoaded = true;
     })
   }
@@ -38,17 +43,35 @@ export class CategoryPageListComponent implements OnInit {
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
-      this.getCategories(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getCategories(this.paginater);
+
+      }
     }
   }
   changePage(event: any) {
     this.paginater.currentPage = event.target.value;
-    this.getCategories(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getCategories(this.paginater);
+
+    }
   }
   previousPage() {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
-      this.getCategories(this.paginater);
+      if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+        this.searchItem(this.paginater.searchValue);
+      }
+      else {
+        this.getCategories(this.paginater);
+
+      }
     }
   }
 
@@ -57,15 +80,39 @@ export class CategoryPageListComponent implements OnInit {
   }
 
   changeLimit(limit: any) {
-    this.paginater.limit = limit;
-    this.getCategories(this.paginater);
-    console.log(this.paginater.limit);
+    localStorage.setItem('limit', limit.toString());
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.searchItem(this.paginater.searchValue);
+    }
+    else {
+      this.getCategories(this.paginater);
+
+    }
   }
 
   sortBy(parameters: any) {
-    this.paginater.sortParameters = parameters.split(" ",2);
-    console.log(this.paginater);
-    this.getCategories(this.paginater);
+    if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.searchItem(this.paginater.searchValue);
+    } else {
+      this.paginater.sortParameters = parameters.split(" ", 2);
+      this.getCategories(this.paginater);
+    }
+  }
+  searchItem(str: string) {
+    this.paginater.searchValue = str;
+    if (str != '' && str != null) {
+      this.categories = [];
+      this.commonService.searchCategories(this.paginater).subscribe((data: any) => {
+        this.categories = data.categories;
+        this.paginater.totalPages = data.pages;
+        this.nbOfCategories = data.nbOfItems;
+        this.basePageOptions.resourcesLoaded = true;
+      })
+    } else {
+      this.getCategories(this.paginater);
+    }
   }
   deleteCategory(id: number) {
     this.commonService.deleteCategory(id).subscribe(res => {
@@ -73,6 +120,7 @@ export class CategoryPageListComponent implements OnInit {
       console.log('Category deleted successfully!');
     })
   }
+
 
 
 }

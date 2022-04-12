@@ -12,12 +12,15 @@ import { Output, EventEmitter } from '@angular/core';
 export class BasePageComponent implements OnInit {
   @Input() options!: BasePage;
   @Input() paginater!: Paginater;
+  @Input() nbofItems!:number
   @Output() itemsPerPage = new EventEmitter<any>();
   @Output() sortByFilter = new EventEmitter<any>();
+  @Output() searchForItem = new EventEmitter<any>();
 
   username!: string | null;
   userid!: number;
   faUser = faUser;
+  searchStr:string = '';
   constructor(public commonService: CommonService) { }
 
 
@@ -45,6 +48,10 @@ export class BasePageComponent implements OnInit {
 
   sortBy(event: any) {
     this.sortByFilter.emit(event.target.value);
+  }
+
+  searchItem(event:any){
+    this.searchForItem.emit(this.searchStr);
   }
 
 }

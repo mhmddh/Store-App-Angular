@@ -40,6 +40,12 @@ padding-left: 15px;">
             <option>Name DESC</option>
         </select>
     </div>
+    <div class="form-group">
+        <label>{{ nbofItems }} results</label>
+        <input class="form-control"  type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
+        name="searchStr" (keyup)="searchItem($event)">
+    </div>
+
 </div>
 
 

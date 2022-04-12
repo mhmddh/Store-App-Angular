@@ -52,4 +52,6 @@ export interface Paginater {
     currentPage: number;
     totalPages: number;
     sortParameters: Array<string>;
+    searchKey?:string;
+    searchValue?:string;
 }
