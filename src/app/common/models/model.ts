@@ -1,4 +1,10 @@
 
+export interface LoginResponse {
+    data: any;
+    status: string;
+    message: string;
+}
+
 export interface Product {
     id: number;
     name?: string;
@@ -52,6 +58,8 @@ export interface Paginater {
     currentPage: number;
     totalPages: number;
     sortParameters: Array<string>;
-    searchKey?:string;
-    searchValue?:string;
+    searchKey?: string;
+    searchValue?: string;
 }
+
+

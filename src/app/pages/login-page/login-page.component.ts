@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-index',
@@ -13,7 +14,7 @@ export class LoginPageComponent implements OnInit {
     loginForm!: FormGroup;
     loginsubmitted = false;
 
-    constructor(public commonService: CommonService, private router: Router) { }
+    constructor(public authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
         //Login form validations
@@ -39,10 +40,9 @@ export class LoginPageComponent implements OnInit {
             return;
         }
         if (this.loginsubmitted) {
-
-            this.commonService.loginForm(this.loginForm.value).subscribe(res => {
+            this.authService.loginForm(this.loginForm.value).subscribe(res => {
                 if (res.status === 'success') {
-                    this.commonService.setUser(res);
+                    this.authService.setUser(res);
                 }
             }, error => {
                 console.error(error);

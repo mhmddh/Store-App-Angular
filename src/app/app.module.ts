@@ -1,3 +1,4 @@
+import { AuthService } from './../../.history/src/app/services/auth.service_20220413225051';
 import { AuthGuard } from './services/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,7 +45,7 @@ import { CommonService } from './services/common.service';
     UserPageComponent,
     BasePageComponent,
   ],
-  providers: [CommonService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [CommonService, AuthGuard,AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
     // providers: [CommonService, AuthGuard],
   bootstrap: [AppComponent]
 })

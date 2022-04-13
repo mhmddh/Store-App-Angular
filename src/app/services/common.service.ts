@@ -1,15 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Product, Brand, Category, User, Paginater } from '../common/models/model';
 
-interface LoginResponse {
-  data: any;
-  status: string;
-  message: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -195,42 +191,6 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-
-  loginForm(data: any): Observable<LoginResponse> {
-    return this.httpClient
-      .post<LoginResponse>(this.apiURL + '/login', data)
-      .pipe(
-        retry(2),
-        catchError(this.errorHandler)
-      );
-  }
-
-
-  // After login save token and other values(if any) in localStorage
-  setUser(resp: LoginResponse) {
-    localStorage.setItem('user', this.user);
-    localStorage.setItem('id', resp.data['id']);
-    localStorage.setItem('name', resp.data['name']);
-    localStorage.setItem('access_token', resp.data['token']);
-    this.router.navigateByUrl('products');
-  }
-
-
-
-  // Checking if token is set
-  isLoggedIn() {
-    return localStorage.getItem('access_token') != null;
-  }
-
-  // After clearing localStorage redirect to login screen
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
-
-
-
-
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

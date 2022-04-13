@@ -32,6 +32,7 @@ export class ProductPageListComponent implements OnInit {
   }
   getProducts(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
+    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
@@ -80,7 +81,6 @@ export class ProductPageListComponent implements OnInit {
   }
 
   changeLimit(limit: any) {
-
     localStorage.setItem('limit', limit.toString());
     this.paginater.limit = Number(localStorage.getItem('limit'));
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {

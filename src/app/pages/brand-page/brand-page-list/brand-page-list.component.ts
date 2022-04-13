@@ -34,6 +34,7 @@ export class BrandPageListComponent implements OnInit {
 
   getBrands(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
+    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedBrands(this.paginater).subscribe((data: any) => {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;

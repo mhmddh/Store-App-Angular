@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { BasePage, Paginater } from '../../common/models/model'
+import { BasePage, Paginater, User } from '../../common/models/model'
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -12,16 +13,15 @@ import { Output, EventEmitter } from '@angular/core';
 export class BasePageComponent implements OnInit {
   @Input() options!: BasePage;
   @Input() paginater!: Paginater;
-  @Input() nbofItems!:number
+  @Input() nbofItems!: number
   @Output() itemsPerPage = new EventEmitter<any>();
   @Output() sortByFilter = new EventEmitter<any>();
   @Output() searchForItem = new EventEmitter<any>();
 
-  username!: string | null;
-  userid!: number;
+  user: User = {};
   faUser = faUser;
-  searchStr:string = '';
-  constructor(public commonService: CommonService) { }
+  searchStr: string = '';
+  constructor(public commonService: CommonService, public authService: AuthService) { }
 
 
   ngOnInit(): void {
@@ -30,12 +30,12 @@ export class BasePageComponent implements OnInit {
 
 
   LoggedIn() {
-    this.username = localStorage.getItem('name');
-    this.userid = Number(localStorage.getItem('id'));
+    var userObject = localStorage.getItem('user') || '';
+    this.user = JSON.parse(userObject);
   }
 
   Logout() {
-    this.commonService.logout();
+    this.authService.logout();
   }
 
   arrayToNumber(n: number) {
@@ -50,7 +50,7 @@ export class BasePageComponent implements OnInit {
     this.sortByFilter.emit(event.target.value);
   }
 
-  searchItem(event:any){
+  searchItem(event: any) {
     this.searchForItem.emit(this.searchStr);
   }
 

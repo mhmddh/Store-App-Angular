@@ -31,7 +31,7 @@ export class CategoryPageListComponent implements OnInit {
   }
   getCategories(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
-
+    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
       this.categories = data.categories;
       this.paginater.totalPages = data.pages;

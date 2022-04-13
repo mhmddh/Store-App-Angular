@@ -4,8 +4,8 @@
             <div class="col-md-3"> <a href="/products">Products</a></div>
             <div class="col-md-3"> <a href="/categories">Categories</a></div>
             <div class="col-md-3"><a href="/brands">Brands</a></div>
-            <div class="col-md-3"><a href="/user/{{ userid }}">
-                    <fa-icon [icon]="faUser"></fa-icon> {{ username }}
+            <div class="col-md-3"><a href="/user/{{ user.id }}">
+                    <fa-icon [icon]="faUser"></fa-icon> {{ user.name }}
                 </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
                     (click)="Logout()">Logout</button>
             </div>
@@ -42,8 +42,8 @@ padding-left: 15px;">
     </div>
     <div class="form-group">
         <label>{{ nbofItems }} results</label>
-        <input class="form-control"  type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
-        name="searchStr" (keyup)="searchItem($event)">
+        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
+            name="searchStr" (keyup)="searchItem($event)">
     </div>
 
 </div>
