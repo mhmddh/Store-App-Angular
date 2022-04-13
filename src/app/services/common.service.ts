@@ -31,7 +31,7 @@ export class CommonService {
 
 
   getPaginatedBrands(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<Brand[]>(this.apiURL + '/brands/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/brands?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -44,7 +44,7 @@ export class CommonService {
   }
 
   getAllBrands(): Observable<Brand> {
-    return this.httpClient.get<any>(this.apiURL + '/brands', this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/all-brands', this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -87,8 +87,9 @@ export class CommonService {
   }
 
   getPaginatedProducts(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/products/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
-      .pipe(
+    return this.httpClient.get<any>(this.apiURL + '/products?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  
+    .pipe(
         catchError(this.errorHandler)
       )
   }
@@ -130,7 +131,7 @@ export class CommonService {
   }
 
   getPaginatedCategories(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/categories/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -143,7 +144,7 @@ export class CommonService {
       )
   }
   getAllCategories(): Observable<Category> {
-    return this.httpClient.get<any>(this.apiURL + '/categories', this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/all-categories', this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
