@@ -13,8 +13,6 @@ export class BrandPageListComponent implements OnInit {
     title: 'Brands',
     routeUrl: 'create-brand',
     routeTitle: 'Create New Brand',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: false,
   }
   paginater: Paginater = {

@@ -19,8 +19,6 @@ export class CategoryPageDetailComponent implements OnInit {
     title: '',
     routeUrl: 'categories',
     routeTitle: 'Back',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: true,
   }
   constructor(

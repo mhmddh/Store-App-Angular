@@ -21,8 +21,6 @@ export class BrandPageDetailComponent implements OnInit {
     title: 'Edit Brand',
     routeUrl: 'brands',
     routeTitle: 'Back',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: true,
   }
   constructor(

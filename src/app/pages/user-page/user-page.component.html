@@ -1,21 +1,24 @@
 <base-page [options]="basePageOptions">
+    <h6> <button class="btn btn-success" (click)="open(content)">Change Password </button></h6>
+    <h6> <span>{{ passResult }}</span></h6>
+
     <hr>
     <section>
 
-        <form [formGroup]="form" (ngSubmit)="submit(id)">
+        <form [formGroup]="form" (ngSubmit)="submit()">
 
 
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
                     <input formControlName="name" [(ngModel)]="user.name" id="name" type="text" class="form-control">
-                   
+
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Email Address:</label>
                     <input formControlName="email" [(ngModel)]="user.email" id="email" type="email"
                         class="form-control">
-                    
+
                 </div>
 
 
@@ -26,5 +29,48 @@
 
 
         </form>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Change Password</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">x</button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="passwordform" (ngSubmit)="changePassword()">
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label for="oldPassword">Old Password :</label>
+                            <input formControlName="oldPassword" id="oldPassword" type="password" class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label for="password">New Password :</label>
+                            <input formControlName="password" id="password" type="password" class="form-control">
+                        </div>
+
+
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password :</label>
+                            <input formControlName="confirmPassword" id="confirmPassword" type="password"
+                                class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-dark"
+                            [disabled]="!passwordform.valid">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </ng-template>
+
+
+        <hr>
     </section>
 </base-page>

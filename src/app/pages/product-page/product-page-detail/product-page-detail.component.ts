@@ -21,8 +21,6 @@ export class ProductPageDetailComponent implements OnInit {
     title: '',
     routeUrl: 'products',
     routeTitle: 'Back',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: true,
   }
   constructor(

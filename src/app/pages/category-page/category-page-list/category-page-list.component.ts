@@ -12,8 +12,6 @@ export class CategoryPageListComponent implements OnInit {
     title: 'Categories',
     routeUrl: 'create-category',
     routeTitle: 'Create New Category',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: false,
   }
   paginater: Paginater = {

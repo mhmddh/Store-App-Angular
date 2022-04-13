@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { Product, Brand, Category, User, Paginater } from '../common/models/model';
 
 
@@ -27,7 +26,7 @@ export class CommonService {
     })
   }
 
-  constructor(private router: Router, private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
 
   getPaginatedBrands(paginater: Paginater): Observable<any> {
@@ -188,6 +187,13 @@ export class CommonService {
 
   updateUser(id: number, user: User): Observable<User> {
     return this.httpClient.put<User>(this.apiURL + '/update-user/' + id, JSON.stringify(user), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+  changePassword(id: number, data:any): Observable<any> {
+    return this.httpClient.post<User>(this.apiURL + '/user/' + id + '/change-password', data, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

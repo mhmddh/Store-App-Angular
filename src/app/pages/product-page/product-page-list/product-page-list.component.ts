@@ -13,8 +13,6 @@ export class ProductPageListComponent implements OnInit {
     title: 'Products',
     routeUrl: 'create-product',
     routeTitle: 'Create New Product',
-    routeUrl2: '',
-    routeTitle2: '',
     resourcesLoaded: false,
   }
   paginater: Paginater = {
