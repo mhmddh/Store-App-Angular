@@ -29,22 +29,9 @@ export class ProductPageListComponent implements OnInit {
     this.setDefaultLimit(10);
     this.getProducts(this.paginater);
   }
-  getProducts(paginater: Paginater) {
-    this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
-      this.products = data.products;
-      this.paginater.totalPages = data.pages;
-      this.nbOfProducts = data.nbOfItems;
-      this.basePageOptions.resourcesLoaded = true;
-    })
-  }
 
-  setDefaultLimit(limit:number){
-    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
-      this.paginater.limit = limit;
-      localStorage.setItem('limit',limit.toString());
-    }
-  }
+
+
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
@@ -84,15 +71,27 @@ export class ProductPageListComponent implements OnInit {
     return new Array(n);
   }
 
+  resetCurrentPage() {
+    this.paginater.currentPage = 1;
+  }
+
   changeLimit(limit: any) {
     localStorage.setItem('limit', limit.toString());
     this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
       this.searchItem(this.paginater.searchValue);
     }
     else {
       this.getProducts(this.paginater);
 
+    }
+  }
+
+  setDefaultLimit(limit: number) {
+    if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
+      this.paginater.limit = limit;
+      localStorage.setItem('limit', limit.toString());
     }
   }
 
@@ -104,6 +103,16 @@ export class ProductPageListComponent implements OnInit {
       this.paginater.sortParameters = parameters.split(" ", 2);
       this.getProducts(this.paginater);
     }
+  }
+
+  getProducts(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
+      this.products = data.products;
+      this.paginater.totalPages = data.pages;
+      this.nbOfProducts = data.nbOfItems;
+      this.basePageOptions.resourcesLoaded = true;
+    })
   }
 
   searchItem(str: string) {
@@ -120,6 +129,7 @@ export class ProductPageListComponent implements OnInit {
       this.getProducts(this.paginater);
     }
   }
+
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
       this.products = this.products.filter(item => item.id !== id);

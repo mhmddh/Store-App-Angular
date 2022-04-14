@@ -30,24 +30,6 @@ export class BrandPageListComponent implements OnInit {
     this.setDefaultLimit(10);
     this.getBrands(this.paginater);
   }
-
-  getBrands(paginater: Paginater) {
-    this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedBrands(this.paginater).subscribe((data: any) => {
-      this.brands = data.brands;
-      this.paginater.totalPages = data.pages;
-      this.nbOfBrands = data.nbOfItems;
-      this.basePageOptions.resourcesLoaded = true;
-    })
-  }
-
-  setDefaultLimit(limit:number){
-    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
-      this.paginater.limit = limit;
-      localStorage.setItem('limit',limit.toString());
-    }
-  }
-
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
@@ -86,15 +68,26 @@ export class BrandPageListComponent implements OnInit {
   arrayPages(n: number) {
     return new Array(n);
   }
+  resetCurrentPage() {
+    this.paginater.currentPage = 1;
+  }
+
   changeLimit(limit: any) {
     localStorage.setItem('limit', limit.toString());
     this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
       this.searchItem(this.paginater.searchValue);
     }
     else {
       this.getBrands(this.paginater);
 
+    }
+  }
+  setDefaultLimit(limit: number) {
+    if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
+      this.paginater.limit = limit;
+      localStorage.setItem('limit', limit.toString());
     }
   }
 
@@ -106,6 +99,15 @@ export class BrandPageListComponent implements OnInit {
       this.paginater.sortParameters = parameters.split(" ", 2);
       this.getBrands(this.paginater);
     }
+  }
+  getBrands(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.commonService.getPaginatedBrands(paginater).subscribe((data: any) => {
+      this.brands = data.brands;
+      this.paginater.totalPages = data.pages;
+      this.nbOfBrands = data.nbOfItems;
+      this.basePageOptions.resourcesLoaded = true;
+    })
   }
   searchItem(str: string) {
     this.paginater.searchValue = str;

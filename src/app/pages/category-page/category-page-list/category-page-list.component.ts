@@ -28,22 +28,6 @@ export class CategoryPageListComponent implements OnInit {
     this.setDefaultLimit(10);
     this.getCategories(this.paginater);
   }
-  getCategories(paginater: Paginater) {
-    this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
-      this.categories = data.categories;
-      this.paginater.totalPages = data.pages;
-      this.nbOfCategories = data.nbOfItems;
-      this.basePageOptions.resourcesLoaded = true;
-    })
-  }
-
-  setDefaultLimit(limit:number){
-    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
-      this.paginater.limit = limit;
-      localStorage.setItem('limit',limit.toString());
-    }
-  }
 
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
@@ -84,15 +68,27 @@ export class CategoryPageListComponent implements OnInit {
     return new Array(n);
   }
 
+  resetCurrentPage() {
+    this.paginater.currentPage = 1;
+  }
+
   changeLimit(limit: any) {
     localStorage.setItem('limit', limit.toString());
     this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
       this.searchItem(this.paginater.searchValue);
     }
     else {
       this.getCategories(this.paginater);
 
+    }
+  }
+
+  setDefaultLimit(limit: number) {
+    if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
+      this.paginater.limit = limit;
+      localStorage.setItem('limit', limit.toString());
     }
   }
 
@@ -105,6 +101,17 @@ export class CategoryPageListComponent implements OnInit {
       this.getCategories(this.paginater);
     }
   }
+
+  getCategories(paginater: Paginater) {
+    this.paginater.limit = Number(localStorage.getItem('limit'));
+    this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
+      this.categories = data.categories;
+      this.paginater.totalPages = data.pages;
+      this.nbOfCategories = data.nbOfItems;
+      this.basePageOptions.resourcesLoaded = true;
+    })
+  }
+
   searchItem(str: string) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
