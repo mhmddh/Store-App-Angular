@@ -36,7 +36,7 @@ export class CommonService {
       )
   }
   searchBrands(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-brand/'+ paginater.searchKey + '/' + paginater.searchValue + '/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-brand?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -94,7 +94,7 @@ export class CommonService {
   }
 
   searchProducts(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-product/'+ paginater.searchKey + '/' + paginater.searchValue + '/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-product?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -137,7 +137,7 @@ export class CommonService {
   }
 
   searchCategories(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-category/'+ paginater.searchKey + '/' + paginater.searchValue + '/' + paginater.limit + '/' + paginater.currentPage + '/' + paginater.sortParameters[0] + '/' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-category?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

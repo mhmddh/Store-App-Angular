@@ -25,17 +25,24 @@ export class CategoryPageListComponent implements OnInit {
   nbOfCategories: number = 0;
   constructor(public commonService: CommonService) { }
   ngOnInit(): void {
+    this.setDefaultLimit(10);
     this.getCategories(this.paginater);
   }
   getCategories(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
-    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
       this.categories = data.categories;
       this.paginater.totalPages = data.pages;
       this.nbOfCategories = data.nbOfItems;
       this.basePageOptions.resourcesLoaded = true;
     })
+  }
+
+  setDefaultLimit(limit:number){
+    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
+      this.paginater.limit = limit;
+      localStorage.setItem('limit',limit.toString());
+    }
   }
 
   nextPage() {

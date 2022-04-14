@@ -66,11 +66,11 @@ export class UserPageComponent implements OnInit {
 
   changePassword() {
     this.commonService.changePassword(this.id, this.passwordform.value).subscribe(res => {
-      if (res == 'Password Changed successfully !!') {
+      if (res.status == 'success') {
         this.modalService.dismissAll();
         this.passwordform.reset();
       }
-      this.passResult = res;
+      this.passResult = res.message;
     })
   }
 

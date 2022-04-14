@@ -27,18 +27,25 @@ export class BrandPageListComponent implements OnInit {
   constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.setDefaultLimit(10);
     this.getBrands(this.paginater);
   }
 
   getBrands(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
-    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedBrands(this.paginater).subscribe((data: any) => {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;
       this.nbOfBrands = data.nbOfItems;
       this.basePageOptions.resourcesLoaded = true;
     })
+  }
+
+  setDefaultLimit(limit:number){
+    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
+      this.paginater.limit = limit;
+      localStorage.setItem('limit',limit.toString());
+    }
   }
 
   nextPage() {

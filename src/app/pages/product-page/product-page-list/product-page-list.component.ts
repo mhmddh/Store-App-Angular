@@ -26,11 +26,11 @@ export class ProductPageListComponent implements OnInit {
   constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.setDefaultLimit(10);
     this.getProducts(this.paginater);
   }
   getProducts(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
-    if (this.paginater.limit == 0) this.paginater.limit = 10;
     this.commonService.getPaginatedProducts(paginater).subscribe((data: any) => {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
@@ -39,6 +39,12 @@ export class ProductPageListComponent implements OnInit {
     })
   }
 
+  setDefaultLimit(limit:number){
+    if(this.paginater.limit == 0 || this.paginater.limit == undefined){
+      this.paginater.limit = limit;
+      localStorage.setItem('limit',limit.toString());
+    }
+  }
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;

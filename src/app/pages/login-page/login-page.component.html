@@ -14,7 +14,15 @@
                             <div class="col-md-6">
                                 <input formControlName="email" id="email" type="email" class="form-control  is-invalid "
                                     name="email" required autocomplete="email" autofocus>
-
+                                <div *ngIf="ff.email.invalid  && (ff.email.dirty || ff.email.touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="ff.email.errors?.required">
+                                        Email is required.
+                                    </div>
+                                    <div *ngIf="ff.email.errors?.email">
+                                        Email is invalid.
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -26,8 +34,18 @@
                                 <input formControlName="password" id="password" type="password"
                                     class="form-control  is-invalid " name="password" required
                                     autocomplete="current-password">
-
-
+                                <div *ngIf="ff.password.invalid  && (ff.password.dirty || ff.password.touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="ff.password.errors?.required">
+                                        Password is required.
+                                    </div>
+                                    <div *ngIf="ff.password.errors?.minlength">
+                                        Minimum password length is 8.
+                                    </div>
+                                </div>
+                                <div *ngIf="(ff.email.valid && ff.password.valid) && !isCorrect" class="invalid-feedback">
+                                    Incorrect email or password
+                                </div>
                             </div>
                         </div>
 
@@ -45,7 +63,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">
                                     Login
                                 </button>
 
