@@ -33,11 +33,9 @@ export class ProductPageDetailComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
     this.commonService.getAllCategories().subscribe((data: any) => {
-      console.log(data);
       this.categories = data;
     })
     this.commonService.getAllBrands().subscribe((data: any) => {
-      console.log(data);
       this.brands = data;
     })
     if (this.id) {

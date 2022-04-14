@@ -12,8 +12,9 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input formControlName="email" id="email" type="email" class="form-control  is-invalid "
-                                    name="email" required autocomplete="email" autofocus>
+                                <input formControlName="email" id="email" type="email" class="form-control" name="email"
+                                    required autocomplete="email"
+                                    [ngClass]="{'is-valid':ff.email.valid ,'is-invalid': ff.email.invalid }" autofocus>
                                 <div *ngIf="ff.email.invalid  && (ff.email.dirty || ff.email.touched)"
                                     class="invalid-feedback">
                                     <div *ngIf="ff.email.errors?.required">
@@ -33,7 +34,8 @@
                             <div class="col-md-6">
                                 <input formControlName="password" id="password" type="password"
                                     class="form-control  is-invalid " name="password" required
-                                    autocomplete="current-password">
+                                    autocomplete="current-password"
+                                    [ngClass]="{'is-valid':ff.password.valid  ,'is-invalid': ff.password.invalid }">
                                 <div *ngIf="ff.password.invalid  && (ff.password.dirty || ff.password.touched)"
                                     class="invalid-feedback">
                                     <div *ngIf="ff.password.errors?.required">
@@ -43,9 +45,11 @@
                                         Minimum password length is 8.
                                     </div>
                                 </div>
-                                <div *ngIf="(ff.email.valid && ff.password.valid) && !isCorrect" class="invalid-feedback">
-                                    Incorrect email or password
+                                <div *ngIf="!isCorrect"
+                                        class="login-alert">
+                                        Incorrect Email or Password!
                                 </div>
+
                             </div>
                         </div>
 

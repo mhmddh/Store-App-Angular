@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef , Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { User, BasePage } from '../../common/models/model'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,8 +12,8 @@ import Validation from 'src/app/providers/validation';
 })
 export class UserPageComponent implements OnInit {
   id!: number;
-  form: FormGroup = new FormGroup({});
-  passwordform: FormGroup = new FormGroup({});
+  form!: FormGroup;
+  passwordform!: FormGroup;
   user: User = {};
   closeResult = '';
   passResult = '';
@@ -29,20 +29,24 @@ export class UserPageComponent implements OnInit {
     public commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cdRef:ChangeDetectorRef
   ) { }
 
+  ngAfterViewChecked()
+  {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idUser'];
     this.commonService.getUserDetails(this.id).subscribe((data: User) => {
       this.user = data;
-      this.basePageOptions.resourcesLoaded = true;
     });
-
+    this.basePageOptions.resourcesLoaded = true;
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
     });
 
     this.passwordform = new FormGroup({
@@ -55,6 +59,10 @@ export class UserPageComponent implements OnInit {
     );
     this.basePageOptions.resourcesLoaded = true;
 
+  }
+
+  get ff() {
+    return this.form.controls;
   }
 
   submit() {

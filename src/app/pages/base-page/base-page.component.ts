@@ -13,7 +13,7 @@ import { Output, EventEmitter } from '@angular/core';
 export class BasePageComponent implements OnInit {
   @Input() options!: BasePage;
   @Input() paginater!: Paginater;
-  @Input() nbofItems!: number
+  @Input() nbofItems!: number;
   @Output() itemsPerPage = new EventEmitter<any>();
   @Output() sortByFilter = new EventEmitter<any>();
   @Output() searchForItem = new EventEmitter<any>();

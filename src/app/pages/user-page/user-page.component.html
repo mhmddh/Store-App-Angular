@@ -11,17 +11,28 @@
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
-                    <input formControlName="name" [(ngModel)]="user.name" id="name" type="text" class="form-control">
-
+                    <input formControlName="name" [(ngModel)]="user.name" id="name" type="text" class="form-control"
+                    [ngClass]="{'is-valid':ff.name.valid ,'is-invalid': ff.name.invalid }">
+                    <div *ngIf="ff.name.invalid  && (ff.name.dirty || ff.name.touched)" class="invalid-feedback">
+                        <div *ngIf="ff.name.errors?.required">
+                            Name is required.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Email Address:</label>
-                    <input formControlName="email" [(ngModel)]="user.email" id="email" type="email"
-                        class="form-control">
-
+                    <input formControlName="email" name="email" [(ngModel)]="user.email" id="email"
+                        type="email" class="form-control" 
+                        [ngClass]="{'is-valid':ff.email.valid ,'is-invalid': ff.email.invalid }">
+                    <div *ngIf="ff.email.invalid  && (ff.email.dirty || ff.email.touched)" class="invalid-feedback">
+                        <div *ngIf="ff.email.errors?.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="ff.email.errors?.email">
+                            Email is invalid.
+                        </div>
+                    </div>
                 </div>
-
-
             </div>
 
 
