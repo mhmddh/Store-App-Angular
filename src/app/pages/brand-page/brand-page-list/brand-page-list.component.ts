@@ -13,7 +13,7 @@ export class BrandPageListComponent implements OnInit {
     title: 'Brands',
     routeUrl: 'create-brand',
     routeTitle: 'Create New Brand',
-    resourcesLoaded: false,
+    loading: false,
   }
   paginater: Paginater = {
     limit: Number(localStorage.getItem('limit')),
@@ -106,7 +106,7 @@ export class BrandPageListComponent implements OnInit {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;
       this.nbOfBrands = data.nbOfItems;
-      this.basePageOptions.resourcesLoaded = true;
+      this.basePageOptions.loading = true;
     })
   }
   searchItem(str: string) {
@@ -117,7 +117,7 @@ export class BrandPageListComponent implements OnInit {
         this.brands = data.brands;
         this.paginater.totalPages = data.pages;
         this.nbOfBrands = data.nbOfItems;
-        this.basePageOptions.resourcesLoaded = true;
+        this.basePageOptions.loading = true;
       })
     } else {
       this.getBrands(this.paginater);

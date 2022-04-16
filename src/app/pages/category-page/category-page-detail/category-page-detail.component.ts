@@ -19,7 +19,7 @@ export class CategoryPageDetailComponent implements OnInit {
     title: '',
     routeUrl: 'categories',
     routeTitle: 'Back',
-    resourcesLoaded: true,
+    loading: true,
   }
   constructor(
     public commonService: CommonService,

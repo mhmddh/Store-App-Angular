@@ -21,7 +21,7 @@ export class ProductPageDetailComponent implements OnInit {
     title: '',
     routeUrl: 'products',
     routeTitle: 'Back',
-    resourcesLoaded: true,
+    loading: true,
   }
   constructor(
     public commonService: CommonService,
@@ -43,10 +43,12 @@ export class ProductPageDetailComponent implements OnInit {
         this.product = data;
       });
       this.basePageOptions.title = 'Edit Product';
+      this.basePageOptions.loading = false;
     }
     else {
       this.product = <Product>{};
       this.basePageOptions.title = 'Create Product';
+      this.basePageOptions.loading = false;
     }
 
 

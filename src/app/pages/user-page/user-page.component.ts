@@ -21,7 +21,7 @@ export class UserPageComponent implements OnInit {
     title: 'Mohamad Daher',
     routeUrl: 'products',
     routeTitle: 'Back',
-    resourcesLoaded: false,
+    loading: false,
     currentPage: 1,
     totalPages: 0,
   }
@@ -43,7 +43,7 @@ export class UserPageComponent implements OnInit {
     this.commonService.getUserDetails(this.id).subscribe((data: User) => {
       this.user = data;
     });
-    this.basePageOptions.resourcesLoaded = true;
+    this.basePageOptions.loading = true;
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -57,8 +57,6 @@ export class UserPageComponent implements OnInit {
       validators: [Validation.match('password', 'confirmPassword')]
     }
     );
-    this.basePageOptions.resourcesLoaded = true;
-
   }
 
   get ff() {

@@ -21,7 +21,7 @@ export class BrandPageDetailComponent implements OnInit {
     title: 'Edit Brand',
     routeUrl: 'brands',
     routeTitle: 'Back',
-    resourcesLoaded: true,
+    loading: true,
   }
   constructor(
     public commonService: CommonService,

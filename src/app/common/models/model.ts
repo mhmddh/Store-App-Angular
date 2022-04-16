@@ -44,10 +44,7 @@ export interface BasePage {
     title: string;
     routeUrl: string;
     routeTitle: string;
-    // routeUrl2: string;
-    // routeTitle2: string;
-    resourcesLoaded: boolean;
-    // limit?: number;
+    loading: boolean;
     currentPage?: number;
     totalPages?: number;
     // sortParameters?: Array<string>;
