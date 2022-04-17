@@ -50,7 +50,7 @@
 
     <ng-content *ngIf="options.loading === false"></ng-content>
 
-    <div class="paginator" *ngIf="paginater.totalPages > 1">
+    <div class="paginator" *ngIf="paginater && paginater.totalPages > 1">
         <button (click)="previousPage()" class="btn btn-primary form-control">PREVIOUS </button>
         <select (change)="changePage($event)" style="width:100px" class="form-control pager">
             <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"

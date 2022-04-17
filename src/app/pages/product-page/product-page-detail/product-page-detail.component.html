@@ -11,20 +11,25 @@
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
-                    <input formControlName="name" [(ngModel)]="product.name" id="name" type="text" class="form-control">
-                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                  <div *ngIf="f.name.errors.required">*Name is required.</div>
-                  <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
-              </div> -->
+                    <input formControlName="name" [(ngModel)]="product.name" id="name" type="text" class="form-control"
+                        [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
+                    <div *ngIf="f.name.invalid  && (f.name.dirty || f.name.touched)"
+                        class="invalid-feedback">
+                        <div *ngIf="f.name.errors?.required">
+                            Product Name is Required.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Price:</label>
                     <input formControlName="price" [(ngModel)]="product.price" id="price" type="text"
-                        class="form-control">
-                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                    <div *ngIf="f.name.errors.required">*Name is required.</div>
-                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
-                </div> -->
+                        class="form-control"  [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.price.invalid }">
+                        <div *ngIf="f.price.invalid  && (f.price.dirty || f.price.touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.price.errors?.required">
+                                Product Price is Required.
+                            </div>
+                        </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Category:</label>

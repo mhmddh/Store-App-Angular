@@ -17,6 +17,7 @@ export class UserPageComponent implements OnInit {
   user: User = {};
   closeResult = '';
   passResult = '';
+  isChanged = false;
   basePageOptions: BasePage = {
     title: 'Mohamad Daher',
     routeUrl: 'products',
@@ -52,14 +53,17 @@ export class UserPageComponent implements OnInit {
       oldPassword: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]),
       confirmPassword: new FormControl('', [Validators.required]),
-    }, {
-      validators: [Validation.match('password', 'confirmPassword')]
-    }
+    },
+      Validation.mustMatch('password', 'confirmPassword')
     );
   }
 
-  get ff() {
+  get f() {
     return this.form.controls;
+  }
+
+  get ff() {
+    return this.passwordform.controls;
   }
 
   submit() {
@@ -71,7 +75,8 @@ export class UserPageComponent implements OnInit {
 
   changePassword() {
     this.commonService.changePassword(this.id, this.passwordform.value).subscribe(res => {
-      if (res.status == 'success') {
+      if (res.success) {
+        this.isChanged = true;
         this.modalService.dismissAll();
         this.passwordform.reset();
       }
@@ -80,6 +85,7 @@ export class UserPageComponent implements OnInit {
   }
 
   open(content: any) {
+    this.passResult = '';
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
