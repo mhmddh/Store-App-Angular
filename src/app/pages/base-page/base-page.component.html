@@ -1,53 +1,54 @@
-<mat-toolbar color="primary">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3"> <a href="/products">Products</a></div>
-            <div class="col-md-3"> <a href="/categories">Categories</a></div>
-            <div class="col-md-3"><a href="/brands">Brands</a></div>
-            <div class="col-md-3"><a href="/user/{{ user.id }}">
-                    <fa-icon [icon]="faUser"></fa-icon> {{ user.name }}
-                </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
-                    (click)="Logout()">Logout</button>
+<section *ngIf="options.loading === false">
+    <mat-toolbar color="primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"> <a href="/products">Products</a></div>
+                <div class="col-md-3"> <a href="/categories">Categories</a></div>
+                <div class="col-md-3"><a href="/brands">Brands</a></div>
+                <div class="col-md-3"><a href="/user/{{ user.id }}">
+                        <fa-icon [icon]="faUser"></fa-icon> {{ user.name }}
+                    </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
+                        (click)="Logout()">Logout</button>
+                </div>
             </div>
+        </div><br>
+    </mat-toolbar>
+    <br>
+    <div class="d-flex justify-content-between">
+
+        <h4>{{ options.title }}</h4>
+
+        <a routerLink="/{{ options.routeUrl }}" class="btn btn-success">{{ options.routeTitle }}</a>
+    </div>
+    <div *ngIf="paginater" class="row" style="gap: 10px;
+    padding-left: 15px;">
+        <div class="form-group">
+            <label>Items Per Page</label>
+            <select (change)="changeLimit($event)" class="form-control">
+                <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{ i+1
+                    }}
+                </option>
+            </select>
         </div>
-    </div><br>
-</mat-toolbar>
-<br>
-<div class="d-flex justify-content-between">
 
-    <h4>{{ options.title }}</h4>
+        <div class="form-group">
+            <label>Sort By</label>
+            <select (change)="sortBy($event)" class="form-control">
+                <option>Date ASC</option>
+                <option>Date DESC</option>
+                <option>Name ASC</option>
+                <option>Name DESC</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>{{ nbofItems }} results</label>
+            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
+                name="searchStr" (keyup)="searchItem($event)">
+        </div>
 
-    <a routerLink="/{{ options.routeUrl }}" class="btn btn-success">{{ options.routeTitle }}</a>
-</div>
-<div *ngIf="paginater" class="row" style="gap: 10px;
-padding-left: 15px;">
-    <div class="form-group">
-        <label>Items Per Page</label>
-        <select (change)="changeLimit($event)" class="form-control">
-            <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{ i+1 }}
-            </option>
-        </select>
     </div>
 
-    <div class="form-group">
-        <label>Sort By</label>
-        <select (change)="sortBy($event)" class="form-control">
-            <option>Date ASC</option>
-            <option>Date DESC</option>
-            <option>Name ASC</option>
-            <option>Name DESC</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>{{ nbofItems }} results</label>
-        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
-            name="searchStr" (keyup)="searchItem($event)">
-    </div>
+    <ng-content *ngIf="options.loading === false"></ng-content>
+</section>
 
-</div>
-
-
-<br>
-<ng-content *ngIf="options.loading === false"></ng-content>
-<mat-progress-spinner *ngIf="options.loading === true" class="custom-spinner" mode="indeterminate" value="50">
-</mat-progress-spinner>
+<app-spinner *ngIf="options.loading === true" [attributes]="spinnerAttributes"></app-spinner>

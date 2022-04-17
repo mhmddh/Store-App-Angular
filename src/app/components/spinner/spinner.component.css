@@ -1,0 +1,8 @@
+.custom-spinner {
+  position: fixed;
+  top: 30%;
+  left: 47%;
+}
+:host ::ng-deep mat-progress-spinner circle {
+  stroke: #007bff;
+}

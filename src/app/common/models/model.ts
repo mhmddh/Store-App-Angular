@@ -59,4 +59,7 @@ export interface Paginater {
     searchValue?: string;
 }
 
-
+export interface Spinner{
+    strokeWidth: number;
+    class : string;
+}

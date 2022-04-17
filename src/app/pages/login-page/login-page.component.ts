@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { BasePage } from 'src/app/common/models/model';
+import { Spinner } from 'src/app/common/models/model';
 
 @Component({
     selector: 'app-index',
@@ -15,6 +14,11 @@ export class LoginPageComponent implements OnInit {
     loginForm = new FormGroup({});
     isCorrect = true;
     loginsubmitted = false;
+    loading = false;
+    spinnerAttributes: Spinner = {
+        strokeWidth: 3,
+        class: "custom-spinner",
+    }
     constructor(public authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
@@ -42,6 +46,7 @@ export class LoginPageComponent implements OnInit {
             return;
         }
         if (this.loginsubmitted) {
+            this.loading = true;
             this.authService.loginForm(this.loginForm.value).subscribe(res => {
                 if (res.status === 'success') {
                     this.authService.setUser(res);
@@ -49,6 +54,7 @@ export class LoginPageComponent implements OnInit {
                 else {
                     this.isCorrect = false;
                 }
+                this.loading = false;
             }, error => {
                 console.error(error);
             })

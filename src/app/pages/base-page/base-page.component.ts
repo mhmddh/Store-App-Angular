@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { BasePage, Paginater, User } from '../../common/models/model'
+import { BasePage, Paginater, Spinner, User } from '../../common/models/model'
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -17,10 +17,13 @@ export class BasePageComponent implements OnInit {
   @Output() itemsPerPage = new EventEmitter<any>();
   @Output() sortByFilter = new EventEmitter<any>();
   @Output() searchForItem = new EventEmitter<any>();
-
   user: User = {};
   faUser = faUser;
   searchStr: string = '';
+  spinnerAttributes: Spinner = {
+    strokeWidth: 3,
+    class: "custom-spinner",
+  }
   constructor(public commonService: CommonService, public authService: AuthService) { }
 
 

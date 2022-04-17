@@ -20,6 +20,7 @@ import { BasePageComponent } from './pages/base-page/base-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { CommonService } from './services/common.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { CommonService } from './services/common.service';
     CategoryPageDetailComponent,
     UserPageComponent,
     BasePageComponent,
+    SpinnerComponent,
   ],
   providers: [CommonService, AuthGuard,AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
     // providers: [CommonService, AuthGuard],

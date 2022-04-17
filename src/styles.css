@@ -1,12 +1,14 @@
-.paginator{
-    display: flex;
-    margin: 0 auto;
-    width: 200px;
-    gap: 10px;
+.paginator {
+  display: flex;
+  margin: 0 auto;
+  width: 200px;
+  gap: 10px;
 }
 
-.login-alert{
-    color: red;
-    padding-top: 10px;
-    font-size: 12px;
+.login-alert {
+  color: red;
+  padding-top: 10px;
+  font-size: 12px;
 }
+
+
