@@ -17,6 +17,10 @@ export class BasePageComponent implements OnInit {
   @Output() itemsPerPage = new EventEmitter<any>();
   @Output() sortByFilter = new EventEmitter<any>();
   @Output() searchForItem = new EventEmitter<any>();
+  @Output() prevPaginater = new EventEmitter();
+  @Output() changePaginater = new EventEmitter<any>();
+  @Output() nextPaginater = new EventEmitter();
+
   user: User = {};
   faUser = faUser;
   searchStr: string = '';
@@ -43,6 +47,19 @@ export class BasePageComponent implements OnInit {
 
   arrayToNumber(n: number) {
     return new Array(n);
+  }
+
+  previousPage() {
+    this.prevPaginater.emit();
+  }
+
+  changePage(event: any) {
+    this.changePaginater.emit(event.target.value);
+
+  }
+
+  nextPage() {
+    this.nextPaginater.emit();
   }
 
   changeLimit(event: any) {

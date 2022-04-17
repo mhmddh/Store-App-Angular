@@ -41,8 +41,8 @@ export class CategoryPageListComponent implements OnInit {
       }
     }
   }
-  changePage(event: any) {
-    this.paginater.currentPage = event.target.value;
+  changePage(page: any) {
+    this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
       this.searchItem(this.paginater.searchValue);
     }
