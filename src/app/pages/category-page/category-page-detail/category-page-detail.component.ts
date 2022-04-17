@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -24,21 +24,27 @@ export class CategoryPageDetailComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
   ) { }
 
-
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
+  
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['idCategory'];
     if (this.id) {
       this.commonService.findCategory(this.id).subscribe((data: Category) => {
         this.category = data;
+        this.basePageOptions.title = 'Edit Category'
+        this.basePageOptions.loading = false;
       });
-      this.basePageOptions.title = 'Edit Category'
     } else {
       this.category = <Category>{};
       this.basePageOptions.title = 'Create Category';
+      this.basePageOptions.loading = false;
     }
 
 
@@ -58,7 +64,6 @@ export class CategoryPageDetailComponent implements OnInit {
         this.router.navigateByUrl('categories');
       })
     } else {
-      console.log(this.form.value);
       this.commonService.createCategory(this.form.value).subscribe(res => {
         console.log(res);
       })

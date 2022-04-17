@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -27,25 +27,31 @@ export class BrandPageDetailComponent implements OnInit {
     public commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
+    private cdRef: ChangeDetectorRef
   ) { }
 
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idBrand'];
     if (this.id) {
       this.commonService.findBrand(this.id).subscribe((data: Brand) => {
         this.brand = data;
-        console.log(this.brand.image);
+        this.basePageOptions.loading = false;
       });
       this.basePageOptions.title = 'Edit Brand';
     } else {
       this.brand = <Brand>{};
       this.basePageOptions.title = 'Create Brand';
+      this.basePageOptions.loading = false;
     }
 
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
+      file: new FormControl('', [Validators.required]),
     });
   }
 
@@ -75,7 +81,7 @@ export class BrandPageDetailComponent implements OnInit {
     }
   }
 
-  uploadService(id:number,formData:FormData){
+  uploadService(id: number, formData: FormData) {
     this.commonService.uploadBrandFile(id, formData).subscribe(res => {
       console.log(res);
     });
@@ -85,13 +91,16 @@ export class BrandPageDetailComponent implements OnInit {
     if (id != null) {
       this.commonService.updateBrand(this.id, this.form.value).subscribe(res => {
         console.log(res);
-        this.router.navigateByUrl('brands');
+        this.uploadService(this.id, this.formData);
+        this.router.navigate(['brands'])
+          .then(() => {
+            window.location.reload();
+          });
       })
-      this.uploadService(this.id,this.formData);
     } else {
       this.commonService.createBrand(this.form.value).subscribe(res => {
         this.id = res.brand_id;
-        this.uploadService(this.id,this.formData);
+        this.uploadService(this.id, this.formData);
         this.router.navigateByUrl('brands');
       })
     }

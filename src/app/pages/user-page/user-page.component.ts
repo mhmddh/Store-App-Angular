@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChangeDetectorRef , Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { User, BasePage } from '../../common/models/model'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +21,7 @@ export class UserPageComponent implements OnInit {
     title: 'Mohamad Daher',
     routeUrl: 'products',
     routeTitle: 'Back',
-    loading: false,
+    loading: true,
     currentPage: 1,
     totalPages: 0,
   }
@@ -30,11 +30,10 @@ export class UserPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
-    private cdRef:ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) { }
 
-  ngAfterViewChecked()
-  {
+  ngAfterViewChecked() {
     this.cdRef.detectChanges();
   }
 
@@ -42,8 +41,8 @@ export class UserPageComponent implements OnInit {
     this.id = this.route.snapshot.params['idUser'];
     this.commonService.getUserDetails(this.id).subscribe((data: User) => {
       this.user = data;
+      this.basePageOptions.loading = false;
     });
-    this.basePageOptions.loading = true;
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),

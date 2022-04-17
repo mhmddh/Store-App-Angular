@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -26,9 +26,13 @@ export class ProductPageDetailComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
   ) { }
 
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
@@ -41,9 +45,9 @@ export class ProductPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
         this.product = data;
+        this.basePageOptions.title = 'Edit Product';
+        this.basePageOptions.loading = false;
       });
-      this.basePageOptions.title = 'Edit Product';
-      this.basePageOptions.loading = false;
     }
     else {
       this.product = <Product>{};

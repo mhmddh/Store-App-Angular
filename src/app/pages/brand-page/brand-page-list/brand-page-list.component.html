@@ -15,7 +15,10 @@
             <tr *ngFor="let brand of brands">
                 <td>{{ brand.id }}</td>
                 <td>{{ brand.name }}</td>
-                <td><img style="max-width: 50px;max-height: 50px;" [src]="brand.image"></td>
+                <td><img *ngIf="brand.image" style="max-width: 50px;max-height: 50px;" [src]="brand.image"
+                        onerror="this.src='../../assets/images/not-found.svg'">
+                    <!-- <img *ngIf="brand.image?.length==0"  style="max-width: 50px;max-height: 50px;" [src]="notFound"> -->
+                </td>
                 <td>
                     <a href="#" [routerLink]="['/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
                     <button style="margin-left:5px" type="button" (click)="deleteBrand(brand.id)"

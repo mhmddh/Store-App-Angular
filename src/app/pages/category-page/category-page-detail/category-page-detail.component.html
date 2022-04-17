@@ -12,10 +12,13 @@
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
-                    <input formControlName="name" [(ngModel)]="category.name" id="name" type="text"
-                        class="form-control">
-                    <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                        <div *ngIf="f.name.errors?.required">*Name is required.</div>
+                    <input formControlName="name" [(ngModel)]="category.name" id="name" type="text" class="form-control"
+                        [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
+                    <div *ngIf="f.name.invalid  && (f.name.dirty || f.name.touched)" class="invalid-feedback">
+                        <div *ngIf="f.name.errors?.required">
+                            Category Name is required.
+                        </div>
+
                     </div>
                 </div>
 
@@ -24,6 +27,7 @@
 
 
             <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
-            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>        </form>
+            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
+        </form>
     </div>
 </base-page>

@@ -1,4 +1,4 @@
-<base-page [options]="basePageOptions" >
+<base-page [options]="basePageOptions">
 
     <div class="container">
 
@@ -10,21 +10,25 @@
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
-                    <input formControlName="name" [(ngModel)]="brand.name" id="name" type="text" class="form-control">
-                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                  <div *ngIf="f.name.errors.required">*Name is required.</div>
-                  <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
-              </div> -->
+                    <input formControlName="name" [(ngModel)]="brand.name" id="name" type="text" class="form-control"
+                        [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
+                    <div *ngIf="f.name.touched && f.name.invalid" class="invalid-feedback">
+                        <div *ngIf="f.name.errors?.required">Brand Name is required.</div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div style="margin: 15px 0px;">
                         <label for="title">Logo : </label>
-                        <img *ngIf="brand.image" style="max-width :100px; max-height:100px;margin-left: 10px"
-                            [src]=" brand.image">
+                        <img *ngIf="brand.image" style="max-width :60px; max-height:60px;margin-left: 10px"
+                            [src]=" brand.image" onerror="this.src='../../assets/images/not-found.svg'">
                     </div>
 
-                    <input type="file" class="form-control-file" (change)="onFileSelected($event)"
-                        accept="image/x-png,image/gif,image/jpeg" #fileUpload>
+                    <input formControlName="file" type="file" class="form-control-file"
+                        (change)="onFileSelected($event)" accept="image/x-png,image/gif,image/jpeg"
+                        [ngClass]="{'is-invalid': f.file.errors }" #fileUpload>
+                    <div *ngIf="f.file.touched && f.file.invalid" class="invalid-feedback">
+                        <div *ngIf="f.file.errors?.required">Brand Logo is required.</div>
+                    </div>
                 </div>
 
             </div>

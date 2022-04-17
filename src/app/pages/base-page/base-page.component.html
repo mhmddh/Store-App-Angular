@@ -48,6 +48,6 @@ padding-left: 15px;">
 
 
 <br>
-<ng-content></ng-content>
-<mat-progress-spinner *ngIf="options.loading === false" class="custom-spinner" mode="indeterminate" value="50">
+<ng-content *ngIf="options.loading === false"></ng-content>
+<mat-progress-spinner *ngIf="options.loading === true" class="custom-spinner" mode="indeterminate" value="50">
 </mat-progress-spinner>

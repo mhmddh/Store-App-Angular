@@ -8,12 +8,11 @@ import { Brand, BasePage, Paginater } from '../../../common/models/model';
 })
 export class BrandPageListComponent implements OnInit {
   brands: Brand[] = [];
-
   basePageOptions: BasePage = {
     title: 'Brands',
     routeUrl: 'create-brand',
     routeTitle: 'Create New Brand',
-    loading: false,
+    loading: true,
   }
   paginater: Paginater = {
     limit: Number(localStorage.getItem('limit')),
@@ -106,7 +105,7 @@ export class BrandPageListComponent implements OnInit {
       this.brands = data.brands;
       this.paginater.totalPages = data.pages;
       this.nbOfBrands = data.nbOfItems;
-      this.basePageOptions.loading = true;
+      this.basePageOptions.loading = false;
     })
   }
   searchItem(str: string) {
@@ -117,7 +116,7 @@ export class BrandPageListComponent implements OnInit {
         this.brands = data.brands;
         this.paginater.totalPages = data.pages;
         this.nbOfBrands = data.nbOfItems;
-        this.basePageOptions.loading = true;
+        this.basePageOptions.loading = false;
       })
     } else {
       this.getBrands(this.paginater);
@@ -126,8 +125,11 @@ export class BrandPageListComponent implements OnInit {
 
   deleteBrand(id: number) {
     this.commonService.deleteBrand(id).subscribe(res => {
-      this.brands = this.brands.filter(item => item.id !== id);
-      console.log('Brand deleted successfully!');
+      if (res.success) {
+        this.brands = this.brands.filter(item => item.id !== id);
+      }
+      console.log(res.message);
+
     })
   }
 

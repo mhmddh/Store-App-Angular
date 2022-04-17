@@ -36,7 +36,7 @@ export class CommonService {
       )
   }
   searchBrands(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-brand?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-brand?key=' + paginater.searchKey + '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -58,7 +58,7 @@ export class CommonService {
   }
 
   deleteBrand(id: number) {
-    return this.httpClient.delete<Brand>(this.apiURL + '/delete-brand/' + id, this.httpOptions)
+    return this.httpClient.delete<any>(this.apiURL + '/delete-brand/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -87,14 +87,14 @@ export class CommonService {
 
   getPaginatedProducts(paginater: Paginater): Observable<any> {
     return this.httpClient.get<any>(this.apiURL + '/products?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
-  
-    .pipe(
+
+      .pipe(
         catchError(this.errorHandler)
       )
   }
 
   searchProducts(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-product?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-product?key=' + paginater.searchKey + '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -137,7 +137,7 @@ export class CommonService {
   }
 
   searchCategories(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-category?key=' + paginater.searchKey+ '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/search-category?key=' + paginater.searchKey + '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -192,7 +192,7 @@ export class CommonService {
       )
   }
 
-  changePassword(id: number, data:any): Observable<any> {
+  changePassword(id: number, data: any): Observable<any> {
     return this.httpClient.post<User>(this.apiURL + '/user/' + id + '/change-password', data, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)

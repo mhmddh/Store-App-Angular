@@ -12,7 +12,7 @@ export class CategoryPageListComponent implements OnInit {
     title: 'Categories',
     routeUrl: 'create-category',
     routeTitle: 'Create New Category',
-    loading: false,
+    loading: true,
   }
   paginater: Paginater = {
     limit: Number(localStorage.getItem('limit')),
@@ -108,7 +108,7 @@ export class CategoryPageListComponent implements OnInit {
       this.categories = data.categories;
       this.paginater.totalPages = data.pages;
       this.nbOfCategories = data.nbOfItems;
-      this.basePageOptions.loading = true;
+      this.basePageOptions.loading = false;
     })
   }
 
@@ -120,7 +120,7 @@ export class CategoryPageListComponent implements OnInit {
         this.categories = data.categories;
         this.paginater.totalPages = data.pages;
         this.nbOfCategories = data.nbOfItems;
-        this.basePageOptions.loading = true;
+        this.basePageOptions.loading = false;
       })
     } else {
       this.getCategories(this.paginater);

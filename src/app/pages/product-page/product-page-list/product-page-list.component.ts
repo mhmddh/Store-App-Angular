@@ -13,7 +13,7 @@ export class ProductPageListComponent implements OnInit {
     title: 'Products',
     routeUrl: 'create-product',
     routeTitle: 'Create New Product',
-    loading: false,
+    loading: true,
   }
   paginater: Paginater = {
     limit: Number(localStorage.getItem('limit')),
@@ -111,7 +111,8 @@ export class ProductPageListComponent implements OnInit {
       this.products = data.products;
       this.paginater.totalPages = data.pages;
       this.nbOfProducts = data.nbOfItems;
-      this.basePageOptions.loading = true;
+      this.basePageOptions.loading = false;
+
     })
   }
 
@@ -123,7 +124,7 @@ export class ProductPageListComponent implements OnInit {
         this.products = data.products;
         this.paginater.totalPages = data.pages;
         this.nbOfProducts = data.nbOfItems;
-        this.basePageOptions.loading = true;
+        this.basePageOptions.loading = false;
       })
     } else {
       this.getProducts(this.paginater);
