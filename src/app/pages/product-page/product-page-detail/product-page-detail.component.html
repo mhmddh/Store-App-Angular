@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Price:</label>
-                    <input formControlName="price" [(ngModel)]="product.price" id="price" type="text"
+                    <input formControlName="price" [(ngModel)]="product.price" id="price" type="number"
                         class="form-control" [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.price.invalid }">
                     <div *ngIf="f.price.invalid  && (f.price.dirty || f.price.touched)" class="invalid-feedback">
                         <div *ngIf="f.price.errors?.required">
