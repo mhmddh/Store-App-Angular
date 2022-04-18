@@ -1,16 +1,1 @@
-.custom-spinner {
-  position: fixed;
-  top: 30%;
-  left: 45%;
-}
-:host ::ng-deep mat-progress-spinner circle {
-  stroke: #007bff;
-}
 
-@media only screen and (max-width: 700px) {
-  .custom-spinner {
-    position: fixed;
-    top: 40%;
-    left: 40%;
-  }
-}

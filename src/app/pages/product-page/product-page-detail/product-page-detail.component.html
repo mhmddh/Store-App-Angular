@@ -13,8 +13,7 @@
                     <label for="title">Name:</label>
                     <input formControlName="name" [(ngModel)]="product.name" id="name" type="text" class="form-control"
                         [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
-                    <div *ngIf="f.name.invalid  && (f.name.dirty || f.name.touched)"
-                        class="invalid-feedback">
+                    <div *ngIf="f.name.invalid  && (f.name.dirty || f.name.touched)" class="invalid-feedback">
                         <div *ngIf="f.name.errors?.required">
                             Product Name is Required.
                         </div>
@@ -23,40 +22,43 @@
                 <div class="col-md-6 ">
                     <label for="title">Price:</label>
                     <input formControlName="price" [(ngModel)]="product.price" id="price" type="text"
-                        class="form-control"  [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.price.invalid }">
-                        <div *ngIf="f.price.invalid  && (f.price.dirty || f.price.touched)"
-                            class="invalid-feedback">
-                            <div *ngIf="f.price.errors?.required">
-                                Product Price is Required.
-                            </div>
+                        class="form-control" [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.price.invalid }">
+                    <div *ngIf="f.price.invalid  && (f.price.dirty || f.price.touched)" class="invalid-feedback">
+                        <div *ngIf="f.price.errors?.required">
+                            Product Price is Required.
                         </div>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Category:</label>
                     <select [(ngModel)]="product.category_id" formControlName="category" id="category"
-                        class="form-control">
+                        class="form-control"
+                        [ngClass]="{'is-valid':f.category.valid ,'is-invalid': f.category.invalid }">
+                        <option *ngIf="id == null" [ngValue]="undefined" selected>Select Category</option>
                         <option *ngFor="let category of categories" [value]="category.id">{{
                             category.name }}</option>
                     </select>
-
-
-                    <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                    <div *ngIf="f.name.errors.required">*Name is required.</div>
-                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
-                </div>  -->
+                    <div *ngIf="f.category.invalid  && (f.category.dirty || f.category.touched)"
+                        class="invalid-feedback">
+                        <div *ngIf="f.category.errors?.required">
+                            Product Category is Required.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Brand:</label>
-                    <select [(ngModel)]="product.brand_id" formControlName="brand_id" id="brand_id"
-                        class="form-control">
+                    <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand"
+                        class="form-control" [ngClass]="{'is-valid':f.brand.valid ,'is-invalid': f.brand.invalid }">
+                        >
+                        <option *ngIf="id == null" [ngValue]="undefined" selected>Select Brand</option>
                         <option *ngFor="let brand of brands" [value]="brand.id">{{
                             brand.name }}</option>
                     </select>
-                    <!-- 
-                <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                    <div *ngIf="f.name.errors.required">*Name is required.</div>
-                    <div *ngIf="f.name.errors.pattern">*The name must only contain letters.</div>
-                </div> -->
+                    <div *ngIf="f.brand.invalid  && (f.brand.dirty || f.brand.touched)" class="invalid-feedback">
+                        <div *ngIf="f.brand.errors?.required">
+                            Product Brand is Required.
+                        </div>
+                    </div>
                 </div>
             </div>
 

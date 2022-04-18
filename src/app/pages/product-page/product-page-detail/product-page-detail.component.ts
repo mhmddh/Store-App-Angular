@@ -60,7 +60,7 @@ export class ProductPageDetailComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
-      brand_id: new FormControl('', [Validators.required]),
+      brand: new FormControl('', [Validators.required]),
     });
   }
 
