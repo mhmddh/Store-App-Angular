@@ -17,6 +17,7 @@ export interface Product {
     brand_image?: string;
     created_at?: string;
     images?: Array<string>;
+    images_ids?: Array<number>;
 }
 
 

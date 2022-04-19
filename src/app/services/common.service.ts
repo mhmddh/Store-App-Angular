@@ -137,6 +137,12 @@ export class CommonService {
       )
   }
 
+  deleteProductFile(id: number): Observable<any> {
+    return this.httpClient.delete(this.apiURL + '/delete-product-file/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
   getPaginatedCategories(paginater: Paginater): Observable<any> {
     return this.httpClient.get<any>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(

@@ -18,6 +18,7 @@ export class ProductPageDetailComponent implements OnInit {
   form!: FormGroup;
   files: File[] = [];
   images: string[] = [];
+  images_ids: number[] = [];
   categories: Category[] = [];
   brands: Brand[] = [];
   basePageOptions: BasePage = {
@@ -51,6 +52,7 @@ export class ProductPageDetailComponent implements OnInit {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
         this.product = data;
         this.images = data.images || [];
+        this.images_ids = data.images_ids || [];
         this.basePageOptions.title = 'Edit Product';
         this.basePageOptions.loading = false;
       });
@@ -124,11 +126,24 @@ export class ProductPageDetailComponent implements OnInit {
   unhoverImage(event: any) {
     event.currentTarget.querySelector('img').style.opacity = 1;
     event.currentTarget.querySelector('span').style.display = 'none';
-
   }
 
   removeImage(index: number) {
+    console.log(this.images_ids);
     this.images.splice(index, 1);
+    if (this.id != null) {
+      this.commonService.deleteProductFile(this.images_ids[index]).subscribe(res => {
+        console.log(res);
+        this.images_ids.splice(index, 1);
+        // this.router.navigate(['product/edit/' + this.id])
+        //   .then(() => {
+        //     window.location.reload();
+        //   });
+      })
+    } else {
+      this.files.splice(index, 1);
+    }
+
   }
 
 }
