@@ -16,6 +16,7 @@ export interface Product {
     brand_id?: number,
     brand_image?: string;
     created_at?: string;
+    images?: Array<string>;
 }
 
 
@@ -59,7 +60,7 @@ export interface Paginater {
     searchValue?: string;
 }
 
-export interface Spinner{
+export interface Spinner {
     strokeWidth: number;
-    class : string;
+    class: string;
 }

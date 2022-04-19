@@ -14,7 +14,10 @@ export class ProductPageDetailComponent implements OnInit {
   product: Product = {
     id: 0
   };
+  formData = new FormData();
   form!: FormGroup;
+  files: File[] = [];
+  images: string[] = [];
   categories: Category[] = [];
   brands: Brand[] = [];
   basePageOptions: BasePage = {
@@ -23,6 +26,8 @@ export class ProductPageDetailComponent implements OnInit {
     routeTitle: 'Back',
     loading: true,
   }
+  isGalleryDisplayed = false;
+  openedImageUrl = '';
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
@@ -45,6 +50,7 @@ export class ProductPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
         this.product = data;
+        this.images = data.images || [];
         this.basePageOptions.title = 'Edit Product';
         this.basePageOptions.loading = false;
       });
@@ -61,6 +67,7 @@ export class ProductPageDetailComponent implements OnInit {
       price: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
       brand: new FormControl('', [Validators.required]),
+      file: new FormControl(''),
     });
   }
 
@@ -68,21 +75,60 @@ export class ProductPageDetailComponent implements OnInit {
     return this.form.controls;
   }
 
+  onFileChange(event: any) {
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.files.push(event.target.files[i]);
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.images.push(event.target.result);
+      }
+      reader.readAsDataURL(event.target.files[i]);
+    }
+  }
+
+  uploadService(id: number, formData: FormData) {
+    for (var i = 0; i < this.files.length; i++) {
+      formData.append("file[]", this.files[i]);
+    }
+    console.log(this.formData);
+    this.commonService.uploadProductFiles(id, formData).subscribe(res => {
+      console.log(res);
+    });
+  }
+
   submit(id: number) {
     if (id != null) {
-
       this.commonService.updateProduct(this.id, this.form.value).subscribe(res => {
-        console.log(res);
+        this.uploadService(this.id, this.formData);
         this.router.navigateByUrl('products');
       })
     } else {
-      console.log(this.form.value);
       this.commonService.createProduct(this.form.value).subscribe(res => {
-        console.log(res);
+        this.id = res.product_id;
+        this.uploadService(this.id, this.formData);
+        this.router.navigateByUrl('products');
       })
-      this.router.navigateByUrl('products');
-
     }
+  }
+
+  viewImage(event: any) {
+
+  }
+
+  hoverImage(event: any) {
+    event.currentTarget.querySelector('img').style.opacity = 0.7;
+    event.currentTarget.querySelector('span').style.display = 'block';
+
+  }
+
+  unhoverImage(event: any) {
+    event.currentTarget.querySelector('img').style.opacity = 1;
+    event.currentTarget.querySelector('span').style.display = 'none';
+
+  }
+
+  removeImage(index: number) {
+    this.images.splice(index, 1);
   }
 
 }

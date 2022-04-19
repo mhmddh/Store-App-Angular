@@ -1,8 +1,5 @@
 <base-page [options]="basePageOptions">
     <div class="container">
-
-
-
         <hr>
 
         <form [formGroup]="form" (ngSubmit)="submit(id)">
@@ -47,8 +44,8 @@
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Brand:</label>
-                    <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand"
-                        class="form-control" [ngClass]="{'is-valid':f.brand.valid ,'is-invalid': f.brand.invalid }">
+                    <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand" class="form-control"
+                        [ngClass]="{'is-valid':f.brand.valid ,'is-invalid': f.brand.invalid }">
                         >
                         <option *ngIf="id == null" [ngValue]="undefined" selected>Select Brand</option>
                         <option *ngFor="let brand of brands" [value]="brand.id">{{
@@ -60,13 +57,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="file">Gallery:</label>
+                    <input formControlName="file" id="file" type="file" class="form-control" multiple
+                        (change)="onFileChange($event)">
+                    <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+                        <div *ngIf="f.file.errors && f.file.errors.required">Files is required.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-gallery">
+                        <div *ngFor='let url of images;let i = index' (mouseover)="hoverImage($event)"
+                            (mouseleave)="unhoverImage($event)">
+                            <span><button *ngIf="0" (click)="removeImage(i)">Delete</button></span>
+                            <img [src]="url" height="100" width="150px" style="margin: 3px;">
+                        </div>
+                    </div>
+                </div>
             </div>
-
 
             <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
             <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
-
-
         </form>
     </div>
+
 </base-page>

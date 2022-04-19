@@ -101,7 +101,7 @@ export class CommonService {
   }
 
 
-  createProduct(product: any): Observable<Product> {
+  createProduct(product: any): Observable<any> {
     return this.httpClient.post<Product>(this.apiURL + '/create-product', JSON.stringify(product), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -124,6 +124,14 @@ export class CommonService {
 
   updateProduct(id: number, product: Product): Observable<Product> {
     return this.httpClient.put<Product>(this.apiURL + '/update-product/' + id, JSON.stringify(product), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+
+  uploadProductFiles(id: number, formData: FormData): Observable<any> {
+    return this.httpClient.post(this.apiURL + '/upload-product-files/' + id, formData, this.httpUploadOptions)
       .pipe(
         catchError(this.errorHandler)
       )

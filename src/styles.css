@@ -1,7 +1,6 @@
-
 /* spinner styles */
 .custom-spinner {
-  position: fixed  !important;
+  position: fixed !important;
   top: 30%;
   left: 45%;
 }
@@ -16,7 +15,6 @@
 app-spinner mat-progress-spinner circle {
   stroke: #007bff;
 }
-
 
 .paginator {
   display: flex;
@@ -56,7 +54,6 @@ app-spinner mat-progress-spinner circle {
   border: 0;
 }
 
-
 /* customized invalid input error  */
 .custom-is-invalid {
   border-color: #dc3545;
@@ -72,6 +69,28 @@ app-spinner mat-progress-spinner circle {
   margin-top: 0.25rem;
   font-size: 80%;
   color: #dc3545;
+}
+
+.product-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.product-gallery div{
+  position: relative;
+}
+.product-gallery span{
+  position: absolute;
+  z-index: 10;
+  display: none;
+  right: 5px;
+}
+.product-gallery span button{
+  border: 0;
+  color: red;
+  background-color: white;
 }
 
 
