@@ -18,7 +18,7 @@ export class ProductPageDetailComponent implements OnInit {
   form!: FormGroup;
   files: File[] = [];
   images: string[] = [];
-  images_ids: number[] = [];
+  images_ids: string[] = [];
   categories: Category[] = [];
   brands: Brand[] = [];
   basePageOptions: BasePage = {
@@ -51,8 +51,10 @@ export class ProductPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
         this.product = data;
-        this.images = data.images || [];
-        this.images_ids = data.images_ids || [];
+        var ids:string[] = Object.keys(data.images || []);
+        var values:string[] = Object.values(data.images || []);
+        this.images = values;
+        this.images_ids = ids;
         this.basePageOptions.title = 'Edit Product';
         this.basePageOptions.loading = false;
       });
@@ -92,7 +94,6 @@ export class ProductPageDetailComponent implements OnInit {
     for (var i = 0; i < this.files.length; i++) {
       formData.append("file[]", this.files[i]);
     }
-    console.log(this.formData);
     this.commonService.uploadProductFiles(id, formData).subscribe(res => {
       console.log(res);
     });
@@ -129,16 +130,12 @@ export class ProductPageDetailComponent implements OnInit {
   }
 
   removeImage(index: number) {
-    console.log(this.images_ids);
     this.images.splice(index, 1);
     if (this.id != null) {
-      this.commonService.deleteProductFile(this.images_ids[index]).subscribe(res => {
+      var id:number = +this.images_ids[index];
+      this.commonService.deleteProductFile(id).subscribe(res => {
         console.log(res);
         this.images_ids.splice(index, 1);
-        // this.router.navigate(['product/edit/' + this.id])
-        //   .then(() => {
-        //     window.location.reload();
-        //   });
       })
     } else {
       this.files.splice(index, 1);
