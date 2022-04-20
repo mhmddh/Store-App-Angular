@@ -69,7 +69,9 @@
                     <div class="product-gallery">
                         <div *ngFor='let url of images;let i = index' (mouseover)="hoverImage($event)"
                             (mouseleave)="unhoverImage($event)">
-                            <span><button (click)="removeImage(i)">Delete</button></span>
+                            <span><button (click)="removeImage(i)">
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </button></span>
                             <img [src]="url" height="50" width="100px" style="margin: 3px;">
                         </div>
                     </div>

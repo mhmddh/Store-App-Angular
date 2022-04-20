@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { BasePage, Paginater, Spinner, User } from '../../common/models/model'
+import { BasePage, Paginater, Spinner, User } from 'src/app/common/models/model'
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({

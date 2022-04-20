@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product, Brand, Category, BasePage, Paginater } from '../../../common/models/model';
+import { Product, Brand, Category, BasePage } from 'src/app/common/models/model';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit',
@@ -23,12 +24,11 @@ export class ProductPageDetailComponent implements OnInit {
   brands: Brand[] = [];
   basePageOptions: BasePage = {
     title: '',
-    routeUrl: 'products',
+    routeUrl: 'admin/products',
     routeTitle: 'Back',
     loading: true,
   }
-  isGalleryDisplayed = false;
-  openedImageUrl = '';
+  faTrash = faTrash;
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
@@ -51,8 +51,8 @@ export class ProductPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: Product) => {
         this.product = data;
-        var ids:string[] = Object.keys(data.images || []);
-        var values:string[] = Object.values(data.images || []);
+        var ids: string[] = Object.keys(data.images || []);
+        var values: string[] = Object.values(data.images || []);
         this.images = values;
         this.images_ids = ids;
         this.basePageOptions.title = 'Edit Product';
@@ -103,13 +103,13 @@ export class ProductPageDetailComponent implements OnInit {
     if (id != null) {
       this.commonService.updateProduct(this.id, this.form.value).subscribe(res => {
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('products');
+        this.router.navigateByUrl('admin/products');
       })
     } else {
       this.commonService.createProduct(this.form.value).subscribe(res => {
         this.id = res.product_id;
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('products');
+        this.router.navigateByUrl('admin/products');
       })
     }
   }
@@ -132,7 +132,7 @@ export class ProductPageDetailComponent implements OnInit {
   removeImage(index: number) {
     this.images.splice(index, 1);
     if (this.id != null) {
-      var id:number = +this.images_ids[index];
+      var id: number = +this.images_ids[index];
       this.commonService.deleteProductFile(id).subscribe(res => {
         console.log(res);
         this.images_ids.splice(index, 1);

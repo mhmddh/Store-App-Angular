@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
-import { Category, BasePage, Paginater } from '../../../common/models/model';
+import { CommonService } from 'src/app/services/common.service';
+import { Brand, BasePage, Paginater } from 'src/app/common/models/model';
 @Component({
   selector: 'app-index',
-  templateUrl: './category-page-list.component.html',
-  styleUrls: ['./category-page-list.component.css']
+  templateUrl: './brand-page-list.component.html',
+  styleUrls: ['./brand-page-list.component.css']
 })
-export class CategoryPageListComponent implements OnInit {
-  categories: Category[] = [];
+export class BrandPageListComponent implements OnInit {
+  brands: Brand[] = [];
   basePageOptions: BasePage = {
-    title: 'Categories',
-    routeUrl: 'create-category',
-    routeTitle: 'Create New Category',
+    title: 'Brands',
+    routeUrl: 'admin/brands/create-brand',
+    routeTitle: 'Create New Brand',
     loading: true,
   }
   paginater: Paginater = {
@@ -21,14 +21,14 @@ export class CategoryPageListComponent implements OnInit {
     sortParameters: ['Date', 'ASC'],
     searchKey: 'Name',
   }
+  nbOfBrands: number = 0;
 
-  nbOfCategories: number = 0;
   constructor(public commonService: CommonService) { }
+
   ngOnInit(): void {
     this.setDefaultLimit(10);
-    this.getCategories(this.paginater);
+    this.getBrands(this.paginater);
   }
-
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
@@ -36,7 +36,7 @@ export class CategoryPageListComponent implements OnInit {
         this.searchItem(this.paginater.searchValue);
       }
       else {
-        this.getCategories(this.paginater);
+        this.getBrands(this.paginater);
 
       }
     }
@@ -47,8 +47,7 @@ export class CategoryPageListComponent implements OnInit {
       this.searchItem(this.paginater.searchValue);
     }
     else {
-      this.getCategories(this.paginater);
-
+      this.getBrands(this.paginater);
     }
   }
   previousPage() {
@@ -58,7 +57,7 @@ export class CategoryPageListComponent implements OnInit {
         this.searchItem(this.paginater.searchValue);
       }
       else {
-        this.getCategories(this.paginater);
+        this.getBrands(this.paginater);
 
       }
     }
@@ -67,7 +66,6 @@ export class CategoryPageListComponent implements OnInit {
   arrayPages(n: number) {
     return new Array(n);
   }
-
   resetCurrentPage() {
     this.paginater.currentPage = 1;
   }
@@ -80,11 +78,10 @@ export class CategoryPageListComponent implements OnInit {
       this.searchItem(this.paginater.searchValue);
     }
     else {
-      this.getCategories(this.paginater);
+      this.getBrands(this.paginater);
 
     }
   }
-
   setDefaultLimit(limit: number) {
     if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
       this.paginater.limit = limit;
@@ -98,41 +95,42 @@ export class CategoryPageListComponent implements OnInit {
       this.searchItem(this.paginater.searchValue);
     } else {
       this.paginater.sortParameters = parameters.split(" ", 2);
-      this.getCategories(this.paginater);
+      this.getBrands(this.paginater);
     }
   }
-
-  getCategories(paginater: Paginater) {
+  getBrands(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
-      this.categories = data.categories;
+    this.commonService.getPaginatedBrands(paginater).subscribe((data: any) => {
+      this.brands = data.brands;
       this.paginater.totalPages = data.pages;
-      this.nbOfCategories = data.nbOfItems;
+      this.nbOfBrands = data.nbOfItems;
       this.basePageOptions.loading = false;
     })
   }
-
   searchItem(str: string) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
-      this.categories = [];
-      this.commonService.searchCategories(this.paginater).subscribe((data: any) => {
-        this.categories = data.categories;
+      this.brands = [];
+      this.commonService.searchBrands(this.paginater).subscribe((data: any) => {
+        this.brands = data.brands;
         this.paginater.totalPages = data.pages;
-        this.nbOfCategories = data.nbOfItems;
+        this.nbOfBrands = data.nbOfItems;
         this.basePageOptions.loading = false;
       })
     } else {
-      this.getCategories(this.paginater);
+      this.getBrands(this.paginater);
     }
   }
-  deleteCategory(id: number) {
-    this.commonService.deleteCategory(id).subscribe(res => {
-      this.categories = this.categories.filter(item => item.id !== id);
-      console.log('Category deleted successfully!');
+
+  deleteBrand(id: number) {
+    this.commonService.deleteBrand(id).subscribe(res => {
+      if (res.success) {
+        this.brands = this.brands.filter(item => item.id !== id);
+      }
+      console.log(res.message);
+
     })
   }
-
 
 
 }

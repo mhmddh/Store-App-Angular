@@ -2,10 +2,10 @@
     <mat-toolbar color="primary">
         <div class="container">
             <div class="row">
-                <div class="col-md-3"> <a href="/products">Products</a></div>
-                <div class="col-md-3"> <a href="/categories">Categories</a></div>
-                <div class="col-md-3"><a href="/brands">Brands</a></div>
-                <div class="col-md-3"><a href="/user/{{ user.id }}">
+                <div class="col-md-3"> <a href="admin/products">Products</a></div>
+                <div class="col-md-3"> <a href="admin/categories">Categories</a></div>
+                <div class="col-md-3"><a href="admin/brands">Brands</a></div>
+                <div class="col-md-3"><a href="admin/user/{{ user.id }}">
                         <fa-icon [icon]="faUser"></fa-icon> {{ user.name }}
                     </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
                         (click)="Logout()">Logout</button>

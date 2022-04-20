@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
-import { Product, BasePage, Paginater } from '../../../common/models/model'
+import { CommonService } from 'src/app/services/common.service';
+import { Product, BasePage, Paginater } from 'src/app/common/models/model'
 
 @Component({
   selector: 'app-index',
@@ -11,7 +11,7 @@ export class ProductPageListComponent implements OnInit {
   products: Product[] = [];
   basePageOptions: BasePage = {
     title: 'Products',
-    routeUrl: 'create-product',
+    routeUrl: 'admin/products/create-product',
     routeTitle: 'Create New Product',
     loading: true,
   }

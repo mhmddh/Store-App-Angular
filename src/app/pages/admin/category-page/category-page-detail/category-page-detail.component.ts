@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Category, BasePage } from '../../../common/models/model';
+import { Category, BasePage } from 'src/app/common/models/model';
 
 @Component({
   selector: 'app-edit',
@@ -17,7 +17,7 @@ export class CategoryPageDetailComponent implements OnInit {
   };
   basePageOptions: BasePage = {
     title: '',
-    routeUrl: 'categories',
+    routeUrl: 'admin/categories',
     routeTitle: 'Back',
     loading: true,
   }
@@ -61,13 +61,13 @@ export class CategoryPageDetailComponent implements OnInit {
     if (id != null) {
       this.commonService.updateCategory(this.id, this.form.value).subscribe(res => {
         console.log('Category updated successfully!');
-        this.router.navigateByUrl('categories');
+        this.router.navigateByUrl('admin/categories');
       })
     } else {
       this.commonService.createCategory(this.form.value).subscribe(res => {
         console.log(res);
       })
-      this.router.navigateByUrl('categories');
+      this.router.navigateByUrl('admin/categories');
     }
 
   }

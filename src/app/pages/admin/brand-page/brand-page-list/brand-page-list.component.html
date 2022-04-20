@@ -18,7 +18,7 @@
                     <!-- <img *ngIf="brand.image?.length==0"  style="max-width: 50px;max-height: 50px;" [src]="notFound"> -->
                 </td>
                 <td>
-                    <a href="#" [routerLink]="['/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
+                    <a href="#" [routerLink]="['brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
                     <button style="margin-left:5px" type="button" (click)="deleteBrand(brand.id)"
                         class="btn btn-danger">Delete</button>
                 </td>

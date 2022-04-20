@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Brand, BasePage } from '../../../common/models/model';
+import { Brand, BasePage } from 'src/app/common/models/model';
 
 @Component({
   selector: 'app-edit',
@@ -19,7 +19,7 @@ export class BrandPageDetailComponent implements OnInit {
   };
   basePageOptions: BasePage = {
     title: 'Edit Brand',
-    routeUrl: 'brands',
+    routeUrl: 'admin/brands',
     routeTitle: 'Back',
     loading: true,
   }
@@ -92,7 +92,7 @@ export class BrandPageDetailComponent implements OnInit {
       this.commonService.updateBrand(this.id, this.form.value).subscribe(res => {
         console.log(res);
         this.uploadService(this.id, this.formData);
-        this.router.navigate(['brands'])
+        this.router.navigate(['admin/brands'])
           .then(() => {
             window.location.reload();
           });
@@ -101,7 +101,7 @@ export class BrandPageDetailComponent implements OnInit {
       this.commonService.createBrand(this.form.value).subscribe(res => {
         this.id = res.brand_id;
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('brands');
+        this.router.navigateByUrl('admin/brands');
       })
     }
 

@@ -1,8 +1,8 @@
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonService } from '../../services/common.service';
-import { User, BasePage } from '../../common/models/model'
+import { CommonService } from 'src/app/services/common.service';
+import { User, BasePage } from 'src/app/common/models/model'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Validation from 'src/app/providers/validation';
 @Component({
@@ -20,7 +20,7 @@ export class UserPageComponent implements OnInit {
   isChanged = false;
   basePageOptions: BasePage = {
     title: 'Mohamad Daher',
-    routeUrl: 'products',
+    routeUrl: 'admin/products',
     routeTitle: 'Back',
     loading: true,
     currentPage: 1,
@@ -69,7 +69,7 @@ export class UserPageComponent implements OnInit {
   submit() {
     this.commonService.updateUser(this.id, this.form.value).subscribe(res => {
       console.log(res);
-      this.router.navigateByUrl('products');
+      this.router.navigateByUrl('admin/products');
     })
   }
 
