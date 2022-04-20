@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { User, BasePage } from 'src/app/common/models/model'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Validation from 'src/app/providers/validation';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-user',
   templateUrl: './user-page.component.html',
@@ -31,7 +32,8 @@ export class UserPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private location:Location
   ) { }
 
   ngAfterViewChecked() {
@@ -40,9 +42,14 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idUser'];
-    this.commonService.getUserDetails(this.id).subscribe((data: User) => {
-      this.user = data;
-      this.basePageOptions.loading = false;
+    this.commonService.getUserDetails(this.id).subscribe((data: any) => {
+      if(data.success){
+        this.user = data.user;
+        this.basePageOptions.loading = false;
+      }else{
+        console.log(data.message);
+        this.location.back();
+      }
     });
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),

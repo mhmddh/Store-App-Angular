@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product, Brand, Category, BasePage } from 'src/app/common/models/model';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -28,12 +29,15 @@ export class ProductPageDetailComponent implements OnInit {
     routeTitle: 'Back',
     loading: true,
   }
+  isCarouselDisplayed = false;
+  openedImageIndex!: number;
   faTrash = faTrash;
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private location: Location
   ) { }
 
   ngAfterViewChecked() {
@@ -49,14 +53,20 @@ export class ProductPageDetailComponent implements OnInit {
       this.brands = data;
     })
     if (this.id) {
-      this.commonService.findProduct(this.id).subscribe((data: Product) => {
-        this.product = data;
-        var ids: string[] = Object.keys(data.images || []);
-        var values: string[] = Object.values(data.images || []);
-        this.images = values;
-        this.images_ids = ids;
-        this.basePageOptions.title = 'Edit Product';
-        this.basePageOptions.loading = false;
+      this.commonService.findProduct(this.id).subscribe((data: any) => {
+        if (data.success) {
+          this.product = data.product;
+          var ids: string[] = Object.keys(data.product.images || []);
+          var values: string[] = Object.values(data.product.images || []);
+          this.images = values;
+          this.images_ids = ids;
+          this.basePageOptions.title = 'Edit Product';
+          this.basePageOptions.loading = false;
+        } else {
+          console.log(data.message);
+          this.location.back();
+        }
+
       });
     }
     else {
@@ -114,8 +124,13 @@ export class ProductPageDetailComponent implements OnInit {
     }
   }
 
-  viewImage(event: any) {
+  openCarousel(index: number) {
+    this.openedImageIndex = index;
+    this.isCarouselDisplayed = true;
+  }
 
+  closeCarousel() {
+    this.isCarouselDisplayed = false;
   }
 
   hoverImage(event: any) {

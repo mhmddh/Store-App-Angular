@@ -3,6 +3,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Brand, BasePage } from 'src/app/common/models/model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +28,8 @@ export class BrandPageDetailComponent implements OnInit {
     public commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private location: Location
   ) { }
 
   ngAfterViewChecked() {
@@ -37,9 +39,14 @@ export class BrandPageDetailComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idBrand'];
     if (this.id) {
-      this.commonService.findBrand(this.id).subscribe((data: Brand) => {
-        this.brand = data;
-        this.basePageOptions.loading = false;
+      this.commonService.findBrand(this.id).subscribe((data: any) => {
+        if (data.success) {
+          this.brand = data.brand;
+          this.basePageOptions.loading = false;
+        } else {
+          console.log(data.message);
+          this.location.back();
+        }
       });
       this.basePageOptions.title = 'Edit Brand';
     } else {

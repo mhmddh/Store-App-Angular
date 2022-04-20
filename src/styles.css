@@ -78,19 +78,35 @@ app-spinner mat-progress-spinner circle {
   margin-top: 10px;
 }
 
-.product-gallery div{
+.product-gallery div {
   position: relative;
 }
-.product-gallery span{
+.product-gallery span {
   position: absolute;
   z-index: 10;
   display: none;
   right: 5px;
 }
-.product-gallery span button{
+.product-gallery span button {
   border: 0;
   color: red;
   background-color: white;
 }
 
+app-carousel .carousel-inner {
+  background-color: #aed6dc;
+}
+app-carousel .close-btn {
+position: relative;
+color: black;
+float: right;
+text-decoration: none;
+z-index: 10;
+padding-bottom: 5px;
+}
+
+app-carousel .close-btn:hover {
+cursor: pointer;
+opacity: 0.7;
+}
 

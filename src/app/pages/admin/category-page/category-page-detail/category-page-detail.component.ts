@@ -3,6 +3,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Category, BasePage } from 'src/app/common/models/model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -25,21 +26,27 @@ export class CategoryPageDetailComponent implements OnInit {
     public commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private location: Location
   ) { }
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
   }
-  
+
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['idCategory'];
     if (this.id) {
-      this.commonService.findCategory(this.id).subscribe((data: Category) => {
-        this.category = data;
-        this.basePageOptions.title = 'Edit Category'
-        this.basePageOptions.loading = false;
+      this.commonService.findCategory(this.id).subscribe((data: any) => {
+        if (data.success) {
+          this.category = data;
+          this.basePageOptions.title = 'Edit Category'
+          this.basePageOptions.loading = false;
+        } else {
+          console.log(data.message);
+          this.location.back();
+        }
       });
     } else {
       this.category = <Category>{};

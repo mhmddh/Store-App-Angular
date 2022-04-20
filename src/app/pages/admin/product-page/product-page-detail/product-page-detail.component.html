@@ -2,7 +2,7 @@
     <div class="container">
         <hr>
 
-        <form [formGroup]="form" (ngSubmit)="submit(id)">
+        <form [formGroup]="form" (ngSubmit)="submit(id)" *ngIf="!isCarouselDisplayed">
 
 
             <div class="form-group row">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="product-gallery">
-                        <div *ngFor='let url of images;let i = index' (mouseover)="hoverImage($event)"
+                        <div *ngFor='let url of images;let i = index' (click)="openCarousel(i)" (mouseover)="hoverImage($event)"
                             (mouseleave)="unhoverImage($event)">
                             <span><button (click)="removeImage(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
@@ -81,6 +81,7 @@
             <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
             <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
         </form>
+        <app-carousel *ngIf="isCarouselDisplayed" [images]="images" [index]="openedImageIndex" (closeEvent)="closeCarousel()"></app-carousel>
     </div>
 
 </base-page>

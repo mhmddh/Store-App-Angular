@@ -64,7 +64,7 @@ export class CommonService {
       )
   }
 
-  findBrand(id: number): Observable<Brand> {
+  findBrand(id: number): Observable<any> {
     return this.httpClient.get<Brand>(this.apiURL + '/edit-brand/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -115,7 +115,7 @@ export class CommonService {
       )
   }
 
-  findProduct(id: number): Observable<Product> {
+  findProduct(id: number): Observable<any> {
     return this.httpClient.get<Product>(this.apiURL + '/edit-product/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -192,7 +192,7 @@ export class CommonService {
       )
   }
 
-  getUserDetails(id: number) {
+  getUserDetails(id: number): Observable<any>{
     return this.httpClient.get<User>(this.apiURL + '/user/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)

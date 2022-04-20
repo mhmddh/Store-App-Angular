@@ -1,0 +1,8 @@
+<a class="close-btn" (click)="closeCarousel()">X</a>
+<ngb-carousel #myCarousel activeId="{{ index }}" *ngIf="images">
+  <ng-template *ngFor="let img of images;let i=index" id="{{ i }}" ngbSlide>
+    <div style="display: flex;justify-content: center;" class="picsum-img-wrapper">
+      <img width="auto" height="400px" [src]="img" alt="Random first slide">
+    </div>
+  </ng-template>
+</ngb-carousel>
