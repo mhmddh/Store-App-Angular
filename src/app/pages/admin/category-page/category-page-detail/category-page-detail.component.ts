@@ -40,7 +40,7 @@ export class CategoryPageDetailComponent implements OnInit {
     if (this.id) {
       this.commonService.findCategory(this.id).subscribe((data: any) => {
         if (data.success) {
-          this.category = data;
+          this.category = data.category;
           this.basePageOptions.title = 'Edit Category'
           this.basePageOptions.loading = false;
         } else {

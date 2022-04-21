@@ -78,7 +78,7 @@ app-spinner mat-progress-spinner circle {
   margin-top: 10px;
 }
 
-.product-gallery div {
+.product-gallery a {
   position: relative;
 }
 .product-gallery span {

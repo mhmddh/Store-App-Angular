@@ -1,5 +1,5 @@
 <base-page [options]="basePageOptions">
-    <div class="container">
+    <div>
         <hr>
 
         <form [formGroup]="form" (ngSubmit)="submit(id)" *ngIf="!isCarouselDisplayed">
@@ -67,21 +67,22 @@
                 </div>
                 <div class="col-md-6">
                     <div class="product-gallery">
-                        <div *ngFor='let url of images;let i = index' (click)="openCarousel(i)" (mouseover)="hoverImage($event)"
-                            (mouseleave)="unhoverImage($event)">
+                        <a role="button" *ngFor='let url of images;let i = index' (click)="openCarousel(i)"
+                            (mouseover)="hoverImage($event)" (mouseleave)="unhoverImage($event)">
                             <span><button (click)="removeImage(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button></span>
                             <img [src]="url" height="50" width="100px" style="margin: 3px;">
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <button *ngIf="id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
-            <button *ngIf="!id" class=" btn btn-primary" type="submit" [disabled]="!form.valid">Create</button>
+            <button *ngIf="id" class=" btn btn-success" type="submit" [disabled]="!form.valid">Update</button>
+            <button *ngIf="!id" class=" btn btn-success" type="submit" [disabled]="!form.valid">Create</button>
         </form>
-        <app-carousel *ngIf="isCarouselDisplayed" [images]="images" [index]="openedImageIndex" (closeEvent)="closeCarousel()"></app-carousel>
+        <app-carousel *ngIf="isCarouselDisplayed" [images]="images" [index]="openedImageIndex"
+            (closeEvent)="closeCarousel()"></app-carousel>
     </div>
 
 </base-page>

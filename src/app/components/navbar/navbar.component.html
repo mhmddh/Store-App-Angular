@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info" style="margin-bottom: 10px;">
     <div class="container-fluid">
-        <a class="navbar-brand">StoreApp</a>
+        <a class="navbar-brand">StoreApp <fa-icon [icon]="faCartShopping"></fa-icon></a>
         <button class="navbar-toggler" type="button" (click)="toggleNavbar = !toggleNavbar" data-mdb-toggle="collapse"
             data-mdb-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
             <fa-icon [icon]="faBars"></fa-icon>
@@ -27,7 +27,8 @@
                         <fa-icon [icon]="faUser"></fa-icon>
                     </a>
                     <ul #dropDown [ngStyle]="{'display':isDisplayed ? 'block' : (isDisplayed ? 'none' : null)}"
-                        mdbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="position: absolute;">
+                        mdbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                        style="position: absolute;right: 0!important;left: auto;">
                         <li>
                             <a class="dropdown-item" href="admin/user/{{ user.id }}">{{ user.name }}</a>
                         </li>

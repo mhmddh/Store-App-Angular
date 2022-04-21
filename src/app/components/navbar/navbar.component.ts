@@ -1,8 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser,faBars,faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/common/models/model';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +11,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 export class NavbarComponent implements OnInit {
   faUser = faUser;
   faBars = faBars;
+  faCartShopping = faCartShopping;
   activeTab: string = '';
   isDisplayed = false;
   toggleNavbar = true;

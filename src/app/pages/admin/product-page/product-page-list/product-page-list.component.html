@@ -19,7 +19,7 @@
                 <td>{{ product.category }}</td>
                 <td><img style="max-width: 100px;max-height: 100px;" [src]="product.brand_image"></td>
                 <td>{{ product.created_at }}</td>
-                <td>
+                <td style="display: flex;">
                     <a href="#" [routerLink]="['/admin/product/', 'edit', product.id  ]" class="btn btn-primary">Edit</a>
                     <button style="margin-left:5px" type="button" (click)="deleteProduct(product.id)"
                         class="btn btn-danger">Delete</button>
