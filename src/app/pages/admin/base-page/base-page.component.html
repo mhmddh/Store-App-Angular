@@ -1,19 +1,5 @@
 <section *ngIf="options.loading === false">
-    <mat-toolbar color="primary">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3"> <a href="admin/products">Products</a></div>
-                <div class="col-md-3"> <a href="admin/categories">Categories</a></div>
-                <div class="col-md-3"><a href="admin/brands">Brands</a></div>
-                <div class="col-md-3"><a href="admin/user/{{ user.id }}">
-                        <fa-icon [icon]="faUser"></fa-icon> {{ user.name }}
-                    </a><button type="button" class="float-right btn btn-outline-danger btn-sm"
-                        (click)="Logout()">Logout</button>
-                </div>
-            </div>
-        </div><br>
-    </mat-toolbar>
-    <br>
+    <app-navbar [user]="user" (logoutEvent)="logout()"></app-navbar>
     <div class="d-flex justify-content-between">
 
         <h4>{{ options.title }}</h4>
@@ -42,13 +28,18 @@
         </div>
         <div class="form-group">
             <label>{{ nbofItems }} results</label>
-            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
-                name="searchStr" (keyup)="searchItem($event)">
+            <div class="search-div">
+                <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
+                    name="searchStr" (keyup)="searchItem($event)">
+                <span>
+                    <fa-icon [icon]="faSearch"></fa-icon>
+                </span>
+            </div>
         </div>
 
     </div>
 
-    <ng-content *ngIf="options.loading === false"></ng-content>
+    <ng-content></ng-content>
 
     <div class="paginator" *ngIf="paginater && paginater.totalPages > 1">
         <button (click)="previousPage()" class="btn btn-primary form-control">PREVIOUS </button>

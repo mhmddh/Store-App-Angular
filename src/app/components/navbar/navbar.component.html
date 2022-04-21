@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info" style="margin-bottom: 10px;">
+    <div class="container-fluid">
+        <a class="navbar-brand">StoreApp</a>
+        <button class="navbar-toggler" type="button" (click)="toggleNavbar = !toggleNavbar" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+            <fa-icon [icon]="faBars"></fa-icon>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" mdbCollapse [ngbCollapse]="toggleNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/products'}" aria-current="page"
+                        href="admin/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/categories'}"
+                        href="admin/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/brands'}"
+                        href="admin/brands">Brands</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li mdbDropdown class="nav-item dropdown">
+                    <a #toggleDropDown class="nav-link dropdown-toggle" (click)="toggleMenu()" role="button"
+                        mdbDropdownToggle aria-expanded="false">
+                        <fa-icon [icon]="faUser"></fa-icon>
+                    </a>
+                    <ul #dropDown [ngStyle]="{'display':isDisplayed ? 'block' : (isDisplayed ? 'none' : null)}"
+                        mdbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="position: absolute;">
+                        <li>
+                            <a class="dropdown-item" href="admin/user/{{ user.id }}">{{ user.name }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="" (click)="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

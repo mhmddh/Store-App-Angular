@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser,faSearch } from '@fortawesome/free-solid-svg-icons';
 import { BasePage, Paginater, Spinner, User } from 'src/app/common/models/model'
 import { Output, EventEmitter } from '@angular/core';
 
@@ -23,6 +23,7 @@ export class BasePageComponent implements OnInit {
 
   user: User = {};
   faUser = faUser;
+  faSearch = faSearch;
   searchStr: string = '';
   spinnerAttributes: Spinner = {
     strokeWidth: 3,
@@ -41,7 +42,7 @@ export class BasePageComponent implements OnInit {
     this.user = JSON.parse(userObject);
   }
 
-  Logout() {
+  logout() {
     this.authService.logout();
   }
 

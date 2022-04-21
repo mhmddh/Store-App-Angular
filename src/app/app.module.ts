@@ -23,6 +23,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AuthService } from './services/auth.service';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   imports: [
@@ -34,7 +37,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatToolbarModule,
     FontAwesomeModule,
     MatProgressSpinnerModule,
-    NgbModule
+    NgbModule,
+    MatIconModule, // <-- here
+
 
   ],
   declarations: [
@@ -50,6 +55,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BasePageComponent,
     SpinnerComponent,
     CarouselComponent,
+    NavbarComponent,
   ],
   providers: [CommonService, AuthGuard, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   // providers: [CommonService, AuthGuard],
