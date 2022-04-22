@@ -15,11 +15,10 @@
                 <td>{{ brand.name }}</td>
                 <td><img *ngIf="brand.image" style="max-width: 50px;max-height: 50px;" [src]="brand.image"
                         onerror="this.src='../../assets/images/not-found.svg'">
-                    <!-- <img *ngIf="brand.image?.length==0"  style="max-width: 50px;max-height: 50px;" [src]="notFound"> -->
                 </td>
                 <td style="display: flex;">
                     <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
-                    <button style="margin-left:5px" type="button" (click)="deleteBrand(brand.id)"
+                    <button style="margin-left:5px" type="button" (click)="openModal(brand.id,brand.name)"
                         class="btn btn-danger">Delete</button>
                 </td>
             </tr>

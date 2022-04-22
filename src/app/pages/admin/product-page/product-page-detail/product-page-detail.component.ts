@@ -32,6 +32,9 @@ export class ProductPageDetailComponent implements OnInit {
   isCarouselDisplayed = false;
   openedImageIndex!: number;
   faTrash = faTrash;
+  BrandImgUrl = '';
+  brand_imgs = new Map();
+
   constructor(
     public commonService: CommonService,
     private route: ActivatedRoute,
@@ -51,6 +54,9 @@ export class ProductPageDetailComponent implements OnInit {
     })
     this.commonService.getAllBrands().subscribe((data: any) => {
       this.brands = data;
+      for (let i = 0; i < this.brands.length; i++) {
+        this.brand_imgs.set(this.brands[i].id, this.brands[i].image);
+      }
     })
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: any) => {
@@ -60,6 +66,7 @@ export class ProductPageDetailComponent implements OnInit {
           var values: string[] = Object.values(data.product.images || []);
           this.images = values;
           this.images_ids = ids;
+          this.BrandImgUrl = data.product.brand_image;
           this.basePageOptions.title = 'Edit Product';
           this.basePageOptions.loading = false;
         } else {
@@ -122,6 +129,11 @@ export class ProductPageDetailComponent implements OnInit {
         this.router.navigateByUrl('admin/products');
       })
     }
+  }
+
+  changeBrand(event: any) {
+    let brand_id = +event.target.value;
+    this.BrandImgUrl = this.brand_imgs.get(brand_id);
   }
 
   openCarousel(index: number) {

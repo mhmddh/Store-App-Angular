@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
-import { Product, BasePage, Paginater } from 'src/app/common/models/model'
-
+import { Product, BasePage, Paginater, Modal } from 'src/app/common/models/model'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 @Component({
   selector: 'app-index',
   templateUrl: './product-page-list.component.html',
@@ -9,6 +11,8 @@ import { Product, BasePage, Paginater } from 'src/app/common/models/model'
 })
 export class ProductPageListComponent implements OnInit {
   products: Product[] = [];
+  faTrash = faTrash;
+  faPencil = faPencil;
   basePageOptions: BasePage = {
     title: 'Products',
     routeUrl: 'admin/products/create-product',
@@ -23,7 +27,9 @@ export class ProductPageListComponent implements OnInit {
     searchKey: 'Name',
   }
   nbOfProducts: number = 0;
-  constructor(public commonService: CommonService) { }
+  modalItem!: Modal;
+  constructor(public commonService: CommonService, private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
     this.setDefaultLimit(10);
@@ -138,6 +144,20 @@ export class ProductPageListComponent implements OnInit {
     })
   }
 
+  openModal(id: number,name:any) {
+    this.modalItem = {
+      itemId: id,
+      title: 'Delete Product',
+      text: 'Are you sure you want to delete '+name+' Product ?',
+      buttonLabel: 'Delete'
+    }
+    const modalRef = this.modalService.open(ActionModalComponent);
+    modalRef.componentInstance.modal = this.modalItem;
+    modalRef.componentInstance.deleteEvent.subscribe((id: number) => {
+      this.deleteProduct(id);
+      modalRef.componentInstance.closeModal();
+    });
+  }
 
 
 

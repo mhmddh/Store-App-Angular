@@ -1,6 +1,6 @@
-<base-page [nbofItems]="nbOfCategories" [options]="basePageOptions" [paginater]="paginater" (itemsPerPage)="changeLimit($event)" 
-(sortByFilter)="sortBy($event)" (searchForItem)="searchItem($event)"
-(prevPaginater)="previousPage()" (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
+<base-page [nbofItems]="nbOfCategories" [options]="basePageOptions" [paginater]="paginater"
+    (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)" (searchForItem)="searchItem($event)"
+    (prevPaginater)="previousPage()" (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
 
     <section>
 
@@ -15,8 +15,9 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]" class="btn btn-primary">Edit</a>
-                    <button style="margin-left:5px" type="button" (click)="deleteCategory(category.id)"
+                    <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]"
+                        class="btn btn-primary">Edit</a>
+                    <button style="margin-left:5px" type="button" (click)="openModal(category.id,category.name)"
                         class="btn btn-danger">Delete</button>
                 </td>
             </tr>

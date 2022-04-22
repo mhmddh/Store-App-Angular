@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
-import { Brand, BasePage, Paginater } from 'src/app/common/models/model';
+import { Brand, BasePage, Paginater, Modal } from 'src/app/common/models/model';
+import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
@@ -21,9 +23,10 @@ export class BrandPageListComponent implements OnInit {
     sortParameters: ['Date', 'ASC'],
     searchKey: 'Name',
   }
+  modalItem: Modal = {};
   nbOfBrands: number = 0;
 
-  constructor(public commonService: CommonService) { }
+  constructor(public commonService: CommonService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setDefaultLimit(10);
@@ -130,6 +133,21 @@ export class BrandPageListComponent implements OnInit {
       console.log(res.message);
 
     })
+  }
+
+  openModal(id: number,name:any) {
+    this.modalItem = {
+      itemId: id,
+      title: 'Delete Brand',
+      text: 'Are you sure you want to delete '+name+' Brand ?',
+      buttonLabel: 'Delete'
+    }
+    const modalRef = this.modalService.open(ActionModalComponent);
+    modalRef.componentInstance.modal = this.modalItem;
+    modalRef.componentInstance.deleteEvent.subscribe((id: number) => {
+      this.deleteBrand(id);
+      modalRef.componentInstance.closeModal();
+    });
   }
 
 

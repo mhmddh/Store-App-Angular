@@ -11,7 +11,6 @@ import { Product, Brand, Category, User, Paginater } from '../common/models/mode
 })
 export class CommonService {
   private apiURL = "//127.0.0.1:8000/api";
-  private user!: any;
 
   httpOptions = {
     headers: new HttpHeaders({

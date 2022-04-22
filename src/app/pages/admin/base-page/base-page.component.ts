@@ -25,10 +25,7 @@ export class BasePageComponent implements OnInit {
   faUser = faUser;
   faSearch = faSearch;
   searchStr: string = '';
-  spinnerAttributes: Spinner = {
-    strokeWidth: 3,
-    class: "custom-spinner",
-  }
+ 
   constructor(public commonService: CommonService, public authService: AuthService) { }
 
 

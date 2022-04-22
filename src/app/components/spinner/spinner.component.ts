@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Spinner } from 'src/app/common/models/model';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 @Component({
@@ -8,7 +8,6 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 })
 export class SpinnerComponent implements OnInit {
   faCartShopping = faCartShopping;
-  @Input() attributes!: Spinner;
 
   constructor() { }
 

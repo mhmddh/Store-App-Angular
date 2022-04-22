@@ -51,6 +51,14 @@ export interface BasePage {
     // sortParameters?: Array<string>;
 }
 
+export interface Modal {
+    itemId?: number;
+    itemName?:string;
+    title?:string;
+    text?:string;
+    buttonLabel?:string;
+}
+
 export interface Paginater {
     limit: number;
     currentPage: number;

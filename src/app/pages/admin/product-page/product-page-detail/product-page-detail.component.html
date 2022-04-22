@@ -42,20 +42,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-4">
                     <label for="title">Brand:</label>
                     <select [(ngModel)]="product.brand_id" formControlName="brand" id="brand" class="form-control"
-                        [ngClass]="{'is-valid':f.brand.valid ,'is-invalid': f.brand.invalid }">
-                        >
+                        [ngClass]="{'is-valid':f.brand.valid ,'is-invalid': f.brand.invalid }"
+                        (change)="changeBrand($event)">
                         <option *ngIf="id == null" [ngValue]="undefined" selected>Select Brand</option>
                         <option *ngFor="let brand of brands" [value]="brand.id">{{
-                            brand.name }}</option>
+                            brand.name }}
+                        </option>
                     </select>
                     <div *ngIf="f.brand.invalid  && (f.brand.dirty || f.brand.touched)" class="invalid-feedback">
                         <div *ngIf="f.brand.errors?.required">
                             Product Brand is Required.
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <span *ngIf="BrandImgUrl"><img style="height: 100px;width: 100px;padding: 10px;" [src]="BrandImgUrl" 
+                        onerror="this.src='../../assets/images/not-found.svg'"></span>
                 </div>
                 <div class="col-md-6">
                     <label for="file">Gallery:</label>

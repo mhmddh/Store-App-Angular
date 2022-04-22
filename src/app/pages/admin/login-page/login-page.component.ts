@@ -15,10 +15,7 @@ export class LoginPageComponent implements OnInit {
     isCorrect = true;
     loginsubmitted = false;
     loading = false;
-    spinnerAttributes: Spinner = {
-        strokeWidth: 3,
-        class: "custom-spinner",
-    }
+
     constructor(public authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
