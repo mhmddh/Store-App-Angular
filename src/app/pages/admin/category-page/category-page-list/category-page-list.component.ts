@@ -3,6 +3,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { Category, BasePage, Paginater, Modal } from 'src/app/common/models/model';
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-index',
   templateUrl: './category-page-list.component.html',
@@ -25,6 +27,8 @@ export class CategoryPageListComponent implements OnInit {
   }
   modalItem: Modal = {};
   nbOfCategories: number = 0;
+  faTrash = faTrash;
+  faPencil = faPencil;
   constructor(public commonService: CommonService, private modalService: NgbModal) { }
   ngOnInit(): void {
     this.setDefaultLimit(10);
@@ -135,12 +139,12 @@ export class CategoryPageListComponent implements OnInit {
     })
   }
 
-  openModal(id: number,name:any) {
+  openModal(id: number, name: any) {
     this.modalItem = {
       itemId: id,
-      itemName:name,
+      itemName: name,
       title: 'Delete Category',
-      text: 'Are you sure you want to delete '+name+' this Category ?',
+      text: 'Are you sure you want to delete ' + name + ' this Category ?',
       buttonLabel: 'Delete'
     }
     const modalRef = this.modalService.open(ActionModalComponent);

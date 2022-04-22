@@ -17,9 +17,13 @@
                         onerror="this.src='../../assets/images/not-found.svg'">
                 </td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]" class="btn btn-primary">Edit</a>
+                    <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]" class="btn btn-primary"> 
+                        <fa-icon [icon]="faPencil"></fa-icon>
+                    </a>
                     <button style="margin-left:5px" type="button" (click)="openModal(brand.id,brand.name)"
-                        class="btn btn-danger">Delete</button>
+                        class="btn btn-danger">
+                        <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
                 </td>
             </tr>
         </table>

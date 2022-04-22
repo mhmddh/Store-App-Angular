@@ -3,6 +3,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Brand, BasePage, Paginater, Modal } from 'src/app/common/models/model';
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons'
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
@@ -25,6 +26,8 @@ export class BrandPageListComponent implements OnInit {
   }
   modalItem: Modal = {};
   nbOfBrands: number = 0;
+  faTrash = faTrash;
+  faPencil = faPencil;
 
   constructor(public commonService: CommonService, private modalService: NgbModal) { }
 
@@ -135,11 +138,11 @@ export class BrandPageListComponent implements OnInit {
     })
   }
 
-  openModal(id: number,name:any) {
+  openModal(id: number, name: any) {
     this.modalItem = {
       itemId: id,
       title: 'Delete Brand',
-      text: 'Are you sure you want to delete '+name+' Brand ?',
+      text: 'Are you sure you want to delete ' + name + ' Brand ?',
       buttonLabel: 'Delete'
     }
     const modalRef = this.modalService.open(ActionModalComponent);
