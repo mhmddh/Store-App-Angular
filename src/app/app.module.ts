@@ -24,8 +24,9 @@ import { AuthService } from './services/auth.service';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { ActionModalComponent } from './components/modals/action-modal/action-modal.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ActionModalComponent } from './components/modals/action-modal/action-mo
     CarouselComponent,
     NavbarComponent,
     ActionModalComponent,
+    PageNotFoundComponent,
   ],
   providers: [CommonService, AuthGuard, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   // providers: [CommonService, AuthGuard],

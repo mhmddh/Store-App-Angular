@@ -32,7 +32,6 @@ export class UserPageComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private cdRef: ChangeDetectorRef,
-    private location:Location
   ) { }
 
   ngAfterViewChecked() {
@@ -47,7 +46,7 @@ export class UserPageComponent implements OnInit {
         this.basePageOptions.loading = false;
       }else{
         console.log(data.message);
-        this.location.back();
+        this.router.navigateByUrl('404');
       }
     });
     this.form = new FormGroup({

@@ -45,7 +45,7 @@ export class BrandPageDetailComponent implements OnInit {
           this.basePageOptions.loading = false;
         } else {
           console.log(data.message);
-          this.location.back();
+          this.router.navigateByUrl('404');
         }
       });
       this.basePageOptions.title = 'Edit Brand';

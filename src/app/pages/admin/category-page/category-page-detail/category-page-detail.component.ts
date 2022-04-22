@@ -27,7 +27,6 @@ export class CategoryPageDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cdRef: ChangeDetectorRef,
-    private location: Location
   ) { }
 
   ngAfterViewChecked() {
@@ -45,7 +44,7 @@ export class CategoryPageDetailComponent implements OnInit {
           this.basePageOptions.loading = false;
         } else {
           console.log(data.message);
-          this.location.back();
+          this.router.navigateByUrl('404');
         }
       });
     } else {

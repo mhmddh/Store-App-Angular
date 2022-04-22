@@ -9,6 +9,7 @@ import { ProductPageListComponent } from './pages/admin/product-page/product-pag
 import { BrandPageListComponent } from './pages/admin/brand-page/brand-page-list/brand-page-list.component';
 import { CategoryPageListComponent } from './pages/admin/category-page/category-page-list/category-page-list.component';
 import { AuthGuard } from './services/auth.guard';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'admin', component: LoginPageComponent },
@@ -23,6 +24,9 @@ const routes: Routes = [
   { path: 'admin/products/create-product', canActivate: [AuthGuard], component: ProductPageDetailComponent },
   { path: 'admin/categories', canActivate: [AuthGuard], component: CategoryPageListComponent },
   { path: 'admin/brands', canActivate: [AuthGuard], component: BrandPageListComponent },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
+  { path: '404', pathMatch: 'full', 
+        component: PageNotFoundComponent },
 ];
 
 @NgModule({
