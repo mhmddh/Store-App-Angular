@@ -1,5 +1,5 @@
 <base-page [options]="basePageOptions">
-    <h6> <button class="btn btn-success" (click)="open(content)">Change Password </button></h6>
+    <h6> <button class="btn btn-info" (click)="open(content)">Change Password </button></h6>
     <h6 class="passResult" *ngIf="isChanged"> <span>{{ passResult }}</span></h6>
     <hr>
     <section>
@@ -34,7 +34,7 @@
             </div>
 
 
-            <button class=" btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+            <button class=" btn btn-success" type="submit" [disabled]="!form.valid">Save</button>
 
 
         </form>

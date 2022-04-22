@@ -1,2 +1,8 @@
-<mat-progress-spinner strokeWidth="{{ attributes.strokeWidth }}" [class]="attributes.class" mode="indeterminate" value="50">
-</mat-progress-spinner>
+<div class="spinner-wrapper">
+    <div class="spinner-inner">
+        <mat-progress-spinner strokeWidth="{{ attributes.strokeWidth }}" mode="indeterminate" value="50">
+        </mat-progress-spinner>
+        <div style="position:relative; top: -65px;font-size: 14px;display: flex;flex-direction: column;align-items: center;">StoreApp<fa-icon [icon]="faCartShopping"></fa-icon>
+        </div>
+    </div>
+</div>
