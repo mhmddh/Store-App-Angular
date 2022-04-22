@@ -140,7 +140,7 @@ export class CategoryPageListComponent implements OnInit {
       itemId: id,
       itemName:name,
       title: 'Delete Category',
-      text: 'Are you sure you want to delete+'+name+' this Category ?',
+      text: 'Are you sure you want to delete '+name+' this Category ?',
       buttonLabel: 'Delete'
     }
     const modalRef = this.modalService.open(ActionModalComponent);
