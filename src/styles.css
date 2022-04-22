@@ -26,6 +26,7 @@ app-spinner mat-progress-spinner circle {
   margin: 0 auto;
   width: 200px;
   gap: 10px;
+  padding-bottom: 30px;
 }
 
 .login-alert {
