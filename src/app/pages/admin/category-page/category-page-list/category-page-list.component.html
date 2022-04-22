@@ -13,7 +13,7 @@
             </tr>
             <tr *ngFor="let category of categories">
                 <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
+                <td><a [routerLink]="['/admin/category/', 'edit', category.id  ]">{{ category.name }}</a></td>
                 <td style="display: flex;">
                     <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]" class="btn btn-primary">
                         <fa-icon [icon]="faPencil"></fa-icon>

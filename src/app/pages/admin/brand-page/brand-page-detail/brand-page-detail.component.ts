@@ -58,7 +58,7 @@ export class BrandPageDetailComponent implements OnInit {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      file: new FormControl('', [Validators.required]),
+      file: new FormControl('', []),
     });
   }
 

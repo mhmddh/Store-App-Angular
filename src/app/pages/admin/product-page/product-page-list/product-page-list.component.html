@@ -14,7 +14,7 @@
             </tr>
             <tr *ngFor="let product of products">
                 <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+                <td><a [routerLink]="['/admin/product/', 'edit', product.id  ]">{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 <td style="display: flex;justify-content: center;padding: 0;"><img style="max-width: 100px;max-height: 100px;"
