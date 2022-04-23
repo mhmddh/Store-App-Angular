@@ -1,15 +1,24 @@
 <base-page [nbofItems]="nbOfProducts" [options]="basePageOptions" [paginater]="paginater"
-    (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)" (searchForItem)="searchItem($event)"
-    (prevPaginater)="previousPage()" (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
+    (itemsPerPage)="changeLimit($event)" (searchForItem)="searchItem($event)" (prevPaginater)="previousPage()"
+    (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
     <section>
         <table class="table ">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th><a role="button" (click)="toggleSortBy('ID')">ID
+                    <fa-icon  [icon]="idarrowIcon"></fa-icon>
+                    </a>
+                </th>
+                <th><a  role="button" (click)="toggleSortBy('Name')">Name
+                    <fa-icon  [icon]="namearrowIcon"></fa-icon>
+                    </a>
+                </th>
                 <th>Price</th>
                 <th>Category</th>
                 <th style="display: flex;justify-content: center;">Brand</th>
-                <th>Created Date</th>
+                <th><a  role="button" (click)="toggleSortBy('Date')">Created Date
+                        <fa-icon [icon]="datearrowIcon"></fa-icon>
+                    </a>
+                </th>
                 <th width="220px">Action</th>
             </tr>
             <tr *ngFor="let product of products">
@@ -17,8 +26,8 @@
                 <td><a [routerLink]="['/admin/product/', 'edit', product.id  ]">{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
-                <td style="display: flex;justify-content: center;padding: 0;"><img style="max-width: 100px;max-height: 100px;"
-                        [src]="product.brand_image"></td>
+                <td class="product-img"><img [src]="product.brand_image">
+                </td>
                 <td>{{ product.created_at }}</td>
                 <td>
                     <a href="#" [routerLink]="['/admin/product/', 'edit', product.id  ]" class="btn btn-primary">

@@ -1,12 +1,18 @@
 <base-page [nbofItems]="nbOfBrands" [options]="basePageOptions" [paginater]="paginater"
-    (itemsPerPage)="changeLimit($event)" (sortByFilter)="sortBy($event)" (searchForItem)="searchItem($event)"
-    (prevPaginater)="previousPage()" (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
+    (itemsPerPage)="changeLimit($event)" (searchForItem)="searchItem($event)" (prevPaginater)="previousPage()"
+    (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
 
     <section>
         <table class="table ">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th><a role="button" (click)="toggleSortBy('ID')">ID
+                        <fa-icon [icon]="idarrowIcon"></fa-icon>
+                    </a>
+                </th>
+                <th><a role="button" (click)="toggleSortBy('Name')">Name
+                        <fa-icon [icon]="namearrowIcon"></fa-icon>
+                    </a>
+                </th>
                 <th>Logo</th>
                 <th width="220px">Action</th>
             </tr>
@@ -17,7 +23,7 @@
                         onerror="this.src='../../assets/images/not-found.svg'">
                 </td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]" class="btn btn-primary"> 
+                    <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]" class="btn btn-primary">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
                     <button style="margin-left:5px" type="button" (click)="openModal(brand.id,brand.name)"

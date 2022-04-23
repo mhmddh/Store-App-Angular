@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { Product, BasePage, Paginater, Modal } from 'src/app/common/models/model'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 @Component({
   selector: 'app-index',
@@ -13,6 +13,9 @@ export class ProductPageListComponent implements OnInit {
   products: Product[] = [];
   faTrash = faTrash;
   faPencil = faPencil;
+  idarrowIcon = faArrowUp;
+  datearrowIcon = faArrowUp;
+  namearrowIcon = faArrowUp;
   basePageOptions: BasePage = {
     title: 'Products',
     routeUrl: 'admin/products/create-product',
@@ -101,15 +104,34 @@ export class ProductPageListComponent implements OnInit {
     }
   }
 
-  sortBy(parameters: any) {
+  toggleSortBy(parameter: any) {
+    var ascOrder = this.paginater.sortParameters[1];
+    if (ascOrder == 'ASC') {
+      ascOrder = 'DESC';
+    } else {
+      ascOrder = 'ASC';
+    }
+    if (parameter == 'ID') {
+      if (ascOrder == 'ASC') this.idarrowIcon = faArrowUp;
+      else this.idarrowIcon = faArrowDown;
+    } else if (parameter == 'Name') {
+      if (ascOrder == 'ASC') this.namearrowIcon = faArrowUp
+      else this.namearrowIcon = faArrowDown;
+    } else {
+      if (ascOrder == 'ASC') this.datearrowIcon = faArrowUp
+      else this.datearrowIcon = faArrowDown;
+    }
+    this.paginater.sortParameters = [parameter, ascOrder];
+    this.sortBy();
+  }
+  sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.paginater.sortParameters = parameters.split(" ", 2);
       this.searchItem(this.paginater.searchValue);
     } else {
-      this.paginater.sortParameters = parameters.split(" ", 2);
       this.getProducts(this.paginater);
     }
   }
+
 
   getProducts(paginater: Paginater) {
     this.paginater.limit = Number(localStorage.getItem('limit'));
@@ -118,7 +140,6 @@ export class ProductPageListComponent implements OnInit {
       this.paginater.totalPages = data.pages;
       this.nbOfProducts = data.nbOfItems;
       this.basePageOptions.loading = false;
-
     })
   }
 
@@ -144,11 +165,11 @@ export class ProductPageListComponent implements OnInit {
     })
   }
 
-  openModal(id: number,name:any) {
+  openModal(id: number, name: any) {
     this.modalItem = {
       itemId: id,
       title: 'Delete Product',
-      text: 'Are you sure you want to delete '+name+' Product ?',
+      text: 'Are you sure you want to delete ' + name + ' Product ?',
       buttonLabel: 'Delete'
     }
     const modalRef = this.modalService.open(ActionModalComponent);

@@ -1,56 +1,47 @@
-<section *ngIf="options.loading === false">
+<ng-container *ngIf="options.loading === false">
     <app-navbar [user]="user" (logoutEvent)="logout()"></app-navbar>
-    <div class="d-flex justify-content-between">
+    <div class="main-content">
+        <div class="d-flex justify-content-between">
 
-        <h4>{{ options.title }}</h4>
+            <h4>{{ options.title }}</h4>
 
-        <a routerLink="/{{ options.routeUrl }}" class="btn btn-info">{{ options.routeTitle }}</a>
-    </div>
-    <div *ngIf="paginater" class="row" style="gap: 10px;
-    padding-left: 15px;">
-        <div class="form-group">
-            <label>Items Per Page</label>
-            <select (change)="changeLimit($event)" class="form-control">
-                <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{ i+1
-                    }}
-                </option>
-            </select>
+            <a routerLink="/{{ options.routeUrl }}" class="btn btn-info">{{ options.routeTitle }}</a>
         </div>
+        <div *ngIf="paginater" class="search-paginator">
 
-        <div class="form-group">
-            <label>Sort By</label>
-            <select (change)="sortBy($event)" class="form-control">
-                <option>Date ASC</option>
-                <option>Date DESC</option>
-                <option>Name ASC</option>
-                <option>Name DESC</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>{{ nbofItems }} results</label>
-            <div class="search-div">
-                <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr" name="searchStr"
-                    name="searchStr" (keyup)="searchItem($event)">
-                <span>
-                    <fa-icon [icon]="faSearch"></fa-icon>
-                </span>
+            <div class="row search">
+                <div class="form-group">
+                    <label>{{ nbofItems }} results</label>
+                    <div class="search-div">
+                        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr"
+                            name="searchStr" name="searchStr" (keyup)="searchItem($event)">
+                        <span>
+                            <fa-icon [icon]="faSearch"></fa-icon>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="paginator">
+                <span>Items Per Page</span>
+                <select (change)="changeLimit($event)" class="">
+                    <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{
+                        i+1
+                        }}
+                    </option>
+                </select>
+                <button (click)="previousPage()">PREVIOUS </button>
+                <select (change)="changePage($event)">
+                    <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
+                        [selected]="paginater.currentPage == i+1">{{ i+1
+                        }}</option>
+                </select>
+                <button (click)="nextPage()">NEXT</button>
             </div>
         </div>
 
+        <ng-content></ng-content>
     </div>
-
-    <ng-content></ng-content>
-
-    <div class="paginator" *ngIf="paginater && paginater.totalPages > 1">
-        <button (click)="previousPage()" class="btn btn-primary form-control">PREVIOUS </button>
-        <select (change)="changePage($event)" style="width:100px" class="form-control pager">
-            <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
-                [selected]="paginater.currentPage == i+1">{{ i+1
-                }}</option>
-        </select>
-        <button (click)="nextPage()" class="btn btn-primary form-control">NEXT</button>
-    </div>
-
-</section>
+</ng-container>
 
 <app-spinner *ngIf="options.loading === true"></app-spinner>

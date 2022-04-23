@@ -1,5 +1,5 @@
 <base-page [options]="basePageOptions">
-    <div>
+    <section>
         <hr>
 
         <form [formGroup]="form" (ngSubmit)="submit(id)" *ngIf="!isCarouselDisplayed">
@@ -59,8 +59,8 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <span *ngIf="BrandImgUrl"><img style="height: 100px;width: 100px;padding: 10px;" [src]="BrandImgUrl" 
-                        onerror="this.src='../../assets/images/not-found.svg'"></span>
+                    <span *ngIf="BrandImgUrl"><img style="height: 100px;width: 100px;padding: 10px;" [src]="BrandImgUrl"
+                            onerror="this.src='../../assets/images/not-found.svg'"></span>
                 </div>
                 <div class="col-md-6">
                     <label for="file">Gallery:</label>
@@ -88,6 +88,5 @@
         </form>
         <app-carousel *ngIf="isCarouselDisplayed" [images]="images" [index]="openedImageIndex"
             (closeEvent)="closeCarousel()"></app-carousel>
-    </div>
-
+    </section>
 </base-page>

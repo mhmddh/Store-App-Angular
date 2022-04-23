@@ -3,7 +3,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Brand, BasePage, Paginater, Modal } from 'src/app/common/models/model';
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
@@ -28,6 +28,9 @@ export class BrandPageListComponent implements OnInit {
   nbOfBrands: number = 0;
   faTrash = faTrash;
   faPencil = faPencil;
+  idarrowIcon = faArrowUp;
+  datearrowIcon = faArrowUp;
+  namearrowIcon = faArrowUp;
 
   constructor(public commonService: CommonService, private modalService: NgbModal) { }
 
@@ -95,12 +98,31 @@ export class BrandPageListComponent implements OnInit {
     }
   }
 
-  sortBy(parameters: any) {
+  
+  toggleSortBy(parameter: any) {
+    var ascOrder = this.paginater.sortParameters[1];
+    if (ascOrder == 'ASC') {
+      ascOrder = 'DESC';
+    } else {
+      ascOrder = 'ASC';
+    }
+    if (parameter == 'ID') {
+      if (ascOrder == 'ASC') this.idarrowIcon = faArrowUp;
+      else this.idarrowIcon = faArrowDown;
+    } else if (parameter == 'Name') {
+      if (ascOrder == 'ASC') this.namearrowIcon = faArrowUp
+      else this.namearrowIcon = faArrowDown;
+    } else {
+      if (ascOrder == 'ASC') this.datearrowIcon = faArrowUp
+      else this.datearrowIcon = faArrowDown;
+    }
+    this.paginater.sortParameters = [parameter, ascOrder];
+    this.sortBy();
+  }
+  sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.paginater.sortParameters = parameters.split(" ", 2);
       this.searchItem(this.paginater.searchValue);
     } else {
-      this.paginater.sortParameters = parameters.split(" ", 2);
       this.getBrands(this.paginater);
     }
   }

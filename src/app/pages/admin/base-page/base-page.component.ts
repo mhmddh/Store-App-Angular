@@ -15,7 +15,6 @@ export class BasePageComponent implements OnInit {
   @Input() paginater!: Paginater;
   @Input() nbofItems!: number;
   @Output() itemsPerPage = new EventEmitter<any>();
-  @Output() sortByFilter = new EventEmitter<any>();
   @Output() searchForItem = new EventEmitter<any>();
   @Output() prevPaginater = new EventEmitter();
   @Output() changePaginater = new EventEmitter<any>();
@@ -62,10 +61,6 @@ export class BasePageComponent implements OnInit {
 
   changeLimit(event: any) {
     this.itemsPerPage.emit(event.target.value);
-  }
-
-  sortBy(event: any) {
-    this.sortByFilter.emit(event.target.value);
   }
 
   searchItem(event: any) {

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product, Brand, Category, BasePage } from 'src/app/common/models/model';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
