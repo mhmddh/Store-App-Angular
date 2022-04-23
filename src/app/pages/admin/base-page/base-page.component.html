@@ -30,13 +30,17 @@
                         }}
                     </option>
                 </select>
-                <button (click)="previousPage()">PREVIOUS </button>
+                <a role="button" (click)="previousPage()">
+                   <fa-icon [icon]="faArrowLeft"></fa-icon> 
+                </a>
                 <select (change)="changePage($event)">
                     <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
                         [selected]="paginater.currentPage == i+1">{{ i+1
                         }}</option>
                 </select>
-                <button (click)="nextPage()">NEXT</button>
+                <a role="button" (click)="nextPage()">
+                    <fa-icon [icon]="faArrowRight"></fa-icon> 
+                </a>
             </div>
         </div>
 
