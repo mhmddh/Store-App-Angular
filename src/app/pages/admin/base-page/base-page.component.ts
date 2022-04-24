@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { faUser, faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { BasePage, Paginater, User } from 'src/app/common/models/model'
 import { Output, EventEmitter } from '@angular/core';
 
@@ -23,8 +23,6 @@ export class BasePageComponent implements OnInit {
   user: User = {};
   faUser = faUser;
   faSearch = faSearch;
-  faArrowLeft = faArrowLeft;
-  faArrowRight = faArrowRight;
   searchStr: string = '';
 
   constructor(public commonService: CommonService, public authService: AuthService) { }

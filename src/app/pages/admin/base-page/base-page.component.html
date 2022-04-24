@@ -31,7 +31,7 @@
                     </option>
                 </select>
                 <a role="button" (click)="previousPage()">
-                   <fa-icon [icon]="faArrowLeft"></fa-icon> 
+                   Previous
                 </a>
                 <select (change)="changePage($event)">
                     <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
@@ -39,7 +39,7 @@
                         }}</option>
                 </select>
                 <a role="button" (click)="nextPage()">
-                    <fa-icon [icon]="faArrowRight"></fa-icon> 
+                    Next
                 </a>
             </div>
         </div>

@@ -90,6 +90,9 @@ app-spinner mat-progress-spinner circle {
   display: flex;
   gap: 10px;
 }
+.paginator a {
+  font-size: 10px;
+}
 
 .paginator span {
   padding-top: 5px;
