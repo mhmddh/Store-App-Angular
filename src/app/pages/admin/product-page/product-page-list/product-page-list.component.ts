@@ -45,7 +45,7 @@ export class ProductPageListComponent implements OnInit {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
         this.getProducts(this.paginater);
@@ -56,7 +56,7 @@ export class ProductPageListComponent implements OnInit {
   changePage(page: any) {
     this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
       this.getProducts(this.paginater);
@@ -67,7 +67,7 @@ export class ProductPageListComponent implements OnInit {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
         this.getProducts(this.paginater);
@@ -89,7 +89,7 @@ export class ProductPageListComponent implements OnInit {
     this.paginater.limit = Number(localStorage.getItem('limit'));
     this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
       this.getProducts(this.paginater);
@@ -126,7 +126,7 @@ export class ProductPageListComponent implements OnInit {
   }
   sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue, 1);
     } else {
       this.getProducts(this.paginater);
     }
@@ -143,9 +143,12 @@ export class ProductPageListComponent implements OnInit {
     })
   }
 
-  searchItem(str: string) {
+  searchItem(str: string, resetCurrentPage: number) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
+      if (resetCurrentPage != 1) {
+        this.resetCurrentPage();
+      }
       this.products = [];
       this.commonService.searchProducts(this.paginater).subscribe((data: any) => {
         this.products = data.products;

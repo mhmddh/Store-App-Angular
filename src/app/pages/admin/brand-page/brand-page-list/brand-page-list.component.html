@@ -1,5 +1,5 @@
 <base-page [nbofItems]="nbOfBrands" [options]="basePageOptions" [paginater]="paginater"
-    (itemsPerPage)="changeLimit($event)" (searchForItem)="searchItem($event)" (prevPaginater)="previousPage()"
+    (itemsPerPage)="changeLimit($event)" (searchForItem)="searchItem($event,0)" (prevPaginater)="previousPage()"
     (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
 
     <section>

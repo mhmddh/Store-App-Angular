@@ -42,7 +42,7 @@ export class BrandPageListComponent implements OnInit {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue,1);
       }
       else {
         this.getBrands(this.paginater);
@@ -53,7 +53,7 @@ export class BrandPageListComponent implements OnInit {
   changePage(page: any) {
     this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     }
     else {
       this.getBrands(this.paginater);
@@ -63,7 +63,7 @@ export class BrandPageListComponent implements OnInit {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue,1);
       }
       else {
         this.getBrands(this.paginater);
@@ -84,7 +84,7 @@ export class BrandPageListComponent implements OnInit {
     this.paginater.limit = Number(localStorage.getItem('limit'));
     this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     }
     else {
       this.getBrands(this.paginater);
@@ -121,7 +121,7 @@ export class BrandPageListComponent implements OnInit {
   }
   sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     } else {
       this.getBrands(this.paginater);
     }
@@ -135,10 +135,13 @@ export class BrandPageListComponent implements OnInit {
       this.basePageOptions.loading = false;
     })
   }
-  searchItem(str: string) {
+  searchItem(str: string,resetCurrentPage:number) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
       this.brands = [];
+      if(resetCurrentPage != 1){
+        this.resetCurrentPage();
+      }
       this.commonService.searchBrands(this.paginater).subscribe((data: any) => {
         this.brands = data.brands;
         this.paginater.totalPages = data.pages;

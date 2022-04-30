@@ -42,7 +42,7 @@ export class CategoryPageListComponent implements OnInit {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue,1);
       }
       else {
         this.getCategories(this.paginater);
@@ -53,7 +53,7 @@ export class CategoryPageListComponent implements OnInit {
   changePage(page: any) {
     this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     }
     else {
       this.getCategories(this.paginater);
@@ -64,7 +64,7 @@ export class CategoryPageListComponent implements OnInit {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue);
+        this.searchItem(this.paginater.searchValue,1);
       }
       else {
         this.getCategories(this.paginater);
@@ -86,7 +86,7 @@ export class CategoryPageListComponent implements OnInit {
     this.paginater.limit = Number(localStorage.getItem('limit'));
     this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     }
     else {
       this.getCategories(this.paginater);
@@ -124,7 +124,7 @@ export class CategoryPageListComponent implements OnInit {
   }
   sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue);
+      this.searchItem(this.paginater.searchValue,1);
     } else {
       this.getCategories(this.paginater);
     }
@@ -140,10 +140,13 @@ export class CategoryPageListComponent implements OnInit {
     })
   }
 
-  searchItem(str: string) {
+  searchItem(str: string,resetCurrentPage:number) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
       this.categories = [];
+      if(resetCurrentPage != 1){
+        this.resetCurrentPage();
+      }
       this.commonService.searchCategories(this.paginater).subscribe((data: any) => {
         this.categories = data.categories;
         this.paginater.totalPages = data.pages;

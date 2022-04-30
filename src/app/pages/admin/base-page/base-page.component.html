@@ -31,10 +31,11 @@
                     </option>
                 </select>
                 <a role="button" (click)="previousPage()">
-                   Previous
+                    Previous
                 </a>
                 <select (change)="changePage($event)">
-                    <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
+                    <option
+                        *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
                         [selected]="paginater.currentPage == i+1">{{ i+1
                         }}</option>
                 </select>
