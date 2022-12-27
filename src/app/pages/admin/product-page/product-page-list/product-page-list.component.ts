@@ -177,7 +177,7 @@ export class ProductPageListComponent implements OnInit {
     }
     const modalRef = this.modalService.open(ActionModalComponent);
     modalRef.componentInstance.modal = this.modalItem;
-    modalRef.componentInstance.deleteEvent.subscribe((id: number) => {
+    modalRef.componentInstance.actionEvent.subscribe((id: number) => {
       this.deleteProduct(id);
       modalRef.componentInstance.closeModal();
     });

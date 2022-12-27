@@ -174,7 +174,7 @@ export class CategoryPageListComponent implements OnInit {
     }
     const modalRef = this.modalService.open(ActionModalComponent);
     modalRef.componentInstance.modal = this.modalItem;
-    modalRef.componentInstance.deleteEvent.subscribe((id: number) => {
+    modalRef.componentInstance.actionEvent.subscribe((id: number) => {
       this.deleteCategory(id);
       modalRef.componentInstance.closeModal();
     });

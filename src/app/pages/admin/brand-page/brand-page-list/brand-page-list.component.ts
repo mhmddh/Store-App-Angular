@@ -172,7 +172,7 @@ export class BrandPageListComponent implements OnInit {
     }
     const modalRef = this.modalService.open(ActionModalComponent);
     modalRef.componentInstance.modal = this.modalItem;
-    modalRef.componentInstance.deleteEvent.subscribe((id: number) => {
+    modalRef.componentInstance.actionEvent.subscribe((id: number) => {
       this.deleteBrand(id);
       modalRef.componentInstance.closeModal();
     });
