@@ -1,10 +1,9 @@
-import { User } from './../../../.history/src/app/common/models/model_20220413231518';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { LoginResponse } from '../common/models/model'
+import { LoginResponse, User } from '../common/models/model'
 
 
 @Injectable({
