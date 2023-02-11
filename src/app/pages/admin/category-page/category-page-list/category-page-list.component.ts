@@ -8,7 +8,7 @@ import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-sol
 @Component({
   selector: 'app-index',
   templateUrl: './category-page-list.component.html',
-  styleUrls: ['./category-page-list.component.css']
+  styleUrls: ['./category-page-list.component.scss']
 })
 export class CategoryPageListComponent implements OnInit {
   categories: Category[] = [];

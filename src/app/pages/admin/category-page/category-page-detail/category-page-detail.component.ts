@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit',
   templateUrl: './category-page-detail.component.html',
-  styleUrls: ['./category-page-detail.component.css']
+  styleUrls: ['./category-page-detail.component.scss']
 })
 export class CategoryPageDetailComponent implements OnInit {
   id!: number;

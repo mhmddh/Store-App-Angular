@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit',
   templateUrl: './brand-page-detail.component.html',
-  styleUrls: ['./brand-page-detail.component.css']
+  styleUrls: ['./brand-page-detail.component.scss']
 })
 export class BrandPageDetailComponent implements OnInit {
   id!: number;

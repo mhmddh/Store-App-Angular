@@ -22,7 +22,7 @@
                 <th width="220px">Action</th>
             </tr>
             <tr *ngFor="let product of products">
-                <td>{{ product.id }}</td>
+                <td class="item-id">{{ product.id }}</td>
                 <td><a [routerLink]="['/admin/product/', 'edit', product.id  ]">{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
@@ -30,13 +30,12 @@
                 </td>
                 <td>{{ product.created_at }}</td>
                 <td>
-                    <a href="#" [routerLink]="['/admin/product/', 'edit', product.id  ]" class="btn btn-primary">
+                    <a href="#" [routerLink]="['/admin/product/', 'edit', product.id  ]">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
-                    <button style="margin-left:5px" type="button" (click)="openModal(product.id,product.name)"
-                        class="btn btn-danger">
+                    <a style="margin-left:5px" (click)="openModal(product.id,product.name)" role="button">
                         <fa-icon [icon]="faTrash"></fa-icon>
-                    </button>
+                    </a>
                 </td>
             </tr>
         </table>

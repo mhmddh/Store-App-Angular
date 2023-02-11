@@ -1,3 +1,4 @@
+import { FormControl } from "@angular/forms";
 
 export interface LoginResponse {
     data: any;
@@ -53,10 +54,10 @@ export interface BasePage {
 
 export interface Modal {
     itemId?: number;
-    itemName?:string;
-    title?:string;
-    text?:string;
-    buttonLabel?:string;
+    itemName?: string;
+    title?: string;
+    text?: string;
+    buttonLabel?: string;
 }
 
 export interface Paginater {
@@ -72,3 +73,8 @@ export interface Spinner {
     strokeWidth: number;
     class: string;
 }
+
+// export interface FormModel {
+//     email: FormControl<string | null>;
+//     password: FormControl<string | null>;
+// }

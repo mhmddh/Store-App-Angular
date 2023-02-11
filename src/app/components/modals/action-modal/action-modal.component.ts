@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'action-modal',
   templateUrl: './action-modal.component.html',
-  styleUrls: ['./action-modal.component.css']
+  styleUrls: ['./action-modal.component.scss']
 })
 export class ActionModalComponent implements OnInit {
   @Input() public modal: Modal = {};

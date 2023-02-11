@@ -27,6 +27,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ActionModalComponent } from './components/modals/action-modal/action-modal.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     FontAwesomeModule,
     MatProgressSpinnerModule,
     NgbModule,
-    MatIconModule, // <-- here
+    MatIconModule,
+    BrowserAnimationsModule, // <-- here
 
 
   ],

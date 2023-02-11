@@ -8,7 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-edit',
   templateUrl: './product-page-detail.component.html',
-  styleUrls: ['./product-page-detail.component.css']
+  styleUrls: ['./product-page-detail.component.scss']
 })
 export class ProductPageDetailComponent implements OnInit {
   id!: number;

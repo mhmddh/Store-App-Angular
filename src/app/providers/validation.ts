@@ -4,7 +4,7 @@ export default class Validation {
     return (controls: AbstractControl) => {
       const control = controls.get(controlName);
       const checkControl = controls.get(checkControlName);
-      if (checkControl?.errors && !checkControl.errors.matching) {
+      if (checkControl?.errors && !checkControl.errors['matching']) {
         return null;
       }
       if (control?.value !== checkControl?.value) {

@@ -25,8 +25,10 @@ const routes: Routes = [
   { path: 'admin/categories', canActivate: [AuthGuard], component: CategoryPageListComponent },
   { path: 'admin/brands', canActivate: [AuthGuard], component: BrandPageListComponent },
   { path: '**', redirectTo: '404', pathMatch: 'full' },
-  { path: '404', pathMatch: 'full', 
-        component: PageNotFoundComponent },
+  {
+    path: '404', pathMatch: 'full',
+    component: PageNotFoundComponent
+  },
 ];
 
 @NgModule({

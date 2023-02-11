@@ -28,14 +28,14 @@ export class CommonService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getPaginatedBrands(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/brands?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  getPaginatedBrands(paginater: Paginater): Observable<Brand[]> {
+    return this.httpClient.get<Brand[]>(this.apiURL + '/brands?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
   }
-  searchBrands(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/search-brand?key=' + paginater.searchKey + '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  searchBrands(paginater: Paginater): Observable<Brand[]> {
+    return this.httpClient.get<Brand[]>(this.apiURL + '/search-brand?key=' + paginater.searchKey + '&value=' + paginater.searchValue + '&limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

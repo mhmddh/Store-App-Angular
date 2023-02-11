@@ -11,9 +11,9 @@
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
                     <input formControlName="name" [(ngModel)]="brand.name" id="name" type="text" class="form-control"
-                        [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
-                    <div *ngIf="f.name.touched && f.name.invalid" class="invalid-feedback">
-                        <div *ngIf="f.name.errors?.required">Brand Name is required.</div>
+                        [ngClass]="{'is-valid':f['name'].valid ,'is-invalid': f['name'].invalid }">
+                    <div *ngIf="f['name'].touched && f['name'].invalid" class="invalid-feedback">
+                        <div *ngIf="f['name'].errors?.['required']">Brand Name is required.</div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -25,9 +25,9 @@
 
                     <input formControlName="file" type="file" class="form-control-file"
                         (change)="onFileSelected($event)" accept="image/x-png,image/gif,image/jpeg"
-                        [ngClass]="{'is-invalid': f.file.errors }" #fileUpload>
-                    <div *ngIf="f.file.touched && f.file.invalid" class="invalid-feedback">
-                        <div *ngIf="f.file.errors?.required">Brand Logo is required.</div>
+                        [ngClass]="{'is-invalid': f['file'].errors }" #fileUpload>
+                    <div *ngIf="f['file'].touched && f['file'].invalid" class="invalid-feedback">
+                        <div *ngIf="f['file'].errors?.['required']">Brand Logo is required.</div>
                     </div>
                 </div>
 

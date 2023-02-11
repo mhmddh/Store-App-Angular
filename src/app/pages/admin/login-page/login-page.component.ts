@@ -7,11 +7,11 @@ import { Spinner } from 'src/app/common/models/model';
 @Component({
     selector: 'app-index',
     templateUrl: './login-page.component.html',
-    styleUrls: ['./login-page.component.css']
+    styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
     model: any = {};
-    loginForm = new FormGroup({});
+    loginForm!: FormGroup;
     isCorrect = true;
     loginsubmitted = false;
     loading = false;

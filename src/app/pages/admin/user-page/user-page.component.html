@@ -10,23 +10,23 @@
             <div class="form-group row">
                 <div class="col-md-6 ">
                     <label for="title">Name:</label>
-                    <input formControlName="name" [(ngModel)]="user.name" id="name" type="text" class="form-control"
-                        [ngClass]="{'is-valid':f.name.valid ,'is-invalid': f.name.invalid }">
-                    <div *ngIf="f.name.invalid  && (f.name.dirty || f.name.touched)" class="invalid-feedback">
-                        <div *ngIf="f.name.errors?.required">
+                    <input formControlName="name" [(ngModel)]="user['name']" id="name" type="text" class="form-control"
+                        [ngClass]="{'is-valid':f['name'].valid ,'is-invalid': f['name'].invalid }">
+                    <div *ngIf="f['name'].invalid  && (f['name'].dirty || f['name'].touched)" class="invalid-feedback">
+                        <div *ngIf="f['name'].errors?.['required']">
                             Name is required.
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <label for="title">Email Address:</label>
-                    <input formControlName="email" name="email" [(ngModel)]="user.email" id="email" type="email"
-                        class="form-control" [ngClass]="{'is-valid':f.email.valid ,'is-invalid': f.email.invalid }">
-                    <div *ngIf="f.email.invalid  && (f.email.dirty || f.email.touched)" class="invalid-feedback">
-                        <div *ngIf="f.email.errors?.required">
+                    <input formControlName="email" name="email" [(ngModel)]="user['email']" id="email" type="email"
+                        class="form-control" [ngClass]="{'is-valid':f['email'].valid ,'is-invalid': f['email'].invalid }">
+                    <div *ngIf="f['email'].invalid  && (f['email'].dirty || f['email'].touched)" class="invalid-feedback">
+                        <div *ngIf="f['email'].errors?.['required']">
                             Email is required.
                         </div>
-                        <div *ngIf="f.email.errors?.email">
+                        <div *ngIf="f['email'].errors?.['email']">
                             Email is invalid.
                         </div>
                     </div>
@@ -43,7 +43,7 @@
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Change Password</h4>
                 <button type="button" class="btn-close" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')">X</button>
+                    (click)="modal.dismiss('Cross click')"></button>
             </div>
 
             <div class="modal-body">
@@ -52,10 +52,10 @@
                         <div class="form-group">
                             <label for="oldPassword">Old Password :</label>
                             <input formControlName="oldPassword" id="oldPassword" type="password" class="form-control"
-                                [ngClass]="{'is-valid':ff.oldPassword.valid ,'is-invalid': ff.oldPassword.invalid }">
-                            <div *ngIf="ff.oldPassword.invalid  && (ff.oldPassword.dirty || ff.oldPassword.touched)"
+                                [ngClass]="{'is-valid':ff['oldPassword'].valid ,'is-invalid': ff['oldPassword'].invalid }">
+                            <div *ngIf="ff['oldPassword'].invalid  && (ff['oldPassword'].dirty || ff['oldPassword'].touched)"
                                 class="invalid-feedback">
-                                <div *ngIf="ff.oldPassword.errors?.required">
+                                <div *ngIf="ff['oldPassword'].errors?.['required']">
                                     Password is Required.
                                 </div>
                             </div>
@@ -66,13 +66,13 @@
                         <div class="form-group">
                             <label for="password">New Password :</label>
                             <input formControlName="password" id="password" type="password" class="form-control"
-                                [ngClass]="{'is-valid':ff.password.valid ,'is-invalid': ff.password.invalid }">
-                            <div *ngIf="ff.password.invalid  && (ff.password.dirty || ff.password.touched)"
+                                [ngClass]="{'is-valid':ff['password'].valid ,'is-invalid': ff['password'].invalid }">
+                            <div *ngIf="ff['password'].invalid  && (ff['password'].dirty || ff['password'].touched)"
                                 class="invalid-feedback">
-                                <div *ngIf="ff.password.errors?.required">
+                                <div *ngIf="ff['password'].errors?.['required']">
                                     Please enter a new password.
                                 </div>
-                                <div *ngIf="ff.password.errors?.minlength">
+                                <div *ngIf="ff['password'].errors?.['minlength']">
                                     Minimum password length is 8.
                                 </div>
                             </div>
@@ -85,18 +85,18 @@
                             <label for="confirmPassword">Confirm Password :</label>
                             <input formControlName="confirmPassword" id="confirmPassword" type="password"
                                 class="form-control"
-                                [ngClass]="{'custom-is-invalid': (ff.password.value != ff.confirmPassword.value) || (ff.password.value == '' &&  ff.confirmPassword.value == '') 
-                            ,'is-valid': (ff.password.value == ff.confirmPassword.value && (ff.password.value != ''|| ff.confirmPassword.value != ''))}">
+                                [ngClass]="{'custom-is-invalid': (ff['password'].value != ff['confirmPassword'].value) || (ff['password'].value == '' &&  ff['confirmPassword'].value == '') 
+                            ,'is-valid': (ff['password'].value == ff['confirmPassword'].value && (ff['password'].value != ''|| ff['confirmPassword'].value != ''))}">
                             
-                            <div *ngIf="ff.confirmPassword.invalid && (ff.confirmPassword.dirty || ff.confirmPassword.touched)"
+                            <div *ngIf="ff['confirmPassword'].invalid && (ff['confirmPassword'].dirty || ff['confirmPassword'].touched)"
                                 class="custom-invalid-feedback">
-                                <div *ngIf="ff.confirmPassword.errors?.required">
+                                <div *ngIf="ff['confirmPassword'].errors?.['required']">
                                     Confirm Password required
                                 </div>
                             </div>
                             
-                            <div *ngIf="ff.confirmPassword.valid  " class="custom-invalid-feedback">
-                                <div *ngIf="ff.confirmPassword.value != ff.password.value">
+                            <div *ngIf="ff['confirmPassword'].valid  " class="custom-invalid-feedback">
+                                <div *ngIf="ff['confirmPassword'].value != ff['password'].value">
                                     Passwords does not match.
                                 </div>
                             </div>

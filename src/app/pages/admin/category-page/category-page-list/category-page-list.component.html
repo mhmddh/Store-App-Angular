@@ -21,13 +21,12 @@
                 <td>{{ category.id }}</td>
                 <td><a [routerLink]="['/admin/category/', 'edit', category.id  ]">{{ category.name }}</a></td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]" class="btn btn-primary">
+                    <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
-                    <button style="margin-left:5px" type="button" (click)="openModal(category.id,category.name)"
-                        class="btn btn-danger">
+                    <a style="margin-left:5px" (click)="openModal(category.id,category.name)" role="button">
                         <fa-icon [icon]="faTrash"></fa-icon>
-                    </button>
+                    </a>
                 </td>
             </tr>
         </table>

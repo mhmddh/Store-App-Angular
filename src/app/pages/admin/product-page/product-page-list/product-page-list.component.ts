@@ -7,7 +7,7 @@ import { ActionModalComponent } from 'src/app/components/modals/action-modal/act
 @Component({
   selector: 'app-index',
   templateUrl: './product-page-list.component.html',
-  styleUrls: ['./product-page-list.component.css']
+  styleUrls: ['./product-page-list.component.scss']
 })
 export class ProductPageListComponent implements OnInit {
   products: Product[] = [];

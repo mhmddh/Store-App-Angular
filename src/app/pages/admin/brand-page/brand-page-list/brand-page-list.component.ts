@@ -7,7 +7,7 @@ import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-sol
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
-  styleUrls: ['./brand-page-list.component.css']
+  styleUrls: ['./brand-page-list.component.scss']
 })
 export class BrandPageListComponent implements OnInit {
   brands: Brand[] = [];
