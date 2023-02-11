@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Product, Brand, Category, User, Paginater } from '../common/models/model';
+import { BrandsResponse } from '../store/states/brand.state';
+import { ProductsResponse } from '../store/states/product.state';
+import { CategoriesResponse } from '../store/states/category.state';
 
 
 
@@ -28,8 +31,8 @@ export class CommonService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getPaginatedBrands(paginater: Paginater): Observable<Brand[]> {
-    return this.httpClient.get<Brand[]>(this.apiURL + '/brands?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  getPaginatedBrands(paginater: Paginater): Observable<BrandsResponse> {
+    return this.httpClient.get<BrandsResponse>(this.apiURL + '/brands?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -84,9 +87,8 @@ export class CommonService {
       )
   }
 
-  getPaginatedProducts(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/products?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
-
+  getPaginatedProducts(paginater: Paginater): Observable<ProductsResponse> {
+    return this.httpClient.get<ProductsResponse>(this.apiURL + '/products?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -142,8 +144,8 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-  getPaginatedCategories(paginater: Paginater): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  getPaginatedCategories(paginater: Paginater): Observable<CategoriesResponse> {
+    return this.httpClient.get<CategoriesResponse>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

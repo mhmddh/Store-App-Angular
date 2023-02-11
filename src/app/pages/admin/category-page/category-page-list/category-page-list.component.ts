@@ -4,6 +4,12 @@ import { Category, BasePage, Paginater, Modal } from 'src/app/common/models/mode
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { loadCategories } from 'src/app/store/actions/category.action';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/states/app.state';
+import { getAllCategories, getCategories } from 'src/app/store/selectors/category.selector';
+import { Observable } from 'rxjs';
+import { PageService } from 'src/app/services/page-service';
 
 @Component({
   selector: 'app-index',
@@ -11,7 +17,7 @@ import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-sol
   styleUrls: ['./category-page-list.component.scss']
 })
 export class CategoryPageListComponent implements OnInit {
-  categories: Category[] = [];
+  categories!: Category[];
   basePageOptions: BasePage = {
     title: 'Categories',
     routeUrl: 'admin/categories/create-category',
@@ -19,7 +25,7 @@ export class CategoryPageListComponent implements OnInit {
     loading: true,
   }
   paginater: Paginater = {
-    limit: Number(localStorage.getItem('limit')),
+    limit: Number(localStorage.getItem('categoryPage-limit')) || 10,
     currentPage: 1,
     totalPages: 0,
     sortParameters: ['Date', 'ASC'],
@@ -32,20 +38,20 @@ export class CategoryPageListComponent implements OnInit {
   idarrowIcon = faArrowUp;
   datearrowIcon = faArrowUp;
   namearrowIcon = faArrowUp;
-  constructor(public commonService: CommonService, private modalService: NgbModal) { }
+  constructor(public commonService: CommonService, private modalService: NgbModal, private store: Store<AppState>, private pageService: PageService) { }
   ngOnInit(): void {
     this.setDefaultLimit(10);
-    this.getCategories(this.paginater);
+    this.getCategories();
   }
 
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue,1);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
-        this.getCategories(this.paginater);
+        this.getCategories(true);
 
       }
     }
@@ -53,10 +59,10 @@ export class CategoryPageListComponent implements OnInit {
   changePage(page: any) {
     this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
-      this.getCategories(this.paginater);
+      this.getCategories(true);
 
     }
   }
@@ -64,10 +70,10 @@ export class CategoryPageListComponent implements OnInit {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue,1);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
-        this.getCategories(this.paginater);
+        this.getCategories(true);
 
       }
     }
@@ -82,23 +88,23 @@ export class CategoryPageListComponent implements OnInit {
   }
 
   changeLimit(limit: any) {
-    localStorage.setItem('limit', limit.toString());
-    this.paginater.limit = Number(localStorage.getItem('limit'));
+    localStorage.setItem('categoryPage-limit', limit.toString());
+    this.paginater.limit = Number(localStorage.getItem('categoryPage-limit'));
     this.resetCurrentPage();
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
-      this.getCategories(this.paginater);
-
+      this.getCategories(true);
     }
   }
 
   setDefaultLimit(limit: number) {
     if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
       this.paginater.limit = limit;
-      localStorage.setItem('limit', limit.toString());
+      localStorage.setItem('categoryPage-limit', limit.toString());
     }
+    this.pageService.set(this.paginater);
   }
 
 
@@ -124,27 +130,30 @@ export class CategoryPageListComponent implements OnInit {
   }
   sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     } else {
-      this.getCategories(this.paginater);
+      this.getCategories(true);
     }
   }
 
-  getCategories(paginater: Paginater) {
-    this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedCategories(paginater).subscribe((data: any) => {
-      this.categories = data.categories;
-      this.paginater.totalPages = data.pages;
-      this.nbOfCategories = data.nbOfItems;
-      this.basePageOptions.loading = false;
-    })
+  getCategories(needNewData?: boolean) {
+    this.store.select(getAllCategories).subscribe(
+      (data) => {
+        this.categories = data.categories;
+        this.paginater.totalPages = data.pages;
+        this.nbOfCategories = data.nbOfItems;
+        this.basePageOptions.loading = false;
+      }
+    )
+    if (!this.categories || needNewData)
+      this.store.dispatch(loadCategories());
   }
 
-  searchItem(str: string,resetCurrentPage:number) {
+  searchItem(str: string, resetCurrentPage: number) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
       this.categories = [];
-      if(resetCurrentPage != 1){
+      if (resetCurrentPage != 1) {
         this.resetCurrentPage();
       }
       this.commonService.searchCategories(this.paginater).subscribe((data: any) => {
@@ -154,7 +163,7 @@ export class CategoryPageListComponent implements OnInit {
         this.basePageOptions.loading = false;
       })
     } else {
-      this.getCategories(this.paginater);
+      this.getCategories();
     }
   }
   deleteCategory(id: number) {

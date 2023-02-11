@@ -28,6 +28,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActionModalComponent } from './components/modals/action-modal/action-modal.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { productReducer } from './store/reducers/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './store/effectors/product.effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { categoryReducer } from './store/reducers/category.reducer';
+import { CategoryEffects } from './store/effectors/category.effects';
+import { brandReducer } from './store/reducers/brand.reducer';
+import { BrandEffects } from './store/effectors/brand.effects';
+
 
 
 @NgModule({
@@ -35,16 +46,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     AppRoutingModule,
     MatToolbarModule,
     FontAwesomeModule,
     MatProgressSpinnerModule,
     NgbModule,
     MatIconModule,
-    BrowserAnimationsModule, // <-- here
-
-
+    BrowserAnimationsModule,
+    StoreModule.forRoot({ categoriesResponse: categoryReducer, productsResponse: productReducer, brandsResponse: brandReducer }),
+    EffectsModule.forRoot([CategoryEffects, ProductEffects, BrandEffects]),
+    StoreRouterConnectingModule.forRoot(),
+    StoreDevtoolsModule.instrument(),
+    // <-- here
   ],
   declarations: [
     AppComponent,

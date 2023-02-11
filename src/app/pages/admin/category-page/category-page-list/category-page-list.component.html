@@ -18,7 +18,7 @@
                 <th width="220px">Action</th>
             </tr>
             <tr *ngFor="let category of categories">
-                <td>{{ category.id }}</td>
+                <td class="item-id">{{ category.id }}</td>
                 <td><a [routerLink]="['/admin/category/', 'edit', category.id  ]">{{ category.name }}</a></td>
                 <td style="display: flex;">
                     <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]">

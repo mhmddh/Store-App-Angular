@@ -17,7 +17,7 @@
                 <th width="220px">Action</th>
             </tr>
             <tr *ngFor="let brand of brands">
-                <td>{{ brand.id }}</td>
+                <td class="item-id">{{ brand.id }}</td>
                 <td><a [routerLink]="['/admin/brand/', 'edit', brand.id  ]">{{ brand.name }}</a></td>
                 <td><img *ngIf="brand.image" style="max-width: 50px;max-height: 50px;" [src]="brand.image"
                         onerror="this.src='../../assets/images/not-found.svg'">

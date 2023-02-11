@@ -2,20 +2,20 @@
     (itemsPerPage)="changeLimit($event)" (searchForItem)="searchItem($event,0)" (prevPaginater)="previousPage()"
     (changePaginater)="changePage($event)" (nextPaginater)="nextPage()">
     <section>
-        <table class="table ">
+        <table  class="table ">
             <tr>
                 <th><a role="button" (click)="toggleSortBy('ID')">ID
-                    <fa-icon  [icon]="idarrowIcon"></fa-icon>
+                        <fa-icon [icon]="idarrowIcon"></fa-icon>
                     </a>
                 </th>
-                <th><a  role="button" (click)="toggleSortBy('Name')">Name
-                    <fa-icon  [icon]="namearrowIcon"></fa-icon>
+                <th><a role="button" (click)="toggleSortBy('Name')">Name
+                        <fa-icon [icon]="namearrowIcon"></fa-icon>
                     </a>
                 </th>
                 <th>Price</th>
                 <th>Category</th>
                 <th style="display: flex;justify-content: center;">Brand</th>
-                <th><a  role="button" (click)="toggleSortBy('Date')">Created Date
+                <th><a role="button" (click)="toggleSortBy('Date')">Created Date
                         <fa-icon [icon]="datearrowIcon"></fa-icon>
                     </a>
                 </th>

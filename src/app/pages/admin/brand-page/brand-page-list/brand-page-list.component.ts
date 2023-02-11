@@ -4,6 +4,11 @@ import { Brand, BasePage, Paginater, Modal } from 'src/app/common/models/model';
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { AppState } from 'src/app/store/states/app.state';
+import { Store } from '@ngrx/store';
+import { getAllBrands } from 'src/app/store/selectors/brand.selector';
+import { loadBrands } from 'src/app/store/actions/brand.action';
+import { PageService } from 'src/app/services/page-service';
 @Component({
   selector: 'app-index',
   templateUrl: './brand-page-list.component.html',
@@ -18,7 +23,7 @@ export class BrandPageListComponent implements OnInit {
     loading: true,
   }
   paginater: Paginater = {
-    limit: Number(localStorage.getItem('limit')),
+    limit: Number(localStorage.getItem('brandPage-limit')) || 10,
     currentPage: 1,
     totalPages: 0,
     sortParameters: ['Date', 'ASC'],
@@ -32,20 +37,20 @@ export class BrandPageListComponent implements OnInit {
   datearrowIcon = faArrowUp;
   namearrowIcon = faArrowUp;
 
-  constructor(public commonService: CommonService, private modalService: NgbModal) { }
+  constructor(public commonService: CommonService, private modalService: NgbModal, private store: Store<AppState>, private pageService: PageService) { }
 
   ngOnInit(): void {
     this.setDefaultLimit(10);
-    this.getBrands(this.paginater);
+    this.getBrands();
   }
   nextPage() {
     if (this.paginater.currentPage < this.paginater.totalPages) {
       this.paginater.currentPage++;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue,1);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
-        this.getBrands(this.paginater);
+        this.getBrands(true);
 
       }
     }
@@ -53,20 +58,20 @@ export class BrandPageListComponent implements OnInit {
   changePage(page: any) {
     this.paginater.currentPage = page;
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
-      this.getBrands(this.paginater);
+      this.getBrands(true);
     }
   }
   previousPage() {
     if (this.paginater.currentPage > 1) {
       this.paginater.currentPage--;
       if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-        this.searchItem(this.paginater.searchValue,1);
+        this.searchItem(this.paginater.searchValue, 1);
       }
       else {
-        this.getBrands(this.paginater);
+        this.getBrands(true);
 
       }
     }
@@ -80,25 +85,26 @@ export class BrandPageListComponent implements OnInit {
   }
 
   changeLimit(limit: any) {
-    localStorage.setItem('limit', limit.toString());
-    this.paginater.limit = Number(localStorage.getItem('limit'));
+    localStorage.setItem('brandPage-limit', limit.toString());
+    this.paginater.limit = Number(localStorage.getItem('brandPage-limit'));
     this.resetCurrentPage();
+    this.pageService.set(this.paginater);
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     }
     else {
-      this.getBrands(this.paginater);
-
+      this.getBrands(true);
     }
   }
   setDefaultLimit(limit: number) {
     if (this.paginater.limit == 0 || this.paginater.limit == undefined) {
       this.paginater.limit = limit;
-      localStorage.setItem('limit', limit.toString());
+      localStorage.setItem('brandPage-limit', limit.toString());
     }
+    this.pageService.set(this.paginater);
   }
 
-  
+
   toggleSortBy(parameter: any) {
     var ascOrder = this.paginater.sortParameters[1];
     if (ascOrder == 'ASC') {
@@ -121,25 +127,28 @@ export class BrandPageListComponent implements OnInit {
   }
   sortBy() {
     if (this.paginater.searchValue != '' && this.paginater.searchValue != null) {
-      this.searchItem(this.paginater.searchValue,1);
+      this.searchItem(this.paginater.searchValue, 1);
     } else {
-      this.getBrands(this.paginater);
+      this.getBrands(true);
     }
   }
-  getBrands(paginater: Paginater) {
-    this.paginater.limit = Number(localStorage.getItem('limit'));
-    this.commonService.getPaginatedBrands(paginater).subscribe((data: any) => {
-      this.brands = data.brands;
-      this.paginater.totalPages = data.pages;
-      this.nbOfBrands = data.nbOfItems;
-      this.basePageOptions.loading = false;
-    })
+  getBrands(needNewData?: boolean) {
+    this.store.select(getAllBrands).subscribe(
+      (data) => {
+        this.brands = data.brands;
+        this.paginater.totalPages = data.pages;
+        this.nbOfBrands = data.nbOfItems;
+        this.basePageOptions.loading = false;
+      }
+    )
+    if(!this.brands || needNewData)
+      this.store.dispatch(loadBrands());
   }
-  searchItem(str: string,resetCurrentPage:number) {
+  searchItem(str: string, resetCurrentPage: number) {
     this.paginater.searchValue = str;
     if (str != '' && str != null) {
       this.brands = [];
-      if(resetCurrentPage != 1){
+      if (resetCurrentPage != 1) {
         this.resetCurrentPage();
       }
       this.commonService.searchBrands(this.paginater).subscribe((data: any) => {
@@ -149,7 +158,7 @@ export class BrandPageListComponent implements OnInit {
         this.basePageOptions.loading = false;
       })
     } else {
-      this.getBrands(this.paginater);
+      this.getBrands(true);
     }
   }
 
