@@ -1,15 +1,16 @@
-import { UserPageComponent } from './pages/admin/user-page/user-page.component';
+// import { UserPageComponent } from './pages/admin/user-page/user-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './pages/admin/login-page/login-page.component';
-import { ProductPageDetailComponent } from './pages/admin/product-page/product-page-detail/product-page-detail.component'
-import { BrandPageDetailComponent } from './pages/admin/brand-page/brand-page-detail/brand-page-detail.component'
-import { CategoryPageDetailComponent } from './pages/admin/category-page/category-page-detail/category-page-detail.component'
-import { ProductPageListComponent } from './pages/admin/product-page/product-page-list/product-page-list.component';
-import { BrandPageListComponent } from './pages/admin/brand-page/brand-page-list/brand-page-list.component';
-import { CategoryPageListComponent } from './pages/admin/category-page/category-page-list/category-page-list.component';
 import { AuthGuard } from './services/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { LoginPageComponent } from './pages/admin/login-page/login-page.component';
+import { ProductPageListComponent } from './pages/admin/product-page/product-page-list/product-page-list.component';
+import { ProductPageDetailComponent } from './pages/admin/product-page/product-page-detail/product-page-detail.component';
+import { CategoryPageDetailComponent } from './pages/admin/category-page/category-page-detail/category-page-detail.component';
+import { CategoryPageListComponent } from './pages/admin/category-page/category-page-list/category-page-list.component';
+import { BrandPageDetailComponent } from './pages/admin/brand-page/brand-page-detail/brand-page-detail.component';
+import { BrandPageListComponent } from './pages/admin/brand-page/brand-page-list/brand-page-list.component';
+import { UserPageComponent } from './pages/admin/user-page/user-page.component';
 
 const routes: Routes = [
   { path: 'admin', component: LoginPageComponent },

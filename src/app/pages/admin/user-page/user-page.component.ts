@@ -3,11 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { User, BasePage } from 'src/app/common/models/model'
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Validation from 'src/app/providers/validation';
-import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
-import { isEmpty } from 'rxjs';
 @Component({
   selector: 'app-user',
   templateUrl: './user-page.component.html',
@@ -45,7 +43,7 @@ export class UserPageComponent implements OnInit {
     this.id = this.route.snapshot.params['idUser'];
     this.getUserDetails();
 
-    
+
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
