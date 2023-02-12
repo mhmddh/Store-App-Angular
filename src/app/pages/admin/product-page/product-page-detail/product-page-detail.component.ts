@@ -4,6 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product, Brand, Category, BasePage } from 'src/app/common/models/model';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/states/app.state';
+import { getAllCategories } from 'src/app/store/selectors/category.selector';
+import { loadAllCategories } from 'src/app/store/actions/category.action';
+import { getAllBrands } from 'src/app/store/selectors/brand.selector';
+import { loadAllBrands } from 'src/app/store/actions/brand.action';
 
 @Component({
   selector: 'app-edit',
@@ -39,6 +45,7 @@ export class ProductPageDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cdRef: ChangeDetectorRef,
+    private store: Store<AppState>,
   ) { }
 
   ngAfterViewChecked() {
@@ -47,15 +54,9 @@ export class ProductPageDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['idProduct'];
-    this.commonService.getAllCategories().subscribe((data: any) => {
-      this.categories = data;
-    })
-    this.commonService.getAllBrands().subscribe((data: any) => {
-      this.brands = data;
-      for (let i = 0; i < this.brands.length; i++) {
-        this.brand_imgs.set(this.brands[i].id, this.brands[i].image);
-      }
-    })
+    this.getAllCategories();
+    this.getAllBrands();
+
     if (this.id) {
       this.commonService.findProduct(this.id).subscribe((data: any) => {
         if (data.success) {
@@ -166,6 +167,30 @@ export class ProductPageDetailComponent implements OnInit {
       this.files.splice(index, 1);
     }
 
+  }
+
+  getAllCategories() {
+    this.store.select(getAllCategories).subscribe(
+      (data) => {
+        this.categories = data;
+      }
+    )
+    if (this.categories.length === 0) {
+      this.store.dispatch(loadAllCategories());
+    }
+  }
+
+  getAllBrands() {
+    this.store.select(getAllBrands).subscribe(
+      (data) => {
+        this.brands = data;
+        for (let i = 0; i < this.brands.length; i++) {
+          this.brand_imgs.set(this.brands[i].id, this.brands[i].image);
+        }
+      }
+    )
+    if (this.brands.length === 0)
+      this.store.dispatch(loadAllBrands());
   }
 
 }

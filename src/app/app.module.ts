@@ -34,9 +34,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/effectors/product.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { categoryReducer } from './store/reducers/category.reducer';
+import { allCategoryReducer, paginationCategoryReducer } from './store/reducers/category.reducer';
 import { CategoryEffects } from './store/effectors/category.effects';
-import { brandReducer } from './store/reducers/brand.reducer';
+import { allBrandReducer, paginationBrandReducer } from './store/reducers/brand.reducer';
 import { BrandEffects } from './store/effectors/brand.effects';
 
 
@@ -54,7 +54,13 @@ import { BrandEffects } from './store/effectors/brand.effects';
     NgbModule,
     MatIconModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ categoriesResponse: categoryReducer, productsResponse: productReducer, brandsResponse: brandReducer }),
+    StoreModule.forRoot(
+      {
+        categoriesResponse: paginationCategoryReducer, categories: allCategoryReducer,
+        productsResponse: productReducer,
+        brandsResponse: paginationBrandReducer, brands: allBrandReducer
+      }
+    ),
     EffectsModule.forRoot([CategoryEffects, ProductEffects, BrandEffects]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument(),

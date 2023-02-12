@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { createEntityAdapter } from '@ngrx/entity';
-import { CategoriesResponse, CategoriesState } from '../states/category.state';
+import { Category } from 'src/app/common/models/model';
+import { paginatedCategories, paginatedCategoriesState } from '../states/category.state';
 
-export const CATEGORY_STATE_NAME = 'categoriesResponse';
-export const categoriesState = createEntityAdapter<CategoriesResponse>({
-});
-const getCategoriesState = createFeatureSelector<CategoriesState>(CATEGORY_STATE_NAME);
+export const PAGINATED_CATEGORY_STATE_NAME = 'categoriesResponse';
+export const ALL_CATEGORY_STATE_NAME = 'categories';
 
-export const categoriesSelectors = categoriesState.getSelectors();
-export const getCategories = createSelector(getCategoriesState, categoriesSelectors.selectAll);
-export const getAllCategories = createSelector(getCategoriesState, (state) => state);
+const getPaginatedCategoriesState = createFeatureSelector<paginatedCategoriesState>(PAGINATED_CATEGORY_STATE_NAME);
+const getAllCategoriesState = createFeatureSelector<Category[]>(ALL_CATEGORY_STATE_NAME);
+
+export const getPaginatedCategories = createSelector(getPaginatedCategoriesState, (state) => state);
+export const getAllCategories = createSelector(getAllCategoriesState, (state) => state);

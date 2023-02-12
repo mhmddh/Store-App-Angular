@@ -4,11 +4,10 @@ import { Category, BasePage, Paginater, Modal } from 'src/app/common/models/mode
 import { ActionModalComponent } from 'src/app/components/modals/action-modal/action-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { loadCategories } from 'src/app/store/actions/category.action';
+import { loadPaginatedCategories } from 'src/app/store/actions/category.action';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/states/app.state';
-import { getAllCategories, getCategories } from 'src/app/store/selectors/category.selector';
-import { Observable } from 'rxjs';
+import { getPaginatedCategories } from 'src/app/store/selectors/category.selector';
 import { PageService } from 'src/app/services/page-service';
 
 @Component({
@@ -137,7 +136,7 @@ export class CategoryPageListComponent implements OnInit {
   }
 
   getCategories(needNewData?: boolean) {
-    this.store.select(getAllCategories).subscribe(
+    this.store.select(getPaginatedCategories).subscribe(
       (data) => {
         this.categories = data.categories;
         this.paginater.totalPages = data.pages;
@@ -146,7 +145,7 @@ export class CategoryPageListComponent implements OnInit {
       }
     )
     if (!this.categories || needNewData)
-      this.store.dispatch(loadCategories());
+      this.store.dispatch(loadPaginatedCategories());
   }
 
   searchItem(str: string, resetCurrentPage: number) {

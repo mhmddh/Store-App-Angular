@@ -26,14 +26,28 @@ export class BrandEffects {
         });
     }
 
-    loadBrands$ = createEffect(() => {
+    loadPaginatedBrands$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(brandActions.loadBrands),
+            ofType(brandActions.loadPaginatedBrands),
             withLatestFrom(this.store.select(getAllBrands)),
             mergeMap(() => {
                 return this.commonService.getPaginatedBrands(this.paginater).pipe(
                     map((brandsResponse) => {
-                        return brandActions.loadBrandsSuccess({ brandsResponse });
+                        return brandActions.loadPaginatedBrandsSuccess({ brandsResponse });
+                    })
+                );
+            })
+        );
+    });
+
+    loadAllBrands$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(brandActions.loadAllBrands),
+            withLatestFrom(this.store.select(getAllBrands)),
+            mergeMap(() => {
+                return this.commonService.getAllBrands().pipe(
+                    map((brands) => {
+                        return brandActions.loadAllBrandsSuccess({ brands });
                     })
                 );
             })

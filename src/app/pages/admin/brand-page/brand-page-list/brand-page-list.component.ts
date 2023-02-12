@@ -6,8 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faPencil, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { AppState } from 'src/app/store/states/app.state';
 import { Store } from '@ngrx/store';
-import { getAllBrands } from 'src/app/store/selectors/brand.selector';
-import { loadBrands } from 'src/app/store/actions/brand.action';
+import { getPaginatedBrands } from 'src/app/store/selectors/brand.selector';
+import { loadPaginatedBrands } from 'src/app/store/actions/brand.action';
 import { PageService } from 'src/app/services/page-service';
 @Component({
   selector: 'app-index',
@@ -133,7 +133,7 @@ export class BrandPageListComponent implements OnInit {
     }
   }
   getBrands(needNewData?: boolean) {
-    this.store.select(getAllBrands).subscribe(
+    this.store.select(getPaginatedBrands).subscribe(
       (data) => {
         this.brands = data.brands;
         this.paginater.totalPages = data.pages;
@@ -142,7 +142,7 @@ export class BrandPageListComponent implements OnInit {
       }
     )
     if(!this.brands || needNewData)
-      this.store.dispatch(loadBrands());
+      this.store.dispatch(loadPaginatedBrands());
   }
   searchItem(str: string, resetCurrentPage: number) {
     this.paginater.searchValue = str;

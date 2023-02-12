@@ -74,12 +74,3 @@ export interface Spinner {
     class: string;
 }
 
-
-
-
-
-
-// export interface FormModel {
-//     email: FormControl<string | null>;
-//     password: FormControl<string | null>;
-// }

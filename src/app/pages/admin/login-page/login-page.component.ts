@@ -19,14 +19,10 @@ export class LoginPageComponent implements OnInit {
     constructor(public authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
-        //Login form validations
-
         this.loginForm = new FormGroup({
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(8),
             ]),
-
-            // email: new FormControl('', [Validators.required]),
         });
     }
 
@@ -53,6 +49,7 @@ export class LoginPageComponent implements OnInit {
                 }
                 this.loading = false;
             }, error => {
+                this.loading = false;
                 console.error(error);
             })
 

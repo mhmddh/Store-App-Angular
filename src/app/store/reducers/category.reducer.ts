@@ -1,10 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadCategoriesSuccess } from '../actions/category.action';
-import { CategoriesResponse } from '../states/category.state';
+import { Category } from 'src/app/common/models/model';
+import { loadAllCategoriesSuccess, loadPaginatedCategoriesSuccess } from '../actions/category.action';
+import { paginatedCategories } from '../states/category.state';
 
-export const initialState: CategoriesResponse = {};
+export const paginatedInitialState: paginatedCategories = {};
+export const allInitialState: Category[] = [];
 
-export const categoryReducer = createReducer(
-    initialState,
-    on(loadCategoriesSuccess, (state, { categoriesResponse }) => (categoriesResponse)),
+export const paginationCategoryReducer = createReducer(
+    paginatedInitialState,
+    on(loadPaginatedCategoriesSuccess, (state, { categoriesResponse }) => (categoriesResponse)),
+);
+
+export const allCategoryReducer = createReducer(
+    allInitialState,
+    on(loadAllCategoriesSuccess, (state, { categories }) => (categories)),
 );

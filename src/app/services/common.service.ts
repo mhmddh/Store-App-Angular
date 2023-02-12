@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { Product, Brand, Category, User, Paginater } from '../common/models/model';
 import { BrandsResponse } from '../store/states/brand.state';
 import { ProductsResponse } from '../store/states/product.state';
-import { CategoriesResponse } from '../store/states/category.state';
+import { paginatedCategories } from '../store/states/category.state';
 
 
 
@@ -44,7 +44,7 @@ export class CommonService {
       )
   }
 
-  getAllBrands(): Observable<Brand> {
+  getAllBrands(): Observable<Brand[]> {
     return this.httpClient.get<any>(this.apiURL + '/all-brands', this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -144,8 +144,8 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-  getPaginatedCategories(paginater: Paginater): Observable<CategoriesResponse> {
-    return this.httpClient.get<CategoriesResponse>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
+  getPaginatedCategories(paginater: Paginater): Observable<paginatedCategories> {
+    return this.httpClient.get<paginatedCategories>(this.apiURL + '/categories?limit=' + paginater.limit + '&page=' + paginater.currentPage + '&param=' + paginater.sortParameters[0] + '&order=' + paginater.sortParameters[1], this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
@@ -157,7 +157,7 @@ export class CommonService {
         catchError(this.errorHandler)
       )
   }
-  getAllCategories(): Observable<Category> {
+  getAllCategories(): Observable<Category[]> {
     return this.httpClient.get<any>(this.apiURL + '/all-categories', this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -193,7 +193,7 @@ export class CommonService {
       )
   }
 
-  getUserDetails(id: number): Observable<any>{
+  getUserDetails(id: number): Observable<any> {
     return this.httpClient.get<User>(this.apiURL + '/user/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
