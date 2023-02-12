@@ -8,7 +8,7 @@ export interface BrandsResponse{
     nbOfItems?: number,
 }
 
-export interface BrandsState extends EntityState<BrandsResponse> {
+export interface paginatedBrandsState extends EntityState<BrandsResponse> {
     brands: Brand[];
     pages: number,
     nbOfItems: number,
