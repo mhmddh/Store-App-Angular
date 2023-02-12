@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { LoginResponse, User } from '../common/models/model'
 
@@ -36,12 +36,16 @@ export class AuthService {
 
   // After login save token and other values(if any) in localStorage
   setUser(resp: LoginResponse) {
-    this.user = { id: resp.data['id'], name: resp.data['name'] };
+    this.user = { id: resp.data['id'], name: resp.data['name'], email: resp.data['email'] };
     localStorage.setItem('user', JSON.stringify(this.user));
     localStorage.setItem('access_token', resp.data['token']);
     this.router.navigateByUrl('admin/products');
   }
-
+  getUser(): User {
+    var userObject = localStorage.getItem('user') || '';
+    var user = JSON.parse(userObject);
+    return user;
+  }
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

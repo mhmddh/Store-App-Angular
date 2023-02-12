@@ -34,8 +34,7 @@ export class BasePageComponent implements OnInit {
 
 
   LoggedIn() {
-    var userObject = localStorage.getItem('user') || '';
-    this.user = JSON.parse(userObject);
+    this.user = this.authService.getUser();
   }
 
   logout() {
