@@ -67,13 +67,13 @@ export class CategoryPageDetailComponent implements OnInit {
     if (id != null) {
       this.commonService.updateCategory(this.id, this.form.value).subscribe(res => {
         console.log('Category updated successfully!');
+        window.location.assign('/categories')
       })
-      window.location.assign('/brands')
     } else {
       this.commonService.createCategory(this.form.value).subscribe(res => {
         console.log(res);
+        window.location.assign('/categories')
       })
-      window.location.assign('/brands')
     }
 
   }

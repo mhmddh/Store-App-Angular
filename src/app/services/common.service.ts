@@ -187,7 +187,7 @@ export class CommonService {
   }
 
   deleteCategory(id: number) {
-    return this.httpClient.delete<Category>(this.apiURL + '/delete-category/' + id, this.httpOptions)
+    return this.httpClient.delete<any>(this.apiURL + '/delete-category/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

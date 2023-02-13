@@ -166,9 +166,9 @@ export class BrandPageListComponent implements OnInit {
     this.commonService.deleteBrand(id).subscribe(res => {
       if (res.success) {
         this.brands = this.brands.filter(item => item.id !== id);
+        this.nbOfBrands--;
       }
       console.log(res.message);
-
     })
   }
 

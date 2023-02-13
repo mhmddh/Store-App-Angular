@@ -167,8 +167,10 @@ export class CategoryPageListComponent implements OnInit {
   }
   deleteCategory(id: number) {
     this.commonService.deleteCategory(id).subscribe(res => {
-      this.categories = this.categories.filter(item => item.id !== id);
-      console.log('Category deleted successfully!');
+      if (res.success) {
+        this.categories = this.categories.filter(item => item.id !== id);
+        this.nbOfCategories--;
+      }
     })
   }
 

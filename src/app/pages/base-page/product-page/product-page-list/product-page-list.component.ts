@@ -172,7 +172,7 @@ export class ProductPageListComponent implements OnInit {
 
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
-      if(res['success']){
+      if(res.success){
         this.products = this.products.filter(item => item.id !== id);
         this.nbOfProducts--;
       }
