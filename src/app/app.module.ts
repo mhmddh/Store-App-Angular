@@ -14,6 +14,9 @@ import { ProductPageModule } from './pages/base-page/product-page/product-page.m
 import { CategoryPageModule } from './pages/base-page/category-page/category-page.module';
 import { BrandPageModule } from './pages/base-page/brand-page/brand-page.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 
@@ -21,6 +24,7 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot(
       {
         categoriesResponse: paginationCategoryReducer, categories: allCategoryReducer,
@@ -29,10 +33,9 @@ import { BrowserModule } from '@angular/platform-browser';
       }
     ),
     EffectsModule.forRoot([CategoryEffects, ProductEffects, BrandEffects]),
+    StoreRouterConnectingModule.forRoot(),
+    StoreDevtoolsModule.instrument(),
     LoginPageModule,
-    ProductPageModule,
-    CategoryPageModule,
-    BrandPageModule
   ],
   declarations: [
     AppComponent,
