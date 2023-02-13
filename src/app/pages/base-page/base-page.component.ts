@@ -19,7 +19,6 @@ export class BasePageComponent implements OnInit {
   @Output() prevPaginater = new EventEmitter();
   @Output() changePaginater = new EventEmitter<any>();
   @Output() nextPaginater = new EventEmitter();
-
   user: User = {};
   faUser = faUser;
   faSearch = faSearch;

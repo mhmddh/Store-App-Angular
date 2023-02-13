@@ -12,43 +12,43 @@
             <div class="row search">
                 <div class="form-group">
                     <label>
-                        <app-spinner *ngIf="!nbofItems" class="nbofitems-spinner">
+                        <app-spinner *ngIf="!nbofItems && nbofItems !== 0" class="nbofitems-spinner">
                         </app-spinner>
 
                         {{ nbofItems }} results</label>
                     <div class=" search-div">
-                            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr"
-                                name="searchStr" name="searchStr" (keyup)="searchItem($event)">
-                            <span>
-                                <fa-icon [icon]="faSearch"></fa-icon>
-                            </span>
+                        <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchStr"
+                            name="searchStr" name="searchStr" (keyup)="searchItem($event)">
+                        <span>
+                            <fa-icon [icon]="faSearch"></fa-icon>
+                        </span>
+                    </div>
                 </div>
+
             </div>
-
+            <div class="paginator">
+                <span>Items Per Page</span>
+                <select (change)="changeLimit($event)" class="">
+                    <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{
+                        i+1
+                        }}
+                    </option>
+                </select>
+                <a role="button" (click)="previousPage()">
+                    Previous
+                </a>
+                <select (change)="changePage($event)">
+                    <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
+                        [selected]="paginater.currentPage == i+1">{{ i+1
+                        }}</option>
+                </select>
+                <a role="button" (click)="nextPage()">
+                    Next
+                </a>
+            </div>
         </div>
-        <div class="paginator">
-            <span>Items Per Page</span>
-            <select (change)="changeLimit($event)" class="">
-                <option *ngFor="let page of arrayToNumber(10);let i = index" [selected]="paginater.limit == i+1">{{
-                    i+1
-                    }}
-                </option>
-            </select>
-            <a role="button" (click)="previousPage()">
-                Previous
-            </a>
-            <select (change)="changePage($event)">
-                <option *ngFor="let page of arrayToNumber(paginater.totalPages);let i = index"
-                    [selected]="paginater.currentPage == i+1">{{ i+1
-                    }}</option>
-            </select>
-            <a role="button" (click)="nextPage()">
-                Next
-            </a>
-        </div>
-    </div>
 
-    <ng-content [user]="user"></ng-content>
+        <ng-content [user]="user"></ng-content>
     </div>
 </ng-container>
 
