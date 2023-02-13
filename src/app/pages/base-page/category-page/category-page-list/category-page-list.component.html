@@ -19,9 +19,9 @@
             </tr>
             <tr *ngFor="let category of categories">
                 <td class="item-id">{{ category.id }}</td>
-                <td><a [routerLink]="['/admin/category/', 'edit', category.id  ]">{{ category.name }}</a></td>
+                <td><a [routerLink]="['edit', category.id  ]">{{ category.name }}</a></td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/category/', 'edit', category.id  ]">
+                    <a href="#" [routerLink]="['edit', category.id  ]">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
                     <a style="margin-left:5px" (click)="openModal(category.id,category.name)" role="button">

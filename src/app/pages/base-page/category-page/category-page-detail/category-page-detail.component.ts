@@ -18,7 +18,7 @@ export class CategoryPageDetailComponent implements OnInit {
   };
   basePageOptions: BasePage = {
     title: '',
-    routeUrl: 'admin/categories',
+    routeUrl: 'categories',
     routeTitle: 'Back',
     loading: true,
   }

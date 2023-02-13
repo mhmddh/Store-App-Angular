@@ -18,12 +18,12 @@
             </tr>
             <tr *ngFor="let brand of brands">
                 <td class="item-id">{{ brand.id }}</td>
-                <td><a [routerLink]="['/admin/brand/', 'edit', brand.id  ]">{{ brand.name }}</a></td>
+                <td><a [routerLink]="['edit', brand.id  ]">{{ brand.name }}</a></td>
                 <td><img *ngIf="brand.image" style="max-width: 50px;max-height: 50px;" [src]="brand.image"
                         onerror="this.src='../../assets/images/not-found.svg'">
                 </td>
                 <td style="display: flex;">
-                    <a href="#" [routerLink]="['/admin/brand/', 'edit', brand.id  ]">
+                    <a href="#" [routerLink]="['edit', brand.id  ]">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
                     <a role="button" style="margin-left:5px" (click)="openModal(brand.id,brand.name)">

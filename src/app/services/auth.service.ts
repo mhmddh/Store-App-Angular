@@ -21,7 +21,7 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/login']);
   }
 
   loginForm(data: any): Observable<LoginResponse> {
@@ -39,7 +39,7 @@ export class AuthService {
     this.user = { id: resp.data['id'], name: resp.data['name'], email: resp.data['email'] };
     localStorage.setItem('user', JSON.stringify(this.user));
     localStorage.setItem('access_token', resp.data['token']);
-    this.router.navigateByUrl('admin/products');
+    this.router.navigateByUrl('/products');
   }
   getUser(): User {
     var userObject = localStorage.getItem('user') || '';

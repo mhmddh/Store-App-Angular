@@ -8,16 +8,16 @@
         <div class="collapse navbar-collapse" id="navbarNav" mdbCollapse [ngbCollapse]="toggleNavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/products'}" aria-current="page"
-                        routerLink="/admin/products">Products</a>
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/products'}" aria-current="page"
+                        routerLink="/products">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/categories'}"
-                    routerLink="/admin/categories">Categories</a>
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/categories'}"
+                    routerLink="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/admin/brands'}"
-                    routerLink="/admin/brands">Brands</a>
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/brands'}"
+                    routerLink="/brands">Brands</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -30,7 +30,7 @@
                         mdbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
                         style="position: absolute;right: 0!important;left: auto;">
                         <li>
-                            <a class="dropdown-item" routerLink="/admin/user/{{ user.id }}">{{ user.name }}</a>
+                            <a class="dropdown-item" routerLink="/user/{{ user.id }}">{{ user.name }}</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="" (click)="logout()">Logout</a>

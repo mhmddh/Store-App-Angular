@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { NavbarComponent } from './navbar.component';
 
 
@@ -11,7 +11,7 @@ import { NavbarComponent } from './navbar.component';
         CommonModule,
         FontAwesomeModule,
         NgbModule,
-        AppRoutingModule
+        RouterModule,
     ],
     declarations: [
         NavbarComponent,

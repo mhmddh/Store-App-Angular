@@ -20,7 +20,7 @@ export class UserPageComponent implements OnInit {
   isChanged = false;
   basePageOptions: BasePage = {
     title: 'Mohamad Daher',
-    routeUrl: 'admin/products',
+    routeUrl: 'products',
     routeTitle: 'Back',
     loading: true,
     currentPage: 1,

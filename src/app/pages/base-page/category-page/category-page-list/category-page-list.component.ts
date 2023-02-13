@@ -19,7 +19,7 @@ export class CategoryPageListComponent implements OnInit {
   categories!: Category[];
   basePageOptions: BasePage = {
     title: 'Categories',
-    routeUrl: 'admin/categories/create-category',
+    routeUrl: 'categories/create-category',
     routeTitle: 'Create New Category',
     loading: true,
   }

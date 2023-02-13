@@ -30,7 +30,7 @@ export class ProductPageDetailComponent implements OnInit {
   brands: Brand[] = [];
   basePageOptions: BasePage = {
     title: '',
-    routeUrl: 'admin/products',
+    routeUrl: '/products',
     routeTitle: 'Back',
     loading: true,
   }
@@ -119,13 +119,13 @@ export class ProductPageDetailComponent implements OnInit {
     if (id != null) {
       this.commonService.updateProduct(this.id, this.form.value).subscribe(res => {
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('admin/products');
+        this.router.navigateByUrl('products');
       })
     } else {
       this.commonService.createProduct(this.form.value).subscribe(res => {
         this.id = res.product_id;
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('admin/products');
+        this.router.navigateByUrl('products');
       })
     }
   }

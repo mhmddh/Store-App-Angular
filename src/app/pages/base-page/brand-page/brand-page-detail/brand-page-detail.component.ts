@@ -20,7 +20,7 @@ export class BrandPageDetailComponent implements OnInit {
   };
   basePageOptions: BasePage = {
     title: 'Edit Brand',
-    routeUrl: 'admin/brands',
+    routeUrl: 'brands',
     routeTitle: 'Back',
     loading: true,
   }

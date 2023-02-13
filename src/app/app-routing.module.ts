@@ -3,28 +3,43 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { LoginPageComponent } from './pages/admin/login-page/login-page.component';
-import { ProductPageListComponent } from './pages/admin/product-page/product-page-list/product-page-list.component';
-import { ProductPageDetailComponent } from './pages/admin/product-page/product-page-detail/product-page-detail.component';
-import { CategoryPageDetailComponent } from './pages/admin/category-page/category-page-detail/category-page-detail.component';
-import { CategoryPageListComponent } from './pages/admin/category-page/category-page-list/category-page-list.component';
-import { BrandPageDetailComponent } from './pages/admin/brand-page/brand-page-detail/brand-page-detail.component';
-import { BrandPageListComponent } from './pages/admin/brand-page/brand-page-list/brand-page-list.component';
-import { UserPageComponent } from './pages/admin/user-page/user-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 const routes: Routes = [
-  { path: 'admin', component: LoginPageComponent },
-  { path: '', redirectTo: '/admin', pathMatch: 'full' },
-  { path: 'admin/products', canActivate: [AuthGuard], component: ProductPageListComponent },
-  { path: 'admin/product/edit/:idProduct', canActivate: [AuthGuard], component: ProductPageDetailComponent },
-  { path: 'admin/brand/edit/:idBrand', canActivate: [AuthGuard], component: BrandPageDetailComponent },
-  { path: 'admin/category/edit/:idCategory', canActivate: [AuthGuard], component: CategoryPageDetailComponent },
-  { path: 'admin/user/:idUser', canActivate: [AuthGuard], component: UserPageComponent },
-  { path: 'admin/brands/create-brand', canActivate: [AuthGuard], component: BrandPageDetailComponent },
-  { path: 'admin/categories/create-category', canActivate: [AuthGuard], component: CategoryPageDetailComponent },
-  { path: 'admin/products/create-product', canActivate: [AuthGuard], component: ProductPageDetailComponent },
-  { path: 'admin/categories', canActivate: [AuthGuard], component: CategoryPageListComponent },
-  { path: 'admin/brands', canActivate: [AuthGuard], component: BrandPageListComponent },
+
+  { path: 'login', component: LoginPageComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+  {
+    path: "products",
+    loadChildren: () =>
+      import("./pages/base-page/product-page/product-page.module").then(m => m.ProductPageModule),
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: "categories",
+    loadChildren: () =>
+      import("./pages/base-page/category-page/category-page.module").then(m => m.CategoryPageModule),
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: "brands",
+    loadChildren: () =>
+      import("./pages/base-page/brand-page/brand-page.module").then(m => m.BrandPageModule),
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: "user/:idUser",
+    loadChildren: () =>
+      import("./pages/base-page/user-page/user-page.module").then(m => m.UserPageModule),
+    canActivate: [AuthGuard]
+  },
+
+
+
   { path: '**', redirectTo: '404', pathMatch: 'full' },
   {
     path: '404', pathMatch: 'full',

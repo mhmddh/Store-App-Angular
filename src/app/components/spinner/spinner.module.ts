@@ -4,9 +4,7 @@ import { SpinnerComponent } from 'src/app/components/spinner/spinner.component';
 
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
+    imports: [CommonModule],
     declarations: [
         SpinnerComponent,
     ],

@@ -23,14 +23,14 @@
             </tr>
             <tr *ngFor="let product of products">
                 <td class="item-id">{{ product.id }}</td>
-                <td><a [routerLink]="['/admin/product/', 'edit', product.id  ]">{{ product.name }}</a></td>
+                <td><a [routerLink]="['edit', product.id  ]">{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 <td class="product-img"><img [src]="product.brand_image">
                 </td>
                 <td>{{ product.created_at }}</td>
                 <td>
-                    <a href="#" [routerLink]="['/admin/product/', 'edit', product.id  ]">
+                    <a href="#" [routerLink]="['edit', product.id  ]">
                         <fa-icon [icon]="faPencil"></fa-icon>
                     </a>
                     <a style="margin-left:5px" (click)="openModal(product.id,product.name)" role="button">
