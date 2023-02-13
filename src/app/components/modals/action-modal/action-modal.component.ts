@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Modal } from 'src/app/common/models/model';
-import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'action-modal',
@@ -12,7 +11,7 @@ export class ActionModalComponent implements OnInit {
   @Input() public modal: Modal = {};
   @Output() actionEvent = new EventEmitter();
 
-  constructor(private modalService: NgbModal, public commonService: CommonService) { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }

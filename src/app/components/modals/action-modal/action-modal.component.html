@@ -9,8 +9,8 @@
             {{ modal.text }}
         </p>
         <div class="modal-footer">
-            <button class="btn btn-info" (click)="closeModal()">Cancel</button>
-            <button type="submit" class="btn btn-danger" (click)="action(modal.itemId)">{{ modal.buttonLabel }}</button>
+            <button type="button" class="btn btn-info" (click)="closeModal()">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="action(modal.itemId)">{{ modal.buttonLabel }}</button>
         </div>
     </form>
 </div>

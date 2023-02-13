@@ -140,14 +140,14 @@ export class ProductPageListComponent implements OnInit {
 
 
   getProducts(needNewData?: boolean) {
-      this.store.select(getAllProducts).subscribe(
-        (data) => {
-          this.products = data.products;
-          this.paginater.totalPages = data.pages;
-          this.nbOfProducts = data.nbOfItems;
-          this.basePageOptions.loading = false;
-        }
-      )
+    this.store.select(getAllProducts).subscribe(
+      (data) => {
+        this.products = data.products;
+        this.paginater.totalPages = data.pages;
+        this.nbOfProducts = data.nbOfItems;
+        this.basePageOptions.loading = false;
+      }
+    )
     if (!this.products || needNewData)
       this.store.dispatch(loadProducts());
   }
@@ -172,7 +172,10 @@ export class ProductPageListComponent implements OnInit {
 
   deleteProduct(id: number) {
     this.commonService.deleteProduct(id).subscribe(res => {
-      this.products = this.products.filter(item => item.id !== id);
+      if(res['success']){
+        this.products = this.products.filter(item => item.id !== id);
+        this.nbOfProducts--;
+      }
       console.log(res);
     })
   }

@@ -110,7 +110,7 @@ export class CommonService {
   }
 
   deleteProduct(id: number) {
-    return this.httpClient.delete<Product>(this.apiURL + '/delete-product/' + id, this.httpOptions)
+    return this.httpClient.delete<any>(this.apiURL + '/delete-product/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )

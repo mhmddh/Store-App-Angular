@@ -118,6 +118,7 @@ export class ProductPageDetailComponent implements OnInit {
   submit(id: number) {
     if (id != null) {
       this.commonService.updateProduct(this.id, this.form.value).subscribe(res => {
+        console.log(res);
         this.uploadService(this.id, this.formData);
         window.location.assign('/products')
       })

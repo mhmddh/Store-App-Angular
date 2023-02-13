@@ -10,7 +10,7 @@ a {
   text-decoration: none !important;
 }
 
-.btn-close{
+.btn-close {
   outline: none;
 }
 
@@ -63,11 +63,23 @@ app-carousel .close-btn:hover {
 }
 
 
-app-spinner {
+.main-spinner {
   position: absolute;
   top: 40%;
   left: 50%;
 }
+
+.nbofitems-spinner {
+  position: relative;
+  left: 0;
+  div {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+}
+
+
+
 
 // app-spinner mat-progress-spinner circle {
 //   stroke: #007bff;
@@ -190,7 +202,7 @@ app-spinner {
   padding-left: 0.5rem;
 }
 
-.custom-btn{
+.custom-btn {
   color: #FFF !important
 }
 
