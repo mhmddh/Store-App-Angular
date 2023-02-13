@@ -99,16 +99,13 @@ export class BrandPageDetailComponent implements OnInit {
       this.commonService.updateBrand(this.id, this.form.value).subscribe(res => {
         console.log(res);
         this.uploadService(this.id, this.formData);
-        this.router.navigate(['admin/brands'])
-          .then(() => {
-            window.location.reload();
-          });
+        window.location.assign('/brands')
       })
     } else {
       this.commonService.createBrand(this.form.value).subscribe(res => {
         this.id = res.brand_id;
         this.uploadService(this.id, this.formData);
-        this.router.navigateByUrl('admin/brands');
+        window.location.assign('/brands')
       })
     }
 
