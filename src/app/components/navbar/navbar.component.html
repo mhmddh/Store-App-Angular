@@ -8,16 +8,15 @@
         <div class="collapse navbar-collapse" id="navbarNav" mdbCollapse [ngbCollapse]="toggleNavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/products'}" aria-current="page"
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab.includes('/products')}" aria-current="page"
                         routerLink="/products">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/categories'}"
-                    routerLink="/categories">Categories</a>
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab.includes('/categories')}"
+                        routerLink="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='/brands'}"
-                    routerLink="/brands">Brands</a>
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab.includes('/brands')}" routerLink="/brands">Brands</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

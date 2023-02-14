@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CategoryEffects } from 'src/app/store/effectors/category.effects';
@@ -16,9 +13,6 @@ import { CategoryRoutingModule } from './category-routing.module';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
-        FontAwesomeModule,
         StoreModule.forFeature('categoriesResponse', paginationCategoryReducer),
         EffectsModule.forFeature([CategoryEffects]),
         CategoryRoutingModule,

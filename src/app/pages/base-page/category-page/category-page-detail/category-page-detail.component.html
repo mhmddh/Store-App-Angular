@@ -25,9 +25,9 @@
             </div>
 
 
-
-            <button *ngIf="id" class=" btn btn-success" type="submit" [disabled]="!form.valid">Update</button>
-            <button *ngIf="!id" class=" btn btn-success" type="submit" [disabled]="!form.valid">Create</button>
+ 
+            <button *ngIf="id" class=" btn btn-success submit-btn" type="submit" [disabled]="!form.valid">Update</button>
+            <button *ngIf="!id" class=" btn btn-success submit-btn" type="submit" [disabled]="!form.valid">Create</button>
         </form>
     </div>
 </base-page>
