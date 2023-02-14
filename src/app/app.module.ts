@@ -10,13 +10,14 @@ import { allCategoryReducer, paginationCategoryReducer } from './store/reducers/
 import { StoreModule } from '@ngrx/store';
 import { productReducer } from './store/reducers/product.reducer';
 import { allBrandReducer, paginationBrandReducer } from './store/reducers/brand.reducer';
-import { ProductPageModule } from './pages/base-page/product-page/product-page.module';
-import { CategoryPageModule } from './pages/base-page/category-page/category-page.module';
-import { BrandPageModule } from './pages/base-page/brand-page/brand-page.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CommonService } from './services/common.service';
+import { AuthGuard } from './services/auth.guard';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 
 
@@ -41,7 +42,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppComponent,
   ],
 
-  providers: [],
+  providers: [CommonService, AuthService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

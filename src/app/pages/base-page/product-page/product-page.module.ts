@@ -40,6 +40,6 @@ import { ProductRoutingModule } from './product-routing.module';
     ProductPageDetailComponent,
     ProductPageListComponent
   ],
-  providers: [CommonService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [],
 })
 export class ProductPageModule { }

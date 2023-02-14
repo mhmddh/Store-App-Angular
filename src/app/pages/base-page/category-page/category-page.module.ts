@@ -5,9 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { AuthInterceptor } from 'src/app/services/auth-interceptor';
-import { AuthGuard } from 'src/app/services/auth.guard';
-import { CommonService } from 'src/app/services/common.service';
 import { CategoryEffects } from 'src/app/store/effectors/category.effects';
 import { paginationCategoryReducer } from 'src/app/store/reducers/category.reducer';
 import { BasePageModule } from '../base-page.module';
@@ -31,7 +28,7 @@ import { CategoryRoutingModule } from './category-routing.module';
         CategoryPageDetailComponent,
         CategoryPageListComponent
     ],
-    providers: [CommonService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    providers: [],
     bootstrap: [CategoryPageDetailComponent, CategoryPageListComponent]
 
 })

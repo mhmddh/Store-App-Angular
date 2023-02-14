@@ -6,9 +6,6 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 import { SpinnerModule } from 'src/app/components/spinner/spinner.module';
-import { AuthInterceptor } from 'src/app/services/auth-interceptor';
-import { AuthService } from 'src/app/services/auth.service';
-import { CommonService } from 'src/app/services/common.service';
 import { BasePageComponent } from './base-page.component';
 
 
@@ -28,7 +25,7 @@ import { BasePageComponent } from './base-page.component';
     exports: [
         BasePageComponent,
     ],
-    providers: [CommonService, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    providers: [],
     bootstrap: [BasePageComponent]
 })
 export class BasePageModule { }
