@@ -1,0 +1,66 @@
+.main-content {
+    position: relative;
+    width: 85%;
+    margin: auto;
+    padding-top: 50px;
+
+
+    .custom-btn {
+        color: #FFF !important
+    }
+
+    .search-paginator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .search {
+            gap: 10px;
+            margin-bottom: 10px;
+
+            .search-div {
+                display: flex;
+                align-items: center;
+
+                span {
+                    padding-left: 10px;
+                    color: #4f4f4f;
+                }
+            }
+        }
+
+
+    }
+
+    .paginator {
+        display: flex;
+        gap: 10px;
+
+        a {
+            font-size: 10px;
+        }
+
+        span {
+            padding-top: 5px;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            font-size: 10px;
+            background-color: lightgray;
+            color: black;
+        }
+    }
+
+
+}
+
+.main-spinner {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+}
