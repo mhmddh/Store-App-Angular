@@ -1,9 +1,6 @@
 .passResult {
     color: green;
 }
-
-
-
 /* customized invalid input error  */
 .custom-is-invalid {
     border-color: #dc3545;
@@ -32,4 +29,8 @@
         font-weight: 700;
     }
 
+}
+
+.submit-btn {
+    margin-top: 2rem;
 }
